@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Atlas for Workspace</title>
+    <meta
+      name="description"
+      content="A bilingual prompt inspiration web app inspired by the Gemini for Workspace prompt guide."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" id="heroEyebrow"></p>
+          <h1 id="heroTitle"></h1>
+          <p class="hero-text" id="heroText"></p>
+          <div class="hero-actions">
+            <label class="search-wrap" for="searchInput">
+              <span id="searchLabel"></span>
+              <input
+                id="searchInput"
+                type="search"
+                autocomplete="off"
+                placeholder=""
+              />
+            </label>
+            <button class="toggle-button" id="languageToggle" type="button"></button>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <div class="hero-stat">
+            <span class="stat-number" id="statCategories"></span>
+            <span class="stat-label" id="statCategoriesLabel"></span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-number" id="statPrompts"></span>
+            <span class="stat-label" id="statPromptsLabel"></span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-number">ZH / EN</span>
+            <span class="stat-label" id="statLanguageLabel"></span>
+          </div>
+        </aside>
+      </header>
+
+      <main>
+        <section class="tips-panel">
+          <div class="section-heading">
+            <p class="section-kicker" id="tipsKicker"></p>
+            <h2 id="tipsTitle"></h2>
+          </div>
+          <div class="tips-grid" id="tipsGrid"></div>
+        </section>
+
+        <section class="control-bar">
+          <div class="section-heading compact">
+            <p class="section-kicker" id="libraryKicker"></p>
+            <h2 id="libraryTitle"></h2>
+          </div>
+          <div class="results-meta">
+            <span id="resultsCount"></span>
+            <button class="ghost-button" id="clearFilters" type="button"></button>
+          </div>
+        </section>
+
+        <section class="category-row" id="categoryRow"></section>
+
+        <section class="card-grid" id="cardGrid"></section>
+        <section class="empty-state hidden" id="emptyState">
+          <h3 id="emptyTitle"></h3>
+          <p id="emptyText"></p>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="detail-modal" id="detailModal">
+      <form method="dialog" class="detail-shell">
+        <button class="modal-close" id="modalClose" type="submit" aria-label="Close">
+          ×
+        </button>
+        <div class="detail-header">
+          <p class="detail-meta" id="detailMeta"></p>
+          <h3 id="detailTitle"></h3>
+          <p class="detail-summary" id="detailSummary"></p>
+        </div>
+        <div class="detail-body">
+          <div>
+            <h4 id="detailPromptLabel"></h4>
+            <pre id="detailPrompt"></pre>
+          </div>
+          <div>
+            <h4 id="detailUseLabel"></h4>
+            <ul id="detailTags"></ul>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
