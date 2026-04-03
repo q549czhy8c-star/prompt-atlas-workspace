@@ -132,7 +132,7 @@ function renderStats() {
 
 function renderTips() {
   tipsHeading.textContent =
-    state.language === "zh" ? "先寫出更強的提示詞" : "Start with a stronger brief";
+    state.language === "zh" ? "先看原文結構" : "Start with the source structure";
 
   tipsGrid.innerHTML = promptAtlasData.tips
     .map(
@@ -368,7 +368,7 @@ function renderDialog() {
     </div>
     <div class="dialog-grid">
       <section>
-        <h3>${state.language === "zh" ? "示例提示詞" : "Prompt template"}</h3>
+        <h3>${state.language === "zh" ? "PDF 原文內容" : "Exact PDF text"}</h3>
         <p class="dialog-prompt">${textFor(card, "prompt")}</p>
       </section>
       <section>

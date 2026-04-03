@@ -1,1332 +1,1139 @@
-function makeCard(
-  id,
-  category,
-  title,
-  titleZh,
-  summary,
-  summaryZh,
-  prompt,
-  promptZh,
-  tools,
-  page,
-  keywords
-) {
-  return {
-    id,
-    category,
-    title,
-    titleZh,
-    summary,
-    summaryZh,
-    prompt,
-    promptZh,
-    tools,
-    page,
-    keywords,
-  };
-}
-
-function makeTip(
-  id,
-  category,
-  title,
-  titleZh,
-  summary,
-  summaryZh,
-  prompt,
-  promptZh,
-  tools,
-  page,
-  keywords
-) {
-  return {
-    id,
-    category,
-    title,
-    titleZh,
-    summary,
-    summaryZh,
-    prompt,
-    promptZh,
-    tools,
-    page,
-    keywords,
-  };
-}
-
 const promptAtlasData = {
-  categories: [
+  "categories": [
     {
-      id: "fundamentals",
-      name: "Prompt Foundations",
-      nameZh: "提示詞基礎",
-      summary:
-        "Core practices for writing better prompts in Workspace-style assistants.",
-      summaryZh: "適用於 Workspace 類 AI 助手的核心提示詞寫法。",
+      "id": "fundamentals",
+      "name": "Prompt Foundations",
+      "nameZh": "提示詞基礎",
+      "summary": "Core practices for writing better prompts in Workspace-style assistants.",
+      "summaryZh": "適用於 Workspace 類 AI 助手的核心提示詞寫法。"
     },
     {
-      id: "admin",
-      name: "Administrative Support",
-      nameZh: "行政支援",
-      summary: "Agenda planning, inbox triage, travel support, and coordination.",
-      summaryZh: "議程安排、郵件整理、差旅協調與行政統籌。",
+      "id": "admin",
+      "name": "Administrative Support",
+      "nameZh": "行政支援",
+      "summary": "Administrative support pages from the PDF.",
+      "summaryZh": "PDF 中的行政支援頁面。"
     },
     {
-      id: "communications",
-      name: "Communications",
-      nameZh: "企業傳訊",
-      summary: "Press, internal messaging, executive narratives, and spokespeople prep.",
-      summaryZh: "新聞稿、內部溝通、高層信息與發言人準備。",
+      "id": "communications",
+      "name": "Communications",
+      "nameZh": "企業傳訊",
+      "summary": "Communications pages from the PDF.",
+      "summaryZh": "PDF 中的傳訊頁面。"
     },
     {
-      id: "customer-service",
-      name: "Customer Service",
-      nameZh: "客戶服務",
-      summary: "Response drafting, issue resolution, feedback analysis, and self-service.",
-      summaryZh: "回覆起草、複雜問題處理、回饋分析與自助支援。",
+      "id": "customer-service",
+      "name": "Customer Service",
+      "nameZh": "客戶服務",
+      "summary": "Customer service pages from the PDF.",
+      "summaryZh": "PDF 中的客戶服務頁面。"
     },
     {
-      id: "executives",
-      name: "Executives",
-      nameZh: "管理層",
-      summary: "Mobile communication, briefings, research, and sharper decision support.",
-      summaryZh: "流動溝通、簡報整理、研究摘要與決策支援。",
+      "id": "executives",
+      "name": "Executives",
+      "nameZh": "管理層",
+      "summary": "Executive pages from the PDF.",
+      "summaryZh": "PDF 中的管理層頁面。"
     },
     {
-      id: "frontline",
-      name: "Frontline Management",
-      nameZh: "前線管理",
-      summary: "Fast lookup, task flow, inventory visibility, and audit support.",
-      summaryZh: "快速查找、任務流程、庫存掌握與稽核支援。",
+      "id": "frontline",
+      "name": "Frontline Management",
+      "nameZh": "前線管理",
+      "summary": "Frontline pages from the PDF.",
+      "summaryZh": "PDF 中的前線管理頁面。"
     },
     {
-      id: "hr",
-      name: "Human Resources",
-      nameZh: "人力資源",
-      summary: "Hiring, onboarding, survey design, and employee communications.",
-      summaryZh: "招聘、入職、員工調查與人事溝通。",
+      "id": "hr",
+      "name": "Human Resources",
+      "nameZh": "人力資源",
+      "summary": "HR pages from the PDF.",
+      "summaryZh": "PDF 中的人力資源頁面。"
     },
     {
-      id: "marketing",
-      name: "Marketing",
-      nameZh: "市場營銷",
-      summary: "Brand strategy, campaigns, audience research, and content generation.",
-      summaryZh: "品牌策略、活動策劃、受眾研究與內容生成。",
+      "id": "marketing",
+      "name": "Marketing",
+      "nameZh": "市場營銷",
+      "summary": "Marketing pages from the PDF.",
+      "summaryZh": "PDF 中的市場營銷頁面。"
     },
     {
-      id: "pm",
-      name: "Project Management",
-      nameZh: "項目管理",
-      summary: "Status reporting, testing, retrospectives, and workback planning.",
-      summaryZh: "狀態報告、測試規劃、回顧總結與倒排時程。",
+      "id": "pm",
+      "name": "Project Management",
+      "nameZh": "項目管理",
+      "summary": "Project management pages from the PDF.",
+      "summaryZh": "PDF 中的項目管理頁面。"
     },
     {
-      id: "sales",
-      name: "Sales",
-      nameZh: "銷售",
-      summary: "Account research, proposals, calls, and relationship building.",
-      summaryZh: "客戶研究、提案流程、通話準備與關係建立。",
+      "id": "sales",
+      "name": "Sales",
+      "nameZh": "銷售",
+      "summary": "Sales pages from the PDF.",
+      "summaryZh": "PDF 中的銷售頁面。"
     },
     {
-      id: "small-business",
-      name: "Small Business",
-      nameZh: "小型企業",
-      summary: "Pricing, productivity, lightweight marketing, and vendor coordination.",
-      summaryZh: "價格比較、個人生產力、輕量營銷與供應商協調。",
+      "id": "small-business",
+      "name": "Small Business",
+      "nameZh": "小型企業",
+      "summary": "Small business pages from the PDF.",
+      "summaryZh": "PDF 中的小型企業頁面。"
     },
     {
-      id: "startup",
-      name: "Startup Leaders",
-      nameZh: "創業領導者",
-      summary: "Strategy shaping, fundraising stories, launch planning, and roadmap thinking.",
-      summaryZh: "策略構思、募資敘事、產品上市與路線圖思考。",
-    },
+      "id": "startup",
+      "name": "Startup Leaders",
+      "nameZh": "創業領導者",
+      "summary": "Startup leader pages from the PDF.",
+      "summaryZh": "PDF 中的創業領導者頁面。"
+    }
   ],
-  tips: [
-    makeTip(
-      "tip-persona",
-      "fundamentals",
-      "Set a Persona",
-      "先設定角色",
-      "Tell the assistant who it should act like before asking for work.",
-      "先告訴 AI 應以甚麼角色思考，再提出任務要求。",
-      "Act as an operations lead supporting a regional team. Draft a concise update for stakeholders.",
-      "請以區域營運主管身份思考，為持份者起草一份精簡更新。",
-      ["Docs", "Gmail"],
-      2,
-      ["persona", "role", "task"]
-    ),
-    makeTip(
-      "tip-context",
-      "fundamentals",
-      "Add Context",
-      "加入背景",
-      "Include audience, timing, source documents, and constraints.",
-      "加入受眾、時間、來源文件與限制條件，輸出會更貼近需要。",
-      "Using the Q2 review deck and meeting notes, summarize the top three risks for the VP audience.",
-      "根據 Q2 回顧簡報與會議筆記，為 VP 受眾整理三個主要風險。",
-      ["Docs", "Drive", "Gemini"],
-      2,
-      ["context", "constraints", "documents"]
-    ),
-    makeTip(
-      "tip-format",
-      "fundamentals",
-      "Request a Format",
-      "指定輸出格式",
-      "Ask for bullets, tables, summaries, timelines, or email-ready copy.",
-      "直接指定要子彈點、表格、摘要、時間線或可直接寄出的文案。",
-      "Convert the meeting recap into a two-column table with owner and next step.",
-      "把會議總結改寫成兩欄表格，包含負責人與下一步。",
-      ["Docs", "Sheets"],
-      2,
-      ["format", "table", "bullets"]
-    ),
-    makeTip(
-      "tip-iterate",
-      "fundamentals",
-      "Iterate Fast",
-      "快速迭代",
-      "Treat prompting like conversation: refine tone, depth, and structure.",
-      "把提示詞當成對話，不斷微調語氣、深度與結構。",
-      "Make this sharper for executives, then rewrite it in a warmer tone for managers.",
-      "先把內容改得更適合高層閱讀，再重寫成較溫暖的管理層語氣。",
-      ["Gemini", "Gmail"],
-      3,
-      ["iterate", "refine", "tone"]
-    ),
+  "tips": [
+    {
+      "id": "tip-persona",
+      "category": "fundamentals",
+      "title": "Use Persona, Task, Context, Format",
+      "titleZh": "使用 Persona、Task、Context、Format",
+      "summary": "The guide repeatedly structures prompts around persona, task, context, and format.",
+      "summaryZh": "指南多次以 persona、task、context、format 來組織提示詞。",
+      "prompt": "Persona + Task + Context + Format",
+      "promptZh": "Persona + Task + Context + Format",
+      "tools": [
+        "Guide"
+      ],
+      "page": 2,
+      "keywords": [
+        "persona",
+        "task",
+        "context",
+        "format"
+      ]
+    },
+    {
+      "id": "tip-exact-source",
+      "category": "fundamentals",
+      "title": "Exact PDF Source Mode",
+      "titleZh": "PDF 原文模式",
+      "summary": "Prompt pages below are extracted from the source PDF so the wording stays aligned with the document.",
+      "summaryZh": "以下 prompt 頁面直接抽自 PDF 原文，盡量保持與文件一致。",
+      "prompt": "Pages 7 to 57 are indexed as source cards.",
+      "promptZh": "第 7 至 57 頁已整理成原文卡片。",
+      "tools": [
+        "PDF"
+      ],
+      "page": 7,
+      "keywords": [
+        "source",
+        "exact",
+        "pdf"
+      ]
+    }
   ],
-  cards: [
-    makeCard(
-      "admin-agenda",
-      "admin",
-      "Plan a multi-day offsite agenda",
-      "規劃多日團隊聚會議程",
-      "Build a balanced agenda with strategy blocks, team bonding, and logistical pacing.",
-      "建立兼顧策略討論、團隊互動與節奏安排的多日議程。",
-      "You are supporting a newly formed cross-functional team. Draft a three-day offsite agenda with strategic workshops, informal bonding, and clear session goals for each day.",
-      "你正在支援一個新成立的跨職能團隊。請起草一份三日 offsite 議程，包含策略工作坊、非正式團隊交流，以及每天清晰的會議目標。",
-      ["Gemini", "Docs"],
-      7,
-      ["agenda", "offsite", "meeting", "strategy"]
-    ),
-    makeCard(
-      "admin-inbox",
-      "admin",
-      "Triage a busy executive inbox",
-      "整理高層繁忙郵箱",
-      "Summarize priority messages, deadlines, and follow-ups after travel or leave.",
-      "在出差或休假後，快速整理優先郵件、截止日期與待跟進事項。",
-      "Review this recent email activity and produce a priority inbox summary with urgent threads, action items, and draft reply suggestions.",
-      "請整理近期郵件活動，輸出一份優先郵箱摘要，列出緊急郵件串、行動項目，以及可直接使用的回覆建議。",
-      ["Gmail"],
-      8,
-      ["email", "inbox", "triage", "follow-up"]
-    ),
-    makeCard(
-      "admin-travel",
-      "admin",
-      "Coordinate business travel plans",
-      "協調商務差旅安排",
-      "Turn meeting goals and timing constraints into a clean travel itinerary.",
-      "把會議目標與時間限制整理成清晰的差旅行程。",
-      "Create a business travel plan for a two-day client trip including meeting windows, transit buffers, meal suggestions, and a concise itinerary table.",
-      "請為兩日客戶出差建立商務行程，包含會議時段、交通緩衝、用餐建議，以及精簡的行程表。",
-      ["Docs", "Sheets"],
-      9,
-      ["travel", "itinerary", "logistics", "table"]
-    ),
-    makeCard(
-      "admin-expense",
-      "admin",
-      "Track travel and entertainment budgets",
-      "追蹤差旅與招待預算",
-      "Turn scattered receipts and policy rules into a budget-friendly spend summary.",
-      "把零散收據與政策規則整理成清晰的差旅開支摘要。",
-      "Organize these travel and entertainment expenses into a tracker that flags policy exceptions, reimbursement gaps, and budget impact by trip or person.",
-      "請把這些差旅與招待支出整理成追蹤表，標示政策例外、報銷缺口，以及每次行程或每位同事對預算的影響。",
-      ["Sheets", "Docs"],
-      9,
-      ["expense", "budget", "reimbursement", "policy"]
-    ),
-    makeCard(
-      "communications-press",
-      "communications",
-      "Draft a press release",
-      "起草新聞稿",
-      "Shape a clear announcement with headline, quote, boilerplate, and media angle.",
-      "以清楚結構撰寫公告，包含標題、引言、公司簡介與媒體角度。",
-      "Draft a press release announcing our new service launch. Include a strong headline, customer value, executive quote, and a crisp closing boilerplate.",
-      "請起草一份宣布新服務推出的新聞稿，包含有力標題、客戶價值、管理層引言，以及精簡的公司 boilerplate。",
-      ["Docs"],
-      10,
-      ["press release", "announcement", "launch", "media"]
-    ),
-    makeCard(
-      "communications-briefing",
-      "communications",
-      "Prepare an analyst briefing pack",
-      "準備分析師簡報素材",
-      "Turn long source material into briefing notes, key messages, and likely questions.",
-      "把長篇資料整理成簡報重點、核心訊息與可能被問到的問題。",
-      "Summarize the product update, market context, and financial highlights into a briefing pack with key talking points and anticipated analyst questions.",
-      "請把產品更新、市場背景與財務亮點整理成分析師簡報素材，包含重點說法與預期問題。",
-      ["Docs", "Drive"],
-      11,
-      ["analyst", "briefing", "talking points", "questions"]
-    ),
-    makeCard(
-      "communications-spokesperson",
-      "communications",
-      "Create mock media interview questions",
-      "設計模擬媒體訪問問題",
-      "Stress-test a spokesperson with likely tough questions and clean response pivots.",
-      "用可能的尖銳問題與轉向答法，提前訓練發言人。",
-      "Generate a mock media interview for our spokesperson with easy, moderate, and difficult questions, followed by concise bridging points for each answer.",
-      "請為我們的發言人設計一套模擬媒體訪問，包含容易、中等與困難問題，並為每題附上精簡的答題轉向點。",
-      ["Docs", "Gemini"],
-      12,
-      ["interview", "media training", "spokesperson", "questions"]
-    ),
-    makeCard(
-      "communications-internal",
-      "communications",
-      "Craft an internal leadership message",
-      "撰寫內部領導層訊息",
-      "Translate sensitive updates into calm, transparent communication for employees.",
-      "把敏感更新轉化成冷靜、透明、適合員工閱讀的內部溝通。",
-      "Draft an internal note from leadership explaining the upcoming organizational change, the reason behind it, what employees should expect next, and where to ask questions.",
-      "請以領導層名義撰寫一封內部訊息，說明即將發生的組織變動、背後原因、員工接下來會遇到甚麼，以及可向哪裡提問。",
-      ["Docs", "Gmail"],
-      12,
-      ["internal comms", "leadership", "change", "employee"]
-    ),
-    makeCard(
-      "service-customer-comms",
-      "customer-service",
-      "Draft empathetic customer responses",
-      "起草具同理心的客戶回覆",
-      "Build replies that acknowledge frustration while moving the issue toward resolution.",
-      "撰寫既能體諒客戶情緒，又能推進問題解決的回覆。",
-      "Write a customer response that acknowledges the issue, explains the next step clearly, and offers a realistic resolution timeline in a calm, supportive tone.",
-      "請撰寫一封客戶回覆，先同理問題，再清楚說明下一步，並以冷靜支持的語氣提供合理的解決時間表。",
-      ["Gmail", "Docs"],
-      13,
-      ["support", "response", "empathy", "timeline"]
-    ),
-    makeCard(
-      "service-faq",
-      "customer-service",
-      "Answer complex issues from FAQ material",
-      "利用 FAQ 資料回答複雜問題",
-      "Synthesize several knowledge sources into one structured answer for the customer.",
-      "把多份知識來源整合成一個清晰、完整的客戶答覆。",
-      "Using the FAQ, policy notes, and support history, create one clear response that answers all parts of the customer's question and flags any information that still needs confirmation.",
-      "請根據 FAQ、政策說明與支援紀錄，整合成一份完整回覆，回答客戶所有問題，並標示仍需確認的資訊。",
-      ["Docs", "Drive", "Gmail"],
-      14,
-      ["faq", "knowledge base", "complex issue", "support"]
-    ),
-    makeCard(
-      "service-framework",
-      "customer-service",
-      "Standardize communication frameworks",
-      "標準化客服溝通框架",
-      "Turn support guidance into reusable response structures for the whole team.",
-      "把客服指引整理成團隊可重複使用的回覆框架。",
-      "Create a reusable customer response framework for billing, delivery, and product issues, including opening empathy lines, solution steps, and escalation language.",
-      "請建立一套可重複使用的客戶回覆框架，涵蓋帳單、配送與產品問題，包含開場同理句、解決步驟與升級處理語句。",
-      ["Docs"],
-      14,
-      ["framework", "template", "customer care", "standard"]
-    ),
-    makeCard(
-      "service-feedback",
-      "customer-service",
-      "Analyze customer feedback themes",
-      "分析客戶回饋主題",
-      "Cluster comments into recurring complaints, wins, and product opportunities.",
-      "把回饋聚類成常見投訴、亮點與產品改善機會。",
-      "Review this batch of customer feedback and group it into recurring themes, sentiment signals, urgent product issues, and suggested action owners.",
-      "請分析這批客戶回饋，整理成重複主題、情緒訊號、緊急產品問題，以及建議跟進負責人。",
-      ["Sheets", "Docs"],
-      15,
-      ["feedback", "sentiment", "themes", "analysis"]
-    ),
-    makeCard(
-      "service-self-service",
-      "customer-service",
-      "Enable customer self-service",
-      "建立客戶自助支援內容",
-      "Convert repeated support questions into concise help-center style instructions.",
-      "把重複出現的支援問題轉成精簡的說明中心內容。",
-      "Turn these repeated support cases into a self-service help article with step-by-step instructions, common mistakes, and when to contact an agent.",
-      "請把這些重複出現的支援案例整理成自助說明文章，包含步驟指引、常見錯誤，以及何時需要聯絡客服。",
-      ["Docs"],
-      16,
-      ["self-service", "help center", "knowledge article", "support"]
-    ),
-    makeCard(
-      "service-voc",
-      "customer-service",
-      "Run voice-of-customer research",
-      "進行客戶心聲研究",
-      "Translate surveys and interview notes into product and service signals.",
-      "把問卷與訪談筆記整理成產品與服務層面的訊號。",
-      "Analyze these survey and interview responses to surface the strongest voice-of-customer themes, emotional drivers, unmet needs, and next research questions.",
-      "請分析這些問卷與訪談回覆，找出最強烈的客戶心聲主題、情緒驅動因素、未被滿足的需求，以及下一步研究問題。",
-      ["Sheets", "Docs"],
-      16,
-      ["voice of customer", "research", "survey", "insights"]
-    ),
-    makeCard(
-      "executive-mobile",
-      "executives",
-      "Communicate on the go",
-      "在流動情境下快速溝通",
-      "Convert rough notes into polished responses while traveling or between meetings.",
-      "在出差或趕會議途中，把零散想法快速整理成得體回覆。",
-      "Turn these short voice-note style ideas into a concise executive email with a decisive tone, one clear ask, and three supporting points.",
-      "請把這些語音筆記式的零散想法整理成一封精簡的高層電郵，語氣果斷，有一個明確請求與三個支持要點。",
-      ["Gmail", "Docs"],
-      17,
-      ["mobile", "executive", "email", "voice notes"]
-    ),
-    makeCard(
-      "executive-productivity",
-      "executives",
-      "Enhance personal productivity and time management",
-      "提升個人生產力與時間管理",
-      "Turn meetings, open work, and decisions into a sharper executive operating rhythm.",
-      "把會議、待辦與決策整理成更清晰的高層工作節奏。",
-      "Review my upcoming week and turn it into a focused executive plan with top priorities, delegate-able items, preparation windows, and recovery time.",
-      "請檢視我接下來一週的安排，整理成一份高層工作計畫，包含最高優先事項、可委派項目、準備時段與休息空檔。",
-      ["Calendar", "Docs", "Gemini"],
-      18,
-      ["productivity", "time management", "priorities", "planning"]
-    ),
-    makeCard(
-      "executive-deck",
-      "executives",
-      "Build presentation outlines quickly",
-      "快速建立簡報大綱",
-      "Turn a topic, audience, and decision goal into a board-ready narrative arc.",
-      "根據主題、受眾與決策目標，快速整理出適合高層的簡報脈絡。",
-      "Create a presentation outline for senior leadership on this initiative. Include a compelling opening, current state, options, recommendation, and decision slide.",
-      "請為高層建立此專案的簡報大綱，包含有力開場、現況、選項、建議方案與決策頁。",
-      ["Slides", "Docs"],
-      18,
-      ["presentation", "outline", "leadership", "decision"]
-    ),
-    makeCard(
-      "executive-hard-comms",
-      "executives",
-      "Prepare challenging employee communications",
-      "準備艱難員工溝通",
-      "Shape difficult messages with clarity, empathy, and realistic next steps.",
-      "以清晰、同理與實際可行的下一步來處理艱難溝通。",
-      "Draft a communication plan for a sensitive employee update, including the leadership message, manager talking points, likely questions, and the tone to maintain throughout.",
-      "請為敏感員工更新設計一套溝通方案，包含領導層訊息、主管談話重點、可能問題，以及全程要維持的語氣。",
-      ["Docs", "Gmail"],
-      18,
-      ["employee communication", "sensitive", "manager", "talking points"]
-    ),
-    makeCard(
-      "executive-market-research",
-      "executives",
-      "Perform market research and campaign planning",
-      "進行市場研究與活動規劃",
-      "Convert open-ended market questions into a concise brief for action.",
-      "把開放式市場問題整理成可執行的行動簡報。",
-      "Summarize this market landscape and recommend the strongest campaign directions, assumptions to test, and signals that would change our plan.",
-      "請整理這個市場格局，建議最值得投入的活動方向、需要驗證的假設，以及哪些訊號出現時要改變計畫。",
-      ["Gemini", "Docs"],
-      19,
-      ["market research", "campaign", "strategy", "signals"]
-    ),
-    makeCard(
-      "executive-thought-leadership",
-      "executives",
-      "Brainstorm thought leadership content",
-      "發想思想領導內容",
-      "Generate strong opinion-led angles without losing business relevance.",
-      "生成有觀點的內容角度，同時保持商業相關性。",
-      "Suggest five thought leadership angles our leadership team could publish on this quarter, with a distinct point of view, target audience, and preferred format for each.",
-      "請提出五個本季適合由管理層發表的思想領導題目，每個包含鮮明觀點、目標受眾與最適合的內容形式。",
-      ["Docs"],
-      20,
-      ["thought leadership", "content", "leadership", "angles"]
-    ),
-    makeCard(
-      "executive-competitive",
-      "executives",
-      "Conduct competitive analysis",
-      "進行競爭分析",
-      "Summarize positioning gaps, competitor moves, and likely responses.",
-      "整理定位差距、競爭對手動向與可能應對方式。",
-      "Create a competitive analysis comparing our offer with the top alternatives, covering strengths, weaknesses, market messaging, and likely response strategies.",
-      "請建立一份競爭分析，比較我們與主要替代方案的優劣、市場訊息與可能的應對策略。",
-      ["Docs", "Sheets"],
-      20,
-      ["competitive analysis", "positioning", "market", "alternatives"]
-    ),
-    makeCard(
-      "executive-trends",
-      "executives",
-      "Summarize technology or market trends",
-      "整理科技或市場趨勢",
-      "Compress broad research into executive takeaways, implications, and watchouts.",
-      "把廣泛研究壓縮成高層可快速理解的重點、影響與風險提示。",
-      "Summarize the latest market and technology developments for an executive audience. Focus on what matters now, what to monitor next, and possible business implications.",
-      "請為高層整理最新市場與科技發展，重點說明當下重要事項、下一步要觀察的變化，以及可能的商業影響。",
-      ["Gemini", "Docs"],
-      21,
-      ["trends", "market", "technology", "executive summary"]
-    ),
-    makeCard(
-      "executive-explain-tech",
-      "executives",
-      "Explain technical topics to non-technical audiences",
-      "向非技術受眾說明技術議題",
-      "Translate complexity into plain-language business meaning.",
-      "把複雜技術轉化成容易理解的商業語言。",
-      "Explain this technical concept for a non-technical audience using plain language, one analogy, what it changes in practice, and why leaders should care.",
-      "請用白話方式向非技術受眾說明這個技術概念，加入一個類比、實際影響，以及領導層為何需要關注。",
-      ["Docs", "Slides"],
-      21,
-      ["technical explanation", "non-technical", "plain language", "analogy"]
-    ),
-    makeCard(
-      "executive-vendor-research",
-      "executives",
-      "Research vendor products and features",
-      "研究供應商產品與功能",
-      "Turn long product pages into a decision-oriented vendor snapshot.",
-      "把冗長的產品資訊整理成利於決策的供應商快照。",
-      "Compare these vendor products by core features, implementation complexity, pricing signals, security considerations, and the questions we still need answered.",
-      "請比較這些供應商產品的核心功能、導入複雜度、價格訊號、安全考量，以及我們仍需追問的問題。",
-      ["Docs", "Sheets"],
-      22,
-      ["vendor", "features", "comparison", "security"]
-    ),
-    makeCard(
-      "executive-tech-summary",
-      "executives",
-      "Develop technical summaries",
-      "整理技術摘要",
-      "Turn deep source material into a useful one-pager for leaders or partners.",
-      "把深入技術內容整理成高層或合作夥伴可讀的一頁摘要。",
-      "Create a one-page technical summary covering what changed, why it matters, implementation status, risks, and the decisions needed from leadership.",
-      "請建立一頁式技術摘要，說明有甚麼改變、為何重要、目前實施狀態、風險，以及需要領導層做的決定。",
-      ["Docs"],
-      22,
-      ["technical summary", "one pager", "risks", "decisions"]
-    ),
-    makeCard(
-      "executive-assets",
-      "executives",
-      "Track IT assets",
-      "追蹤 IT 資產",
-      "Make asset data easier to review, update, and escalate.",
-      "讓資產資料更容易檢視、更新與升級處理。",
-      "Review this IT asset list and build a clean tracker that shows ownership, renewal timing, lifecycle status, and items that need immediate action.",
-      "請檢視這份 IT 資產清單，建立一個清楚的追蹤表，顯示擁有人、續期時間、生命週期狀態，以及需要立即處理的項目。",
-      ["Sheets"],
-      22,
-      ["IT assets", "tracker", "renewal", "lifecycle"]
-    ),
-    makeCard(
-      "executive-appreciation",
-      "executives",
-      "Demonstrate employee appreciation",
-      "表達員工欣賞與肯定",
-      "Draft recognition messages that feel personal instead of generic.",
-      "寫出更個人化、而非公式化的肯定訊息。",
-      "Write three versions of an employee appreciation note: one for a public team message, one for a private message, and one for a leadership shout-out.",
-      "請撰寫三個版本的員工表揚訊息：一個用於團隊公開訊息、一個私下訊息，以及一個供管理層公開表揚。",
-      ["Docs", "Gmail"],
-      22,
-      ["appreciation", "recognition", "employee", "message"]
-    ),
-    makeCard(
-      "executive-satisfaction",
-      "executives",
-      "Assess employee satisfaction",
-      "評估員工滿意度",
-      "Turn survey outputs into a focused readout for action.",
-      "把員工調查輸出整理成可行動的重點報告。",
-      "Summarize this employee satisfaction data into strengths, top concerns, likely root causes, and the first three actions leaders should take.",
-      "請把這份員工滿意度數據整理成優勢、主要關注點、可能根因，以及領導層應優先採取的三個行動。",
-      ["Sheets", "Docs"],
-      23,
-      ["employee satisfaction", "survey", "root cause", "actions"]
-    ),
-    makeCard(
-      "frontline-lookup",
-      "frontline",
-      "Find accurate information quickly",
-      "快速找到準確資訊",
-      "Pull together policy or promotion details for fast customer-facing answers.",
-      "快速彙整政策或促銷細節，幫前線人員即時回應客戶。",
-      "Search the available product and policy information, then provide a short answer I can use with a customer, plus the source details I should double-check.",
-      "請搜尋現有產品與政策資訊，提供一段我可直接對客使用的簡短答覆，並列出需要再次核對的來源重點。",
-      ["Gemini", "Drive"],
-      24,
-      ["lookup", "policy", "customer answer", "accuracy"]
-    ),
-    makeCard(
-      "frontline-collaboration",
-      "frontline",
-      "Improve team collaboration by finding the right files",
-      "透過找對文件改善團隊協作",
-      "Reduce time lost to searching for SOPs, shift notes, or store updates.",
-      "減少尋找 SOP、交班筆記或門店更新所浪費的時間。",
-      "Based on this request, identify which files or notes are most relevant, summarize them for the shift team, and list what still appears missing.",
-      "請根據這個需求，找出最相關的文件或筆記，為輪班團隊整理摘要，並列出目前仍然欠缺的資訊。",
-      ["Drive", "Docs"],
-      25,
-      ["collaboration", "files", "SOP", "shift notes"]
-    ),
-    makeCard(
-      "frontline-tasks",
-      "frontline",
-      "Streamline daily task management",
-      "精簡每日任務管理",
-      "Organize open work into priorities, blockers, owners, and next actions.",
-      "把待辦工作整理成優先級、阻礙、負責人與下一步。",
-      "Turn this list of open store or shift tasks into a prioritized action tracker with urgency, owner, status, and recommended next step.",
-      "請把這份門店或班次待辦清單整理成具優先順序的行動追蹤表，包含緊急程度、負責人、狀態與建議下一步。",
-      ["Sheets"],
-      25,
-      ["tasks", "tracker", "priorities", "operations"]
-    ),
-    makeCard(
-      "frontline-inventory",
-      "frontline",
-      "Check and explain inventory status",
-      "檢視並說明庫存狀態",
-      "Summarize stock levels, low-stock risk, and recommended actions for the floor team.",
-      "總結庫存水平、缺貨風險與前線團隊應採取的行動。",
-      "Review this inventory sheet and highlight low-stock items, reorder priorities, and any customer-facing risks we should communicate today.",
-      "請分析這份庫存表，指出低庫存項目、補貨優先順序，以及今天需要對客說明的風險。",
-      ["Sheets"],
-      26,
-      ["inventory", "stock", "reorder", "risk"]
-    ),
-    makeCard(
-      "frontline-audits",
-      "frontline",
-      "Prepare for audits",
-      "準備稽核",
-      "Convert requirements into a checklist the team can actually use on the floor.",
-      "把稽核要求轉成團隊在現場真的可使用的清單。",
-      "Create an audit preparation checklist from these requirements, grouped by area, with pass-fail checks, evidence to gather, and common mistakes to avoid.",
-      "請根據這些要求建立一份稽核準備清單，按區域分組，列出通過標準、需準備的證據，以及常見錯誤。",
-      ["Docs", "Sheets"],
-      26,
-      ["audit", "checklist", "compliance", "evidence"]
-    ),
-    makeCard(
-      "hr-welcome",
-      "hr",
-      "Welcome new employees",
-      "歡迎新員工",
-      "Create warm onboarding communication with timeline, contacts, and expectations.",
-      "建立溫暖清晰的入職溝通，包含時間表、聯絡窗口與預期安排。",
-      "Draft a welcome message for a new employee that covers their first-week schedule, who they will meet, what to prepare, and where to ask for help.",
-      "請起草一封新員工歡迎訊息，說明首週安排、會見對象、需準備事項，以及遇到問題可向哪裡求助。",
-      ["Docs", "Gmail"],
-      27,
-      ["welcome", "onboarding", "employee", "schedule"]
-    ),
-    makeCard(
-      "hr-recruitment",
-      "hr",
-      "Report on recruitment metrics",
-      "匯報招聘指標",
-      "Turn hiring data into a readable summary of pipeline health and bottlenecks.",
-      "把招聘數據整理成易讀摘要，呈現招聘漏斗健康度與瓶頸。",
-      "Analyze our recruiting metrics and produce a short summary covering funnel conversion, time-to-fill, bottlenecks, and recommendations for the next month.",
-      "請分析我們的招聘指標，整理成精簡摘要，涵蓋漏斗轉換率、招聘周期、主要瓶頸與下月建議。",
-      ["Sheets", "Docs"],
-      28,
-      ["recruiting", "metrics", "pipeline", "hiring"]
-    ),
-    makeCard(
-      "hr-recruiting-process",
-      "hr",
-      "Manage the recruiting process",
-      "管理招聘流程",
-      "Keep role intake, candidate stages, and communications aligned.",
-      "讓職位需求、候選人階段與溝通節奏保持一致。",
-      "Create a recruiting workflow for this role that covers intake, sourcing, screening, interviews, decision checkpoints, and candidate communication timing.",
-      "請為這個職位建立招聘流程，涵蓋需求確認、搜尋、初篩、面試、決策節點，以及候選人溝通時點。",
-      ["Docs", "Sheets"],
-      28,
-      ["recruiting process", "workflow", "candidate stages", "timing"]
-    ),
-    makeCard(
-      "hr-interview",
-      "hr",
-      "Manage the interview process",
-      "管理面試流程",
-      "Generate structured interview kits, candidate communications, and follow-ups.",
-      "生成結構化面試題庫、候選人溝通與跟進內容。",
-      "Create an interview plan for this role with competencies to assess, sample questions, interviewer assignments, and follow-up email templates.",
-      "請為此職位建立面試方案，包含要評估的能力、示例問題、面試官分工，以及跟進電郵範本。",
-      ["Docs", "Gmail"],
-      29,
-      ["interview", "candidate", "questions", "follow-up"]
-    ),
-    makeCard(
-      "hr-candidates",
-      "hr",
-      "Communicate with candidates",
-      "與候選人溝通",
-      "Draft candidate-facing messages that feel clear, timely, and respectful.",
-      "撰寫清晰、及時且尊重候選人的溝通內容。",
-      "Write candidate communication templates for interview invitations, timeline updates, and rejections that feel warm, direct, and brand-consistent.",
-      "請撰寫候選人溝通範本，涵蓋面試邀請、流程更新與婉拒通知，語氣要溫暖、直接且符合品牌形象。",
-      ["Gmail", "Docs"],
-      29,
-      ["candidate", "email", "recruiting", "templates"]
-    ),
-    makeCard(
-      "hr-survey",
-      "hr",
-      "Conduct engagement and satisfaction surveys",
-      "進行參與度與滿意度調查",
-      "Design survey questions that surface usable signals instead of vague sentiment.",
-      "設計能帶出可用訊號、而非空泛情緒的調查題目。",
-      "Draft an employee survey with questions on engagement, communication, workload, and manager support, then suggest how to analyze the responses afterward.",
-      "請起草一份員工調查，涵蓋投入感、溝通、工作量與主管支持，並建議後續如何分析結果。",
-      ["Forms", "Sheets", "Docs"],
-      30,
-      ["survey", "engagement", "employee feedback", "analysis"]
-    ),
-    makeCard(
-      "hr-learning",
-      "hr",
-      "Create personalized learning plans",
-      "建立個人化學習計畫",
-      "Translate role goals and skill gaps into realistic development steps.",
-      "把職位目標與技能缺口轉成可行的發展步驟。",
-      "Create a six-month learning plan for this employee based on role expectations, current strengths, growth areas, and available internal resources.",
-      "請根據職位要求、現有優勢、成長空間與內部資源，為這位員工建立六個月學習計畫。",
-      ["Docs", "Sheets"],
-      30,
-      ["learning plan", "development", "skills", "employee growth"]
-    ),
-    makeCard(
-      "hr-onboard",
-      "hr",
-      "Onboard employees with clearer handoffs",
-      "以更清晰的交接方式安排入職",
-      "Keep onboarding coordinated across HR, manager, and new hire.",
-      "讓 HR、主管與新員工之間的入職交接更順暢。",
-      "Build an onboarding checklist that separates HR tasks, manager tasks, and employee tasks across the first two weeks.",
-      "請建立一份入職清單，把首兩星期的 HR 任務、主管任務與員工任務分開列明。",
-      ["Sheets", "Docs"],
-      30,
-      ["onboarding", "handoff", "checklist", "new hire"]
-    ),
-    makeCard(
-      "hr-followup",
-      "hr",
-      "Summarize findings and draft follow-up surveys",
-      "整理發現並起草後續調查",
-      "Close the loop by turning survey results into next questions and actions.",
-      "把調查結果轉成下一步問題與後續行動。",
-      "Summarize the top findings from this employee survey, recommend follow-up actions, and draft a short pulse survey to validate whether the changes are helping.",
-      "請整理這份員工調查的主要發現，建議後續行動，並起草一份短版脈搏調查，以驗證改變是否有效。",
-      ["Docs", "Sheets"],
-      31,
-      ["follow-up survey", "findings", "pulse survey", "actions"]
-    ),
-    makeCard(
-      "marketing-identity",
-      "marketing",
-      "Develop a visual identity brief",
-      "建立視覺識別 brief",
-      "Translate business positioning into art direction, color mood, and design cues.",
-      "把品牌定位轉化成視覺方向、色彩情緒與設計線索。",
-      "Create a visual identity brief for our brand, including personality, color direction, typography mood, visual references, and what the identity should avoid.",
-      "請為品牌建立一份視覺識別 brief，包含品牌性格、色彩方向、字體氣質、視覺參考，以及應避免的風格。",
-      ["Docs", "Slides"],
-      32,
-      ["brand", "identity", "visual", "creative brief"]
-    ),
-    makeCard(
-      "marketing-brand-strategy",
-      "marketing",
-      "Shape a brand strategy",
-      "制定品牌策略",
-      "Clarify audience, positioning, proof points, and message pillars from source notes.",
-      "根據資料釐清受眾、定位、佐證點與品牌信息支柱。",
-      "Based on our customer notes and product strengths, draft a brand strategy outline with target audience, positioning statement, message pillars, and differentiation.",
-      "請根據客戶筆記與產品優勢，起草一份品牌策略大綱，涵蓋目標受眾、定位語句、訊息支柱與差異化。",
-      ["Docs", "Drive"],
-      33,
-      ["brand strategy", "positioning", "messaging", "audience"]
-    ),
-    makeCard(
-      "marketing-partnerships",
-      "marketing",
-      "Brainstorm brand partnerships",
-      "發想品牌合作夥伴",
-      "Suggest partnership ideas that align with audience overlap and campaign goals.",
-      "提出符合受眾重疊度與活動目標的合作想法。",
-      "Suggest brand partnership ideas for our company, including why the fit makes sense, what each side gains, and one campaign concept for each match.",
-      "請提出適合我們品牌的合作夥伴構想，說明合作合理性、雙方收益，以及每個合作的一個活動概念。",
-      ["Docs"],
-      33,
-      ["partnership", "brand collaboration", "campaign", "audience overlap"]
-    ),
-    makeCard(
-      "marketing-research",
-      "marketing",
-      "Conduct market research and identify trends",
-      "進行市場研究並找出趨勢",
-      "Turn broad market signals into focused content or campaign opportunities.",
-      "把廣泛市場訊號整理成具體內容或活動機會。",
-      "Review this market information and identify the strongest audience trends, whitespace opportunities, and campaign ideas worth testing first.",
-      "請檢視這些市場資訊，找出最重要的受眾趨勢、空白機會，以及最值得優先測試的活動點子。",
-      ["Gemini", "Docs"],
-      34,
-      ["market research", "trends", "opportunities", "campaign ideas"]
-    ),
-    makeCard(
-      "marketing-content-distribution",
-      "marketing",
-      "Create content and distribution plans",
-      "建立內容與分發計畫",
-      "Pair message themes with formats, channels, and publishing cadence.",
-      "把訊息主題與內容形式、渠道及發佈節奏配對。",
-      "Build a content and distribution plan for this campaign with core themes, content formats, channel mix, publication timing, and success metrics.",
-      "請為這個活動建立內容與分發計畫，包含主題、內容形式、渠道組合、發佈時間與成功指標。",
-      ["Docs", "Sheets"],
-      34,
-      ["content plan", "distribution", "channels", "calendar"]
-    ),
-    makeCard(
-      "marketing-collaboration",
-      "marketing",
-      "Improve collaboration with customers, agencies, and teams",
-      "改善與客戶、代理商及團隊的協作",
-      "Create shared briefs that reduce misalignment before creative work starts.",
-      "在創意工作開始前，用共享 brief 減少認知落差。",
-      "Draft a collaboration brief for our internal team and agency partner that defines the objective, deliverables, timeline, decision makers, and review process.",
-      "請為內部團隊與代理商夥伴起草一份協作 brief，定義目標、交付物、時間表、決策者與審稿流程。",
-      ["Docs"],
-      34,
-      ["collaboration", "agency", "brief", "alignment"]
-    ),
-    makeCard(
-      "marketing-social-trends",
-      "marketing",
-      "Analyze social media trends",
-      "分析社交媒體趨勢",
-      "Turn noisy social data into a few strategic creative signals.",
-      "把雜亂的社交數據整理成幾個有策略意義的創意訊號。",
-      "Analyze these social media signals and summarize what topics are rising, what content styles are performing, and how our brand should respond.",
-      "請分析這些社交媒體訊號，整理哪些主題正在上升、哪些內容形式表現較好，以及品牌應如何回應。",
-      ["Sheets", "Docs"],
-      35,
-      ["social trends", "content performance", "audience", "response"]
-    ),
-    makeCard(
-      "marketing-personas",
-      "marketing",
-      "Develop target audience personas",
-      "建立目標受眾人物誌",
-      "Convert qualitative notes into usable persona snapshots for content planning.",
-      "把質性資料轉成內容規劃可用的人物誌。",
-      "Create two target audience personas from this research, including demographics, motivations, objections, preferred channels, and purchase triggers.",
-      "請根據這些研究建立兩個目標受眾人物誌，包含人口特徵、動機、疑慮、偏好渠道與購買觸發點。",
-      ["Docs"],
-      35,
-      ["persona", "audience research", "motivations", "channels"]
-    ),
-    makeCard(
-      "marketing-sem",
-      "marketing",
-      "Create and optimize SEM copy",
-      "建立並優化 SEM 文案",
-      "Draft ad copy variations that balance keywords, relevance, and CTR.",
-      "生成兼顧關鍵字、相關性與點擊率的廣告文案。",
-      "Generate search ad copy variations for this offer, including multiple headlines, descriptions, keyword intent coverage, and a short testing plan.",
-      "請為這個優惠生成多個搜尋廣告版本，包含多組標題、描述、關鍵字意圖覆蓋，以及簡短測試計畫。",
-      ["Docs", "Sheets"],
-      36,
-      ["SEM", "search ads", "copy", "testing"]
-    ),
-    makeCard(
-      "marketing-acquisition",
-      "marketing",
-      "Draft customer acquisition communications",
-      "起草客戶獲取溝通內容",
-      "Shape a first-touch message that is persuasive without sounding generic.",
-      "撰寫有說服力但不公式化的首次接觸內容。",
-      "Draft an acquisition email sequence for this offer with a strong opening hook, proof points, objections handling, and one clear call to action per message.",
-      "請為這個優惠建立一組獲客電郵序列，包含有力開場、佐證點、異議處理，以及每封一個清晰 CTA。",
-      ["Gmail", "Docs"],
-      36,
-      ["acquisition", "email sequence", "CTA", "conversion"]
-    ),
-    makeCard(
-      "marketing-inbound",
-      "marketing",
-      "Generate inbound campaign ideas",
-      "生成 inbound 活動構想",
-      "Connect audience pain points to content magnets and nurture steps.",
-      "把受眾痛點連接到內容誘因與培育步驟。",
-      "Suggest an inbound campaign for this audience, including a lead magnet, landing page angle, email nurture sequence, and simple success metrics.",
-      "請為這個受眾提出一套 inbound 活動，包含 lead magnet、落地頁角度、電郵培育流程，以及簡單成功指標。",
-      ["Docs"],
-      37,
-      ["inbound", "lead magnet", "landing page", "nurture"]
-    ),
-    makeCard(
-      "marketing-personalized-content",
-      "marketing",
-      "Deliver personalized content at scale",
-      "大規模提供個人化內容",
-      "Define segments and message variations without losing consistency.",
-      "在保持一致性的前提下定義分眾與訊息變體。",
-      "Create a personalized content matrix for three audience segments, showing the message angle, proof points, CTA, and content format for each segment.",
-      "請建立一個三個受眾分眾的個人化內容矩陣，列出各自的訊息角度、佐證點、CTA 與內容形式。",
-      ["Sheets", "Docs"],
-      37,
-      ["personalization", "segments", "messaging", "matrix"]
-    ),
-    makeCard(
-      "marketing-visuals",
-      "marketing",
-      "Create visuals for campaigns",
-      "為活動建立視覺方向",
-      "Turn campaign concepts into clear image or layout directions.",
-      "把活動概念轉化成清楚的圖片或版面方向。",
-      "Write a visual direction brief for this campaign, including image style, color mood, composition cues, text overlay guidance, and what the visuals must avoid.",
-      "請為這個活動撰寫視覺方向 brief，包含圖片風格、色彩氛圍、構圖線索、文字疊加建議，以及必須避免的元素。",
-      ["Slides", "Docs"],
-      37,
-      ["visuals", "campaign design", "brief", "art direction"]
-    ),
-    makeCard(
-      "marketing-blog",
-      "marketing",
-      "Generate blog ideas",
-      "生成 blog 題材",
-      "Build a content backlog that aligns with search intent and brand voice.",
-      "建立兼顧搜尋意圖與品牌語氣的內容題材庫。",
-      "Suggest blog post ideas for this audience, grouped by beginner, mid-level, and decision-stage intent, with one core takeaway for each post.",
-      "請為這個受眾提出 blog 題材，按初階、中階與決策階段意圖分組，並為每篇列出一個核心收穫。",
-      ["Docs"],
-      38,
-      ["blog", "SEO", "content backlog", "search intent"]
-    ),
-    makeCard(
-      "marketing-social",
-      "marketing",
-      "Create social media content",
-      "生成社交媒體內容",
-      "Draft platform-aware content ideas with consistent tone and CTA variations.",
-      "按平台特性生成內容靈感，維持一致品牌語氣與不同 CTA 版本。",
-      "Generate a week of social post ideas for this campaign, with a distinct angle for each post, a suggested CTA, and a tone that matches our brand voice.",
-      "請為此活動生成一週社交帖文構思，每篇有不同切入角度、建議 CTA，並符合品牌語氣。",
-      ["Docs"],
-      38,
-      ["social", "campaign", "content", "cta"]
-    ),
-    makeCard(
-      "marketing-plan",
-      "marketing",
-      "Create a strategic marketing plan",
-      "建立策略性市場計畫",
-      "Connect business goals to audience targets, channels, budget, and measurement.",
-      "把商業目標連接到受眾、渠道、預算與衡量方式。",
-      "Draft a strategic marketing plan for the next quarter with goals, target segments, channel priorities, campaign themes, budget assumptions, and success metrics.",
-      "請起草下一季度的策略性市場計畫，包含目標、受眾分群、渠道優先次序、活動主題、預算假設與成功指標。",
-      ["Docs", "Sheets"],
-      39,
-      ["marketing plan", "quarterly", "budget", "metrics"]
-    ),
-    makeCard(
-      "pm-uat",
-      "pm",
-      "Generate user acceptance tests",
-      "生成用戶驗收測試",
-      "Turn requirements into test scenarios, edge cases, and sign-off criteria.",
-      "把需求轉化成測試場景、邊界情況與驗收標準。",
-      "Based on these feature requirements, generate user acceptance test scenarios with expected outcomes, edge cases, and release sign-off criteria.",
-      "請根據這份功能需求，生成用戶驗收測試場景，包含預期結果、邊界情況與上線簽核標準。",
-      ["Docs", "Sheets"],
-      40,
-      ["uat", "testing", "requirements", "quality"]
-    ),
-    makeCard(
-      "pm-status",
-      "pm",
-      "Write a project status update",
-      "撰寫項目狀態更新",
-      "Summarize progress, risks, decisions, and asks for stakeholders without noise.",
-      "簡潔整理進度、風險、決策與需要支援的事項，避免資訊雜訊。",
-      "Draft a weekly project update for stakeholders with accomplishments, risks, decisions needed, upcoming milestones, and any blockers requiring help.",
-      "請起草一份每週項目更新給持份者，包含已完成事項、風險、待決策點、即將到來的里程碑，以及需要協助的阻礙。",
-      ["Docs", "Gmail"],
-      41,
-      ["status", "stakeholders", "risks", "milestones"]
-    ),
-    makeCard(
-      "pm-retro",
-      "pm",
-      "Run a project retrospective",
-      "進行項目回顧",
-      "Turn the end of a cycle into a useful team learning artifact.",
-      "把一個周期的結束整理成對團隊有用的學習成果。",
-      "Create a retrospective outline for this project that covers what went well, what slowed us down, what we learned, and the changes to apply next cycle.",
-      "請為這個項目建立回顧大綱，涵蓋做得好的地方、拖慢進度的因素、學到的事，以及下個周期要採取的改變。",
-      ["Docs"],
-      41,
-      ["retrospective", "lessons learned", "team", "improvement"]
-    ),
-    makeCard(
-      "pm-issue-tracker",
-      "pm",
-      "Develop an issue tracker and communications",
-      "建立問題追蹤與相關溝通",
-      "Bring issue logging and stakeholder messaging into one working system.",
-      "把問題追蹤與持份者溝通整理成同一套工作系統。",
-      "Turn these project issues into a tracker with severity, owner, mitigation plan, external impact, and a stakeholder update summary.",
-      "請把這些項目問題整理成追蹤表，包含嚴重程度、負責人、緩解方案、對外影響，以及持份者更新摘要。",
-      ["Sheets", "Docs"],
-      42,
-      ["issue tracker", "mitigation", "stakeholder update", "severity"]
-    ),
-    makeCard(
-      "pm-workback",
-      "pm",
-      "Create a workback schedule",
-      "建立倒排工作計畫",
-      "Start from a fixed launch date and derive milestones, dependencies, and owners.",
-      "由固定推出日期反推所需里程碑、依賴關係與負責人。",
-      "Build a workback schedule for this launch date, listing major milestones, dependencies, owners, review checkpoints, and risk flags.",
-      "請為這個推出日期建立倒排工作計畫，列出主要里程碑、依賴關係、負責人、審核節點與風險提示。",
-      ["Sheets", "Docs"],
-      42,
-      ["workback", "launch", "dependencies", "timeline"]
-    ),
-    makeCard(
-      "sales-research",
-      "sales",
-      "Conduct account research",
-      "進行客戶研究",
-      "Prepare a quick profile with pain points, triggers, and likely value angles.",
-      "快速整理客戶背景、痛點、觸發因素與可能的價值切入點。",
-      "Create an account research brief on this prospect, including business priorities, possible pain points, likely buying triggers, and a tailored outreach angle.",
-      "請建立這位潛在客戶的研究摘要，包含業務重點、可能痛點、購買觸發點，以及客製化接觸角度。",
-      ["Docs", "Gemini"],
-      43,
-      ["prospect", "account research", "pain points", "outreach"]
-    ),
-    makeCard(
-      "sales-journey",
-      "sales",
-      "Map customer journeys",
-      "繪製客戶旅程",
-      "Show where buyers hesitate, what they need, and how the team should respond.",
-      "顯示買家在哪些節點猶豫、需要甚麼，以及團隊應如何回應。",
-      "Map the customer journey for this account type from awareness to purchase, including needs, friction points, objections, and the best supporting asset at each stage.",
-      "請為這類客戶繪製從認知到購買的客戶旅程，列出需求、阻力、異議，以及每個階段最適合的支援素材。",
-      ["Docs", "Slides"],
-      44,
-      ["customer journey", "funnel", "objections", "sales enablement"]
-    ),
-    makeCard(
-      "sales-rfp",
-      "sales",
-      "Support the RFP process",
-      "支援 RFP 提案流程",
-      "Organize requirements, response themes, and gaps before the team drafts the proposal.",
-      "在正式撰寫提案前，先整理需求、回應主題與缺口。",
-      "Review this RFP and summarize key requirements, evaluation criteria, response themes, missing inputs, and the best way to structure our reply.",
-      "請審閱這份 RFP，整理出關鍵需求、評分標準、回應主軸、缺少資訊，以及最合適的回覆結構。",
-      ["Docs", "Drive"],
-      45,
-      ["rfp", "proposal", "requirements", "structure"]
-    ),
-    makeCard(
-      "sales-mobile",
-      "sales",
-      "Access information and tools on your phone",
-      "在手機上快速取得資訊與工具",
-      "Prepare concise mobile-ready notes for meetings or outreach while moving.",
-      "在移動中準備可於手機快速閱讀的會議或外聯筆記。",
-      "Condense this customer account into a mobile-ready briefing with key facts, last interaction, open opportunity, and the best next move.",
-      "請把這個客戶帳戶整理成適合手機閱讀的簡報，包含關鍵資訊、上次互動、開放中的機會，以及最佳下一步。",
-      ["Docs", "Gmail"],
-      45,
-      ["mobile", "account brief", "on the go", "sales"]
-    ),
-    makeCard(
-      "sales-relationships",
-      "sales",
-      "Develop customer relationships",
-      "建立客戶關係",
-      "Use small, useful touchpoints instead of generic follow-up.",
-      "以小而有用的接觸點代替制式跟進。",
-      "Suggest relationship-building follow-up ideas for this customer based on their industry, recent interaction, and likely priorities over the next quarter.",
-      "請根據客戶所屬行業、最近互動與下一季度可能優先事項，提出建立關係的跟進方式。",
-      ["Gmail", "Docs"],
-      45,
-      ["relationship building", "follow-up", "customer", "industry"]
-    ),
-    makeCard(
-      "sales-team-support",
-      "sales",
-      "Support the sales team",
-      "支援銷售團隊",
-      "Create reusable support materials that reduce prep time for reps.",
-      "建立可重複使用的支援材料，降低業務準備時間。",
-      "Create a sales support brief that gives reps the core messaging, objection handling, proof points, and discovery questions for this offer.",
-      "請建立一份銷售支援 brief，提供業務這個方案的核心訊息、異議處理、佐證點與探索問題。",
-      ["Docs"],
-      46,
-      ["sales enablement", "objections", "proof points", "brief"]
-    ),
-    makeCard(
-      "sales-coaching",
-      "sales",
-      "Coach and train the sales team",
-      "訓練與指導銷售團隊",
-      "Turn sales patterns into practical coaching prompts and role-play ideas.",
-      "把銷售模式整理成實用的 coaching 提示與角色扮演題目。",
-      "Review these recent sales calls and identify coaching themes, skill gaps, practice exercises, and one role-play scenario for the team.",
-      "請檢視這些近期銷售通話，找出 coaching 主題、能力缺口、練習方式，以及一個適合團隊的角色扮演情境。",
-      ["Docs", "Meet"],
-      46,
-      ["sales coaching", "role play", "skills", "training"]
-    ),
-    makeCard(
-      "sales-custom-asset",
-      "sales",
-      "Customize assets for a specific customer",
-      "為特定客戶客製素材",
-      "Tailor value stories around the pain points already mentioned by the buyer.",
-      "針對買家已提出的痛點，客製化價值敘事。",
-      "Draft a customer-specific one-pager showing how our product solves the pain points already mentioned in this account, with proof points and a clear next step.",
-      "請起草一份客製化一頁簡介，說明我們的產品如何解決此客戶已提過的痛點，加入佐證點與清晰下一步。",
-      ["Docs", "Slides"],
-      47,
-      ["custom asset", "pain points", "one pager", "customer-specific"]
-    ),
-    makeCard(
-      "sales-calls",
-      "sales",
-      "Prepare for a new customer call",
-      "準備新客戶會議",
-      "Shape a discovery call around context, trust-building, and next-step momentum.",
-      "把首次探索會議設計成兼顧背景理解、建立信任與推進下一步。",
-      "Prepare a 30-minute discovery call plan for this prospect with opening questions, business hypothesis, credibility points, and a suggested next-step close.",
-      "請為這位潛在客戶準備一個 30 分鐘探索會議方案，包含開場問題、業務假設、可信度亮點與建議收尾。",
-      ["Docs", "Meet"],
-      48,
-      ["discovery call", "sales", "questions", "prospect"]
-    ),
-    makeCard(
-      "sales-outreach",
-      "sales",
-      "Personalize outreach at scale",
-      "大規模個人化外聯",
-      "Keep outreach relevant even when building repeatable templates.",
-      "即使用範本，也要讓外聯內容保持相關性。",
-      "Create a reusable outreach template with placeholders for industry context, recent trigger event, business value, and a low-friction call to action.",
-      "請建立一個可重複使用的外聯範本，預留行業背景、近期觸發事件、商業價值，以及低門檻 CTA 的欄位。",
-      ["Gmail", "Docs"],
-      49,
-      ["outreach", "template", "personalization", "CTA"]
-    ),
-    makeCard(
-      "sales-appreciation",
-      "sales",
-      "Create customer appreciation materials",
-      "建立客戶感謝素材",
-      "Make appreciation feel thoughtful instead of transactional.",
-      "讓感謝內容更有心，而不是只是交易性的跟進。",
-      "Write a customer appreciation message pack with one short email, one handwritten-note style version, and one event follow-up version.",
-      "請撰寫一組客戶感謝訊息，包含一封短電郵、一個手寫卡片風格版本，以及一個活動後跟進版本。",
-      ["Docs", "Gmail"],
-      49,
-      ["appreciation", "thank you", "customer relationship", "follow-up"]
-    ),
-    makeCard(
-      "smallbiz-pricing",
-      "small-business",
-      "Create pricing comparisons",
-      "建立價格比較",
-      "Compare packages, tradeoffs, and value propositions in a customer-friendly way.",
-      "用客戶容易理解的方式比較方案、取捨與價值差異。",
-      "Compare these three pricing options in a table with features, tradeoffs, ideal customer type, and a recommendation for budget-conscious buyers.",
-      "請以表格比較這三個價格方案，包含功能、取捨、適合客群，以及對預算敏感買家的建議。",
-      ["Sheets", "Docs"],
-      50,
-      ["pricing", "comparison", "table", "budget"]
-    ),
-    makeCard(
-      "smallbiz-productivity",
-      "small-business",
-      "Enhance personal productivity",
-      "提升個人生產力",
-      "Build practical routines for owners who switch between many roles.",
-      "為身兼多職的小企業主建立實用工作節奏。",
-      "Review this list of business tasks and turn it into a practical weekly operating plan with priorities, batching ideas, and what to defer.",
-      "請檢視這份業務任務清單，把它整理成一個實際可行的每週工作計畫，包含優先級、可批次處理的工作，以及可延後事項。",
-      ["Docs", "Sheets"],
-      51,
-      ["productivity", "owner", "weekly plan", "priorities"]
-    ),
-    makeCard(
-      "smallbiz-marketing",
-      "small-business",
-      "Brainstorm lightweight marketing ideas",
-      "發想輕量營銷內容",
-      "Generate practical content ideas that fit small teams with limited time and budget.",
-      "生成適合小團隊、低時間與低預算情境的實用營銷內容。",
-      "Suggest simple marketing ideas we can execute this month with a small team, limited budget, and a need for fast customer visibility.",
-      "請建議一些本月可執行的簡單營銷點子，前提是團隊小、預算有限，而且需要快速提升曝光。",
-      ["Docs", "Gemini"],
-      51,
-      ["small team", "marketing", "budget", "ideas"]
-    ),
-    makeCard(
-      "smallbiz-competitive",
-      "small-business",
-      "Develop a competitive analysis",
-      "建立競爭分析",
-      "Compare nearby or direct alternatives in a way that informs positioning choices.",
-      "以有助定位決策的方式比較附近或直接競爭者。",
-      "Build a competitive analysis for our business that compares pricing, offer clarity, positioning, customer experience, and easy moves we could test this quarter.",
-      "請為我們的業務建立競爭分析，比較價格、方案清晰度、定位、客戶體驗，以及本季可測試的簡單改進。",
-      ["Docs", "Sheets"],
-      52,
-      ["competitive analysis", "small business", "positioning", "pricing"]
-    ),
-    makeCard(
-      "smallbiz-fundraising",
-      "small-business",
-      "Support fundraising and investor relations",
-      "支援募資與投資者關係",
-      "Turn business progress into a sharper narrative for investors or supporters.",
-      "把業務進展整理成更清晰的投資者敘事。",
-      "Draft an investor update covering progress, traction, current focus, challenges, and the specific support or follow-up we want from backers.",
-      "請起草一份投資者更新，說明進展、成長訊號、目前重點、挑戰，以及我們希望投資者提供的具體支援。",
-      ["Docs", "Gmail"],
-      52,
-      ["investor update", "fundraising", "traction", "support"]
-    ),
-    makeCard(
-      "smallbiz-timeoff",
-      "small-business",
-      "Manage time-off policies and tracking",
-      "管理休假政策與追蹤",
-      "Make leave rules easier for a small team to understand and follow.",
-      "讓小團隊更容易理解與遵守休假規則。",
-      "Create a simple time-off policy summary and tracker that explains the rules, approval process, blackout periods, and current balances for the team.",
-      "請建立一份簡單的休假政策摘要與追蹤表，說明規則、批准流程、限制時段，以及團隊現有餘額。",
-      ["Docs", "Sheets"],
-      53,
-      ["time off", "policy", "tracker", "small team"]
-    ),
-    makeCard(
-      "startup-strategy",
-      "startup",
-      "Brainstorm business and strategy options",
-      "構思商業與策略選項",
-      "Explore multiple strategic directions with assumptions, upside, and risk.",
-      "從多個方向思考策略，並標示假設、潛在收益與風險。",
-      "Generate three strategic paths for our startup over the next 12 months. For each path, explain the core assumption, upside, downside, and what we would need to validate first.",
-      "請為我們的初創公司提出未來 12 個月的三條策略路徑，並分別說明核心假設、潛在收益、風險，以及最先要驗證的事項。",
-      ["Gemini", "Docs"],
-      54,
-      ["startup", "strategy", "options", "validation"]
-    ),
-    makeCard(
-      "startup-pitch",
-      "startup",
-      "Develop an elevator pitch",
-      "撰寫電梯簡報",
-      "Condense the company story into a short, memorable, investor-ready narrative.",
-      "把公司故事壓縮成短而有記憶點、適合投資人聽的敘事。",
-      "Write an elevator pitch for our startup that explains the problem, the product, the market opportunity, and why now in under 60 seconds.",
-      "請為我們的初創公司撰寫一段電梯簡報，在 60 秒內說清楚問題、產品、市場機會，以及為何是現在。",
-      ["Docs"],
-      55,
-      ["pitch", "investor", "story", "startup"]
-    ),
-    makeCard(
-      "startup-personal-brand",
-      "startup",
-      "Develop your personal brand",
-      "建立個人品牌",
-      "Shape how a founder shows up across bios, posts, and speaking opportunities.",
-      "整理創辦人在個人簡介、貼文與公開場合中的對外形象。",
-      "Create a founder personal brand brief covering point of view, topics to own, tone, credibility signals, and content formats to use consistently.",
-      "請建立一份創辦人個人品牌 brief，涵蓋核心觀點、適合主導的主題、語氣、可信度訊號，以及應持續使用的內容形式。",
-      ["Docs"],
-      55,
-      ["personal brand", "founder", "positioning", "content"]
-    ),
-    makeCard(
-      "startup-vendors",
-      "startup",
-      "Communicate and negotiate with vendors",
-      "與供應商溝通及談判",
-      "Prepare sharper vendor conversations with clearer targets and fallback positions.",
-      "以更清楚的目標與備案，準備供應商溝通。",
-      "Draft a vendor negotiation brief with our target terms, fallback options, leverage points, budget ceiling, and the questions we need answered before committing.",
-      "請起草一份供應商談判 brief，包含目標條款、備案、談判籌碼、預算上限，以及承諾前必須問清楚的問題。",
-      ["Docs", "Sheets"],
-      56,
-      ["vendor negotiation", "terms", "budget", "fallback"]
-    ),
-    makeCard(
-      "startup-budget",
-      "startup",
-      "Plan and track budgets",
-      "規劃與追蹤預算",
-      "Translate ambition into spend visibility and decision boundaries.",
-      "把野心轉化成可見的支出狀況與決策邊界。",
-      "Build a startup budget tracker with monthly spend categories, runway assumptions, planned versus actual spend, and thresholds that should trigger a review.",
-      "請建立一個初創公司預算追蹤表，包含每月支出分類、runway 假設、計畫與實際支出，以及需要觸發檢討的門檻。",
-      ["Sheets"],
-      56,
-      ["budget", "runway", "spend tracker", "review threshold"]
-    ),
-    makeCard(
-      "startup-launch",
-      "startup",
-      "Build a product launch plan",
-      "建立產品上市計畫",
-      "Map launch goals, channels, milestones, owners, and post-launch checks.",
-      "整理產品上市目標、渠道、里程碑、負責人與上線後檢查點。",
-      "Create a product launch plan that includes goals, target audience, launch channels, internal dependencies, success metrics, and a first-week follow-up checklist.",
-      "請建立一份產品上市計畫，包含目標、目標受眾、推出渠道、內部依賴項、成功指標，以及首週跟進清單。",
-      ["Docs", "Sheets"],
-      57,
-      ["launch", "product", "metrics", "checklist"]
-    ),
-    makeCard(
-      "startup-roadmap",
-      "startup",
-      "Develop product strategy and roadmap",
-      "制定產品策略與路線圖",
-      "Turn market direction and product bets into a prioritized roadmap story.",
-      "把市場方向與產品賭注整理成有優先次序的路線圖敘事。",
-      "Draft a product strategy and roadmap outline for the next two quarters, including user problems, strategic bets, priorities, risks, and what not to build yet.",
-      "請為未來兩個季度起草一份產品策略與路線圖大綱，包含用戶問題、策略性賭注、優先事項、風險，以及暫時不應投入的方向。",
-      ["Docs", "Slides"],
-      57,
-      ["roadmap", "product strategy", "priorities", "risks"]
-    ),
-  ],
+  "cards": [
+    {
+      "id": "page-7",
+      "category": "admin",
+      "title": "Plan agendas (offsite, meetings, and more)",
+      "titleZh": "第 7 頁 · Plan agendas (offsite, meetings, and more)",
+      "summary": "Exact PDF text from page 7 in the Administrative Support section.",
+      "summaryZh": "PDF Administrative Support 章節第 7 頁原文。",
+      "prompt": "7\nAdministrative \nsupport\nAs an administrative support professional, you \nare responsible for keeping teams on track. \nYou’re required to stay organized and efficient \n— even under pressure — while juggling many \npriority tasks. \nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started \nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning  \nof this guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Plan agendas (offsite, meetings, and more)\nYou’re planning a three-day offsite meeting. To build an agenda, you brainstorm with Gemini Advanced. \nYou type:\n I am an executive administrator to a team director.  Our newly formed team now consists of content  \n marketers, digital marketers, and product marketers. We are gathering for the first time at a three-day  \n offsite in Washington, DC.  Plan activities for each day that include team bonding activities and time for  \n deeper strategic work.  Create a sample agenda for me.  (Gemini Advanced)\nNEW\n•  Persona •  Task •  Context •  Format",
+      "promptZh": "7\nAdministrative \nsupport\nAs an administrative support professional, you \nare responsible for keeping teams on track. \nYou’re required to stay organized and efficient \n— even under pressure — while juggling many \npriority tasks. \nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started \nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning  \nof this guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Plan agendas (offsite, meetings, and more)\nYou’re planning a three-day offsite meeting. To build an agenda, you brainstorm with Gemini Advanced. \nYou type:\n I am an executive administrator to a team director.  Our newly formed team now consists of content  \n marketers, digital marketers, and product marketers. We are gathering for the first time at a three-day  \n offsite in Washington, DC.  Plan activities for each day that include team bonding activities and time for  \n deeper strategic work.  Create a sample agenda for me.  (Gemini Advanced)\nNEW\n•  Persona •  Task •  Context •  Format",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 7,
+      "keywords": [
+        "Administrative Support",
+        "page 7",
+        "Plan agendas (offsite, meetings, and more)"
+      ]
+    },
+    {
+      "id": "page-8",
+      "category": "admin",
+      "title": "Manage multiple email inboxes",
+      "titleZh": "第 8 頁 · Manage multiple email inboxes",
+      "summary": "Exact PDF text from page 8 in the Administrative Support section.",
+      "summaryZh": "PDF Administrative Support 章節第 8 頁原文。",
+      "prompt": "8\nThis is a helpful start to your planning. You need to generate specific ideas for the team bonding activities.  \nYou type:\n Suggest three different icebreaker activities  that encourage people to learn about their teammates’  \n preferred working styles, strengths, and goals. Make sure the icebreaker ideas are engaging and can be  \n completed by a group of 25 people in 30 minutes or less.  (Gemini Advanced)\nYou are happy with the agenda as a starting point. You now want to reformat Gemini’s response into a table.  \nYou type:\n Organize this agenda  in a table format.  Include one of your suggested icebreakers for each day.  \n(Gemini Advanced)\nYou select Export to Docs. You open the newly created Doc. Now, you want to bring in detailed summaries \nfor the strategy sessions using your existing files in Google Drive to provide more context for what will be \ndiscussed. You prompt Gemini in Docs and tag your relevant files by typing @file name. \n Use @[2024 H2 Team Vision]  to generate a summary for the opening remarks on Day 1 of this agenda.  \n(Gemini in Docs)\nExample use cases\nExecutive administrators and executive business partners\nUse case: Manage multiple email inboxes\nAfter returning from vacation, you have many unread, unsorted emails. You prompt Gemini in the Gmail side \npanel. You type:\nSummarize emails from [manager] from the last week. (Gemini in Gmail)\nGemini returns short summaries of each message. To directly access a message, you click on Sources and see \ntiles that bring you to specific emails. You select the most important one. Once the email thread opens, you see \nthat many messages were exchanged. You prompt Gemini in Gmail:\nSummarize this email thread and list all action items and deadlines. (Gemini in Gmail)\nNEW",
+      "promptZh": "8\nThis is a helpful start to your planning. You need to generate specific ideas for the team bonding activities.  \nYou type:\n Suggest three different icebreaker activities  that encourage people to learn about their teammates’  \n preferred working styles, strengths, and goals. Make sure the icebreaker ideas are engaging and can be  \n completed by a group of 25 people in 30 minutes or less.  (Gemini Advanced)\nYou are happy with the agenda as a starting point. You now want to reformat Gemini’s response into a table.  \nYou type:\n Organize this agenda  in a table format.  Include one of your suggested icebreakers for each day.  \n(Gemini Advanced)\nYou select Export to Docs. You open the newly created Doc. Now, you want to bring in detailed summaries \nfor the strategy sessions using your existing files in Google Drive to provide more context for what will be \ndiscussed. You prompt Gemini in Docs and tag your relevant files by typing @file name. \n Use @[2024 H2 Team Vision]  to generate a summary for the opening remarks on Day 1 of this agenda.  \n(Gemini in Docs)\nExample use cases\nExecutive administrators and executive business partners\nUse case: Manage multiple email inboxes\nAfter returning from vacation, you have many unread, unsorted emails. You prompt Gemini in the Gmail side \npanel. You type:\nSummarize emails from [manager] from the last week. (Gemini in Gmail)\nGemini returns short summaries of each message. To directly access a message, you click on Sources and see \ntiles that bring you to specific emails. You select the most important one. Once the email thread opens, you see \nthat many messages were exchanged. You prompt Gemini in Gmail:\nSummarize this email thread and list all action items and deadlines. (Gemini in Gmail)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 8,
+      "keywords": [
+        "Administrative Support",
+        "page 8",
+        "Manage multiple email inboxes"
+      ]
+    },
+    {
+      "id": "page-9",
+      "category": "admin",
+      "title": "Plan business travel",
+      "titleZh": "第 9 頁 · Plan business travel",
+      "summary": "Exact PDF text from page 9 in the Administrative Support section.",
+      "summaryZh": "PDF Administrative Support 章節第 9 頁原文。",
+      "prompt": "9\nYou owe a response to a question, which you believe is best answered by a document in your Drive. You prompt \nGemini in the Gmail side panel. You type:\nGenerate a response to this email and use @[file name] to describe how the [initiative] can complement \nthe workstream outlined in [colleague’s name]’s message. (Gemini in Gmail)\nGemini in Gmail returns a suggested email that pulls directly from your own Doc. After reading it over, you select \nthe Copy icon in the side panel and paste it directly into your message. \n \nUse case: Plan business travel\nYour manager has an upcoming meeting that is out of town. You are responsible for booking travel \narrangements and creating a personalized itinerary. You need to research places to eat. You brainstorm with \nGemini Advanced. You type:\nI am an executive assistant. I need to create an itinerary for a two-day business trip in [location] during \n[dates]. My manager is staying at [hotel]. Suggest different options for breakfast and dinner within a \n10-minute walk of the hotel, and find one entertainment option such as a movie theater, a local art show, \nor a popular tourist attraction. Put it in a table for me. (Gemini Advanced)\nYou continue your conversation until you are happy with the itinerary. Before you make reservations, you want \nto share the draft with your manager. You select Share & export and select Draft in Gmail. Once the drafted \nemail is created, you put the final touches on the message and send. \nUse case: Track travel and entertainment budget \nYou want to create a spreadsheet to keep track of all of the travel expenses incurred. You open a new Google \nSheet and prompt Gemini in the Sheets side panel. You type:\nCreate a budget tracker for business travel. It should include columns for: date, expense type  \n(meal, entertainment, transportation), vendor name, and a description. (Gemini in Sheets)\nGemini returns a tracker that is now ready for you to enter data. \nNEW\nNEW",
+      "promptZh": "9\nYou owe a response to a question, which you believe is best answered by a document in your Drive. You prompt \nGemini in the Gmail side panel. You type:\nGenerate a response to this email and use @[file name] to describe how the [initiative] can complement \nthe workstream outlined in [colleague’s name]’s message. (Gemini in Gmail)\nGemini in Gmail returns a suggested email that pulls directly from your own Doc. After reading it over, you select \nthe Copy icon in the side panel and paste it directly into your message. \n \nUse case: Plan business travel\nYour manager has an upcoming meeting that is out of town. You are responsible for booking travel \narrangements and creating a personalized itinerary. You need to research places to eat. You brainstorm with \nGemini Advanced. You type:\nI am an executive assistant. I need to create an itinerary for a two-day business trip in [location] during \n[dates]. My manager is staying at [hotel]. Suggest different options for breakfast and dinner within a \n10-minute walk of the hotel, and find one entertainment option such as a movie theater, a local art show, \nor a popular tourist attraction. Put it in a table for me. (Gemini Advanced)\nYou continue your conversation until you are happy with the itinerary. Before you make reservations, you want \nto share the draft with your manager. You select Share & export and select Draft in Gmail. Once the drafted \nemail is created, you put the final touches on the message and send. \nUse case: Track travel and entertainment budget \nYou want to create a spreadsheet to keep track of all of the travel expenses incurred. You open a new Google \nSheet and prompt Gemini in the Sheets side panel. You type:\nCreate a budget tracker for business travel. It should include columns for: date, expense type  \n(meal, entertainment, transportation), vendor name, and a description. (Gemini in Sheets)\nGemini returns a tracker that is now ready for you to enter data. \nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 9,
+      "keywords": [
+        "Administrative Support",
+        "page 9",
+        "Plan business travel",
+        "Track travel and entertainment budget"
+      ]
+    },
+    {
+      "id": "page-10",
+      "category": "communications",
+      "title": "Create a press release",
+      "titleZh": "第 10 頁 · Create a press release",
+      "summary": "Exact PDF text from page 10 in the Communications section.",
+      "summaryZh": "PDF Communications 章節第 10 頁原文。",
+      "prompt": "10\nCommunications\nAs a communications professional, you are \nresponsible for ensuring your business is well \nunderstood by the public. You have to stay up to  \ndate with the trends, communicate clearly and \neffectively with many stakeholders, and build \ncompelling narratives. \nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Create a press release\nYou are in charge of public relations at a company in the personal care industry. The company you work for has \njust acquired a smaller brand, and you need to craft a press release. You’ve completed interviews with your \ncompany’s CEO, CFO, and the acquired company’s CEO. You’ve stored all of the most important quotes in one \nDoc. You also have a Doc with all of the information about the acquired brand, its vision, how it got started, and \nstats. You open a new Doc and prompt Gemini in the Docs side panel and type @file name to reference your \nrelevant files. You type:\n I’m a PR manager.  I need to create a press release with a catchy title.  Include quotes from \n @[VIP Quotes Acquisition].  (Gemini in Docs)\nNEW\n•  Persona •  Task •  Context •  Format \n[Gemini returns a response]",
+      "promptZh": "10\nCommunications\nAs a communications professional, you are \nresponsible for ensuring your business is well \nunderstood by the public. You have to stay up to  \ndate with the trends, communicate clearly and \neffectively with many stakeholders, and build \ncompelling narratives. \nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Create a press release\nYou are in charge of public relations at a company in the personal care industry. The company you work for has \njust acquired a smaller brand, and you need to craft a press release. You’ve completed interviews with your \ncompany’s CEO, CFO, and the acquired company’s CEO. You’ve stored all of the most important quotes in one \nDoc. You also have a Doc with all of the information about the acquired brand, its vision, how it got started, and \nstats. You open a new Doc and prompt Gemini in the Docs side panel and type @file name to reference your \nrelevant files. You type:\n I’m a PR manager.  I need to create a press release with a catchy title.  Include quotes from \n @[VIP Quotes Acquisition].  (Gemini in Docs)\nNEW\n•  Persona •  Task •  Context •  Format \n[Gemini returns a response]",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 10,
+      "keywords": [
+        "Communications",
+        "page 10",
+        "Create a press release"
+      ]
+    },
+    {
+      "id": "page-11",
+      "category": "communications",
+      "title": "Prepare for analyst or press briefings",
+      "titleZh": "第 11 頁 · Prepare for analyst or press briefings",
+      "summary": "Exact PDF text from page 11 in the Communications section.",
+      "summaryZh": "PDF Communications 章節第 11 頁原文。",
+      "prompt": "11\nNow you have a starting place for the press release, but you want to include more details about the brand that is \nbeing acquired and its founder. This information is stored in your Drive in another file. In the press release Doc,  \nyou prompt Gemini in the Docs side panel. You type:\n Use @[Biography and Mission Statement]  to add more information about the company that is being \nacquired, its mission, and how it got started.  (Gemini in Docs)\nThe generated paragraphs are a good starting place, so you select Insert to add them into your draft, and you \nbegin making edits to the press release.\nExample use cases\nAnalyst and public relations\nUse case: Prepare for analyst or press briefings\nYou need to create a brief to prepare a spokesperson for an upcoming meeting with analysts and the media  \nfor a new product launch. You open a new Doc and prompt Gemini in the Docs side panel. You type:\nGenerate a brief template to prepare [spokesperson] for an upcoming media and analyst briefing for  \n@[Product Launch]. Include space for a synopsis, key messages, and supporting data. (Gemini in Docs)\nThis gives you a starting point to pull in additional information from your files. You prompt Gemini in the Docs \nside panel and tag your relevant files by typing @file name. You type:\nCraft a synopsis of the product launch in three main points using @[Product Launch - Notes]. \n(Gemini in Docs)\nYou click Insert before repeating the process to fill out the rest of the briefing document. Next, you need to \ncreate a spreadsheet of media and analyst contacts. You open a new Google Sheet and prompt Gemini in the \nSheets side panel. You type: \nOrganize my media and analyst contacts from @[Analyst and Journalist Contact Notes] for a new product \nbriefing. I need to keep track of their names, type of contact (analyst or journalist), focus area, the name \nof the outlet, agency or firm that they work for, and a place where I can indicate the priority level of their \nattendance at this briefing (low, medium, high). (Gemini in Sheets)\nGemini in Sheets returns a spreadsheet, and you can go through and indicate priority level for each contact. \nNext, you want to create a slideshow to use during the briefing. You open a new Google Slide and prompt Gemini \nin the Slides side panel. You tag relevant files by typing @file name in the prompt. You type:\nCreate a slide describing what [product] is from @[Product Launch - Notes]. Make sure it is short and \neasily understood by a broad audience. (Gemini in Slides)\nNEW",
+      "promptZh": "11\nNow you have a starting place for the press release, but you want to include more details about the brand that is \nbeing acquired and its founder. This information is stored in your Drive in another file. In the press release Doc,  \nyou prompt Gemini in the Docs side panel. You type:\n Use @[Biography and Mission Statement]  to add more information about the company that is being \nacquired, its mission, and how it got started.  (Gemini in Docs)\nThe generated paragraphs are a good starting place, so you select Insert to add them into your draft, and you \nbegin making edits to the press release.\nExample use cases\nAnalyst and public relations\nUse case: Prepare for analyst or press briefings\nYou need to create a brief to prepare a spokesperson for an upcoming meeting with analysts and the media  \nfor a new product launch. You open a new Doc and prompt Gemini in the Docs side panel. You type:\nGenerate a brief template to prepare [spokesperson] for an upcoming media and analyst briefing for  \n@[Product Launch]. Include space for a synopsis, key messages, and supporting data. (Gemini in Docs)\nThis gives you a starting point to pull in additional information from your files. You prompt Gemini in the Docs \nside panel and tag your relevant files by typing @file name. You type:\nCraft a synopsis of the product launch in three main points using @[Product Launch - Notes]. \n(Gemini in Docs)\nYou click Insert before repeating the process to fill out the rest of the briefing document. Next, you need to \ncreate a spreadsheet of media and analyst contacts. You open a new Google Sheet and prompt Gemini in the \nSheets side panel. You type: \nOrganize my media and analyst contacts from @[Analyst and Journalist Contact Notes] for a new product \nbriefing. I need to keep track of their names, type of contact (analyst or journalist), focus area, the name \nof the outlet, agency or firm that they work for, and a place where I can indicate the priority level of their \nattendance at this briefing (low, medium, high). (Gemini in Sheets)\nGemini in Sheets returns a spreadsheet, and you can go through and indicate priority level for each contact. \nNext, you want to create a slideshow to use during the briefing. You open a new Google Slide and prompt Gemini \nin the Slides side panel. You tag relevant files by typing @file name in the prompt. You type:\nCreate a slide describing what [product] is from @[Product Launch - Notes]. Make sure it is short and \neasily understood by a broad audience. (Gemini in Slides)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 11,
+      "keywords": [
+        "Communications",
+        "page 11",
+        "Prepare for analyst or press briefings"
+      ]
+    },
+    {
+      "id": "page-12",
+      "category": "communications",
+      "title": "Create mock interview questions to prepare spokespeople",
+      "titleZh": "第 12 頁 · Create mock interview questions to prepare spokespeople",
+      "summary": "Exact PDF text from page 12 in the Communications section.",
+      "summaryZh": "PDF Communications 章節第 12 頁原文。",
+      "prompt": "12\nGemini returns a Slide. You continue to build your presentation by using this method to generate  \nadditional Slides.\nUse case: Create mock interview questions to prepare spokespeople\nNow, you need to prepare your company’s spokesperson for interviews that will follow the briefing. To generate \na list of mock interview questions, you decide to chat with Gemini Advanced. You type:\nI am a [PR/AR] manager at [company name]. We just launched [product] and had a briefing where we \ndiscussed [key messages]. I am preparing [spokesperson and role/title] for interviews. Generate a \nlist of mock interview questions to help [spokesperson] prepare. Include a mixture of easy and hard \nquestions, with some asking about the basics of [product] and some asking about the long-term vision \nof [product]. (Gemini Advanced)\nGemini returns a list of questions that can help you prepare your company’s spokesperson. You refine the \nsuggested questions by continuing the conversation with Gemini. Then you select Share & export and Export \nto Docs. You open the newly created Doc, prompt Gemini in the Docs side panel, and tag relevant files by typing \n@file name. You type:\nUse @[Product Launch Notes] to write suggested answers for these questions. Write the talking points  \nas if you are [title of spokesperson] at [company]. (Gemini in Docs)\nGemini in Docs returns suggested talking points, and you select Insert to add them into your draft. Now you’re \nready to continue tweaking the interview prep for your spokesperson.\nCommunications manager\nUse case: Craft internal communications\nYour company has redesigned its intranet to be more user friendly. You’re in charge of internal communications \nfor the launch. You want help drafting this message. You open a new Google Doc and prompt Gemini in the Docs \nside panel. You type:\nI need to draft a company-wide memo unveiling our relaunched intranet. The [new page] addresses \n[common feedback we heard from employees] and aims to create a more user friendly experience.  \nDraft an upbeat memo announcing [the new site] using @[Intranet Launch Plan Notes]. (Gemini in Docs)\nGemini in Docs returns a drafted memo. You refine and edit the text to be exactly as you need it. \nNEW\nNEW",
+      "promptZh": "12\nGemini returns a Slide. You continue to build your presentation by using this method to generate  \nadditional Slides.\nUse case: Create mock interview questions to prepare spokespeople\nNow, you need to prepare your company’s spokesperson for interviews that will follow the briefing. To generate \na list of mock interview questions, you decide to chat with Gemini Advanced. You type:\nI am a [PR/AR] manager at [company name]. We just launched [product] and had a briefing where we \ndiscussed [key messages]. I am preparing [spokesperson and role/title] for interviews. Generate a \nlist of mock interview questions to help [spokesperson] prepare. Include a mixture of easy and hard \nquestions, with some asking about the basics of [product] and some asking about the long-term vision \nof [product]. (Gemini Advanced)\nGemini returns a list of questions that can help you prepare your company’s spokesperson. You refine the \nsuggested questions by continuing the conversation with Gemini. Then you select Share & export and Export \nto Docs. You open the newly created Doc, prompt Gemini in the Docs side panel, and tag relevant files by typing \n@file name. You type:\nUse @[Product Launch Notes] to write suggested answers for these questions. Write the talking points  \nas if you are [title of spokesperson] at [company]. (Gemini in Docs)\nGemini in Docs returns suggested talking points, and you select Insert to add them into your draft. Now you’re \nready to continue tweaking the interview prep for your spokesperson.\nCommunications manager\nUse case: Craft internal communications\nYour company has redesigned its intranet to be more user friendly. You’re in charge of internal communications \nfor the launch. You want help drafting this message. You open a new Google Doc and prompt Gemini in the Docs \nside panel. You type:\nI need to draft a company-wide memo unveiling our relaunched intranet. The [new page] addresses \n[common feedback we heard from employees] and aims to create a more user friendly experience.  \nDraft an upbeat memo announcing [the new site] using @[Intranet Launch Plan Notes]. (Gemini in Docs)\nGemini in Docs returns a drafted memo. You refine and edit the text to be exactly as you need it. \nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 12,
+      "keywords": [
+        "Communications",
+        "page 12",
+        "Create mock interview questions to prepare spokespeople",
+        "Craft internal communications"
+      ]
+    },
+    {
+      "id": "page-13",
+      "category": "customer-service",
+      "title": "Draft customer communications",
+      "titleZh": "第 13 頁 · Draft customer communications",
+      "summary": "Exact PDF text from page 13 in the Customer Service section.",
+      "summaryZh": "PDF Customer Service 章節第 13 頁原文。",
+      "prompt": "13\nCustomer service\nAs a customer service professional, you strive \nto deliver service that’s effortlessly efficient, \nconsistently delightful, and powered by a \nproactive, helpful team. This section provides  \nyou with simple ways to integrate prompts in  \nyour daily tasks.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Draft customer communications\nYou’re a customer service representative, and you’re responsible for responding directly to customer inquiries \nand concerns. You just received an email from a customer who received damaged goods. You open a new \nGoogle Doc and click on Help me write to prompt Gemini in Docs. Type the following:\n Help me craft an empathetic email response.  I am a customer service representative,  and I need to  \n create a response to a customer complaint.  The customer ordered a pair of headphones that arrived  \n damaged. They’ve already contacted us via email and provided pictures of the damage. I’ve offered a  \n replacement, but they’re requesting an expedited shipping option that isn’t typically included with their  \n order.  Include a paragraph that acknowledges their frustration and three bullet points with potential  \n resolutions.  (Gemini in Docs) \n•  Persona •  Task •  Context •  Format \nGemini in Docs: [Drafts email copy]\nYou like the email that Gemini in Docs created so you select Insert. But you want to brainstorm ways to resolve \nthe issue without offering expedited shipping. You prompt by selecting Help me write. You type: \n Suggest 10 alternative options  in place of expedited shipping to resolve the customer’s frustration \nabout receiving the damaged package.  (Gemini in Docs)",
+      "promptZh": "13\nCustomer service\nAs a customer service professional, you strive \nto deliver service that’s effortlessly efficient, \nconsistently delightful, and powered by a \nproactive, helpful team. This section provides  \nyou with simple ways to integrate prompts in  \nyour daily tasks.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Draft customer communications\nYou’re a customer service representative, and you’re responsible for responding directly to customer inquiries \nand concerns. You just received an email from a customer who received damaged goods. You open a new \nGoogle Doc and click on Help me write to prompt Gemini in Docs. Type the following:\n Help me craft an empathetic email response.  I am a customer service representative,  and I need to  \n create a response to a customer complaint.  The customer ordered a pair of headphones that arrived  \n damaged. They’ve already contacted us via email and provided pictures of the damage. I’ve offered a  \n replacement, but they’re requesting an expedited shipping option that isn’t typically included with their  \n order.  Include a paragraph that acknowledges their frustration and three bullet points with potential  \n resolutions.  (Gemini in Docs) \n•  Persona •  Task •  Context •  Format \nGemini in Docs: [Drafts email copy]\nYou like the email that Gemini in Docs created so you select Insert. But you want to brainstorm ways to resolve \nthe issue without offering expedited shipping. You prompt by selecting Help me write. You type: \n Suggest 10 alternative options  in place of expedited shipping to resolve the customer’s frustration \nabout receiving the damaged package.  (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 13,
+      "keywords": [
+        "Customer Service",
+        "page 13",
+        "Draft customer communications"
+      ]
+    },
+    {
+      "id": "page-14",
+      "category": "customer-service",
+      "title": "Respond to complex customer issues using FAQ documents",
+      "titleZh": "第 14 頁 · Respond to complex customer issues using FAQ documents",
+      "summary": "Exact PDF text from page 14 in the Customer Service section.",
+      "summaryZh": "PDF Customer Service 章節第 14 頁原文。",
+      "prompt": "14\nGemini in Docs: [List of alternative solutions] \nThese 10 suggestions are helpful. You click Insert to add the text into your draft.\nExample use cases\nCustomer Service Manager or Representative \nUse case: Respond to complex customer issues using FAQ documents\nA customer has reached out with a multi-part, complex question. You need to find and use information that is \nspread across multiple documents in order to respond accurately. You prompt Gemini in the Drive side panel. \nYou type:\nSummarize information about [product name] including the product’s specific [return policy], \n[ingredients], and [certifications]. (Gemini in Drive)\nGemini returns a summary and links to relevant files, which you can directly click into from the side panel.  \nYou read the information before returning to your email to generate a response to the customer. You open the \nmessage and prompt Gemini in the Gmail side panel and tag relevant files by typing @file name. You type:\nGenerate a response to the customer question about our [return policy] and [product certifications] \nbased on @[Customer FAQ Document]. Use a helpful and professional tone. (Gemini in Gmail) \nUse case: Standardize communication frameworks \nYou’re a customer service team manager. You need to create scalable resources to standardize your team’s \ncommunications. You open a new Google Doc. You brainstorm by prompting Gemini in the Docs side panel.  \nYou type: \nDraft templates for three different types of customer communication. Create templates for apology \nemails, order confirmation messages, and thank you notes for loyal customers. Keep each template to  \none paragraph and use a friendly tone. (Gemini in Docs) \nThe suggested templates offer a starting point for you to begin editing and personalizing with elements \nconsistent with your company’s brand and policies. Now you want to outline your team’s communication best \npractices for onboarding. You open a new Doc and prompt Gemini in Docs. You type:\nCraft a list of customer communication best practices that can be used to train new team members. \nOutline three sections, including how to handle happy customer inquiries, neutral customer inquiries,  \nand dissatisfied customer inquiries. (Gemini in Docs) \nNEW",
+      "promptZh": "14\nGemini in Docs: [List of alternative solutions] \nThese 10 suggestions are helpful. You click Insert to add the text into your draft.\nExample use cases\nCustomer Service Manager or Representative \nUse case: Respond to complex customer issues using FAQ documents\nA customer has reached out with a multi-part, complex question. You need to find and use information that is \nspread across multiple documents in order to respond accurately. You prompt Gemini in the Drive side panel. \nYou type:\nSummarize information about [product name] including the product’s specific [return policy], \n[ingredients], and [certifications]. (Gemini in Drive)\nGemini returns a summary and links to relevant files, which you can directly click into from the side panel.  \nYou read the information before returning to your email to generate a response to the customer. You open the \nmessage and prompt Gemini in the Gmail side panel and tag relevant files by typing @file name. You type:\nGenerate a response to the customer question about our [return policy] and [product certifications] \nbased on @[Customer FAQ Document]. Use a helpful and professional tone. (Gemini in Gmail) \nUse case: Standardize communication frameworks \nYou’re a customer service team manager. You need to create scalable resources to standardize your team’s \ncommunications. You open a new Google Doc. You brainstorm by prompting Gemini in the Docs side panel.  \nYou type: \nDraft templates for three different types of customer communication. Create templates for apology \nemails, order confirmation messages, and thank you notes for loyal customers. Keep each template to  \none paragraph and use a friendly tone. (Gemini in Docs) \nThe suggested templates offer a starting point for you to begin editing and personalizing with elements \nconsistent with your company’s brand and policies. Now you want to outline your team’s communication best \npractices for onboarding. You open a new Doc and prompt Gemini in Docs. You type:\nCraft a list of customer communication best practices that can be used to train new team members. \nOutline three sections, including how to handle happy customer inquiries, neutral customer inquiries,  \nand dissatisfied customer inquiries. (Gemini in Docs) \nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 14,
+      "keywords": [
+        "Customer Service",
+        "page 14",
+        "Respond to complex customer issues using FAQ documents",
+        "Standardize communication frameworks"
+      ]
+    },
+    {
+      "id": "page-15",
+      "category": "customer-service",
+      "title": "Improve customer service",
+      "titleZh": "第 15 頁 · Improve customer service",
+      "summary": "Exact PDF text from page 15 in the Customer Service section.",
+      "summaryZh": "PDF Customer Service 章節第 15 頁原文。",
+      "prompt": "15\nYou also want to support the team with standardized language that they can use when interacting with \ncustomers on phone calls. You prompt Gemini Advanced:\nI am a [customer service manager]. I am trying to create standardized language that the team can \nuse when interacting with customers on phone calls. Generate templates for common call openings, \ngreetings, and closures for a customer service representative at a retail store. These templates should \nallow for personalization with customer details. The goal is to ensure consistency and professionalism \nwhile allowing for differentiation with specific customer information. (Gemini Advanced) \nUse case: Improve customer service\nYou’ve noticed an uptick in customer complaints. You need to collaborate across departments to address \nrecurring issues. You prompt Gemini in Gmail. You type: \nDraft an email to my colleagues proposing a meeting to discuss customer experience improvement \ninitiatives. Request that marketing, sales, and product stakeholders meet in the next week to get a clear \nsense of roles and responsibilities. (Gemini in Gmail) \nYou edit the email and send it to your colleagues. Now you want to create a spreadsheet that you can use to \ntrack progress on this cross-departmental initiative. You open a Google Sheet and prompt Gemini in the Sheets \nside panel. You type: \nCreate a table to track the progress and impact of different customer experience improvement tactics \nusing relevant metrics, including support ticket volume and priority level (high, medium, low). \n(Gemini in Sheets)\nCustomer Support Specialist\nUse case: Analyze customer feedback\nYou have a spreadsheet that tracks customer feedback. You want to analyze it and brainstorm potential reasons \nfor the trends. You chat with Gemini Advanced. You upload the file and type:\nI am a customer support specialist. Using the attached spreadsheet, identify trends and patterns in our \n[customer feedback] by [category] over [time period]. Identify areas where [customer outreach] has \nincreased significantly and investigate potential reasons. (Gemini Advanced)\nNEW",
+      "promptZh": "15\nYou also want to support the team with standardized language that they can use when interacting with \ncustomers on phone calls. You prompt Gemini Advanced:\nI am a [customer service manager]. I am trying to create standardized language that the team can \nuse when interacting with customers on phone calls. Generate templates for common call openings, \ngreetings, and closures for a customer service representative at a retail store. These templates should \nallow for personalization with customer details. The goal is to ensure consistency and professionalism \nwhile allowing for differentiation with specific customer information. (Gemini Advanced) \nUse case: Improve customer service\nYou’ve noticed an uptick in customer complaints. You need to collaborate across departments to address \nrecurring issues. You prompt Gemini in Gmail. You type: \nDraft an email to my colleagues proposing a meeting to discuss customer experience improvement \ninitiatives. Request that marketing, sales, and product stakeholders meet in the next week to get a clear \nsense of roles and responsibilities. (Gemini in Gmail) \nYou edit the email and send it to your colleagues. Now you want to create a spreadsheet that you can use to \ntrack progress on this cross-departmental initiative. You open a Google Sheet and prompt Gemini in the Sheets \nside panel. You type: \nCreate a table to track the progress and impact of different customer experience improvement tactics \nusing relevant metrics, including support ticket volume and priority level (high, medium, low). \n(Gemini in Sheets)\nCustomer Support Specialist\nUse case: Analyze customer feedback\nYou have a spreadsheet that tracks customer feedback. You want to analyze it and brainstorm potential reasons \nfor the trends. You chat with Gemini Advanced. You upload the file and type:\nI am a customer support specialist. Using the attached spreadsheet, identify trends and patterns in our \n[customer feedback] by [category] over [time period]. Identify areas where [customer outreach] has \nincreased significantly and investigate potential reasons. (Gemini Advanced)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 15,
+      "keywords": [
+        "Customer Service",
+        "page 15",
+        "Improve customer service",
+        "Analyze customer feedback"
+      ]
+    },
+    {
+      "id": "page-16",
+      "category": "customer-service",
+      "title": "Enable customer self-service",
+      "titleZh": "第 16 頁 · Enable customer self-service",
+      "summary": "Exact PDF text from page 16 in the Customer Service section.",
+      "summaryZh": "PDF Customer Service 章節第 16 頁原文。",
+      "prompt": "16\nUse case: Enable customer self-service\nCustomer feedback has consistently said your return policy guidelines are unclear. You open a Doc that states \nthe return, refund, and store credit policies. You prompt Gemini in Docs by selecting Help me write. You type: \nSummarize this content to write a clear and concise product return policy and outline 5 steps for \ncustomers to take in sequential order. (Gemini Docs) \nYou like how simple the steps are. You repeat the process for your refund policy and store credit policy. Now, \nyou want to use the newly simplified content to create a blog post for customers. Using your Google Doc with \nthe newly written guidance, you prompt Gemini in Google Docs. You type:\nTake this content and turn it into a short blog with the title “Resolve Common Issues Without Agent \nAssistance.” Have separate sections for our return policy, our refund policy, and our store credit policy. \n(Gemini in Docs)\nNow you want to create an email template that the team can use when they receive customer questions around \nthese three areas. You open a new Google Doc and prompt Gemini in Docs using Help me write. You type: \nDraft an email template to a customer that highlights self-service resources referencing [blog link] for \n[support issues]. Thank the customer for their business and assure them of our commitment to meeting \ntheir needs. (Gemini in Docs)\nUse case: Conduct voice of the customer research \nYou want to email a dissatisfied customer to attempt to make things right. You open an email that includes a \ncustomer complaint. You prompt Gemini in Gmail by selecting Help me write. You type:\nRequest a follow-up conversation on [date] at [time] with this customer who provided negative feedback \nto understand their concern and offer resolutions. Include example solutions. (Gemini in Gmail) \nThe drafted response is a nice start, but you want to refine the language. You iterate by prompting Gemini  \nin Gmail using Refine and Elaborate. Next, you want to create a short survey that you can send after each  \nfollow-up customer call. You open a new Google Doc and prompt Gemini in Docs. You type: \nCreate five different questions to customers who have just spoken to an agent on the phone. Questions \nshould gauge how effective the call was, if the customer’s concern was addressed, and if they would \nrecommend our business to others. (Gemini in Docs)",
+      "promptZh": "16\nUse case: Enable customer self-service\nCustomer feedback has consistently said your return policy guidelines are unclear. You open a Doc that states \nthe return, refund, and store credit policies. You prompt Gemini in Docs by selecting Help me write. You type: \nSummarize this content to write a clear and concise product return policy and outline 5 steps for \ncustomers to take in sequential order. (Gemini Docs) \nYou like how simple the steps are. You repeat the process for your refund policy and store credit policy. Now, \nyou want to use the newly simplified content to create a blog post for customers. Using your Google Doc with \nthe newly written guidance, you prompt Gemini in Google Docs. You type:\nTake this content and turn it into a short blog with the title “Resolve Common Issues Without Agent \nAssistance.” Have separate sections for our return policy, our refund policy, and our store credit policy. \n(Gemini in Docs)\nNow you want to create an email template that the team can use when they receive customer questions around \nthese three areas. You open a new Google Doc and prompt Gemini in Docs using Help me write. You type: \nDraft an email template to a customer that highlights self-service resources referencing [blog link] for \n[support issues]. Thank the customer for their business and assure them of our commitment to meeting \ntheir needs. (Gemini in Docs)\nUse case: Conduct voice of the customer research \nYou want to email a dissatisfied customer to attempt to make things right. You open an email that includes a \ncustomer complaint. You prompt Gemini in Gmail by selecting Help me write. You type:\nRequest a follow-up conversation on [date] at [time] with this customer who provided negative feedback \nto understand their concern and offer resolutions. Include example solutions. (Gemini in Gmail) \nThe drafted response is a nice start, but you want to refine the language. You iterate by prompting Gemini  \nin Gmail using Refine and Elaborate. Next, you want to create a short survey that you can send after each  \nfollow-up customer call. You open a new Google Doc and prompt Gemini in Docs. You type: \nCreate five different questions to customers who have just spoken to an agent on the phone. Questions \nshould gauge how effective the call was, if the customer’s concern was addressed, and if they would \nrecommend our business to others. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 16,
+      "keywords": [
+        "Customer Service",
+        "page 16",
+        "Enable customer self-service",
+        "Conduct voice of the customer research"
+      ]
+    },
+    {
+      "id": "page-17",
+      "category": "executives",
+      "title": "Communicate on the go",
+      "titleZh": "第 17 頁 · Communicate on the go",
+      "summary": "Exact PDF text from page 17 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 17 頁原文。",
+      "prompt": "17\nExecutives\nAs an executive, your time is incredibly \nconstrained. Every decision you make can impact \ngrowth, innovation, and the trajectory of your \nbusiness. Understanding your market and making \ninformed, strategic decisions is paramount, and \nso is getting urgent tasks done while you’re on \nthe go.\nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \n \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Communicate on the go\nYou are an executive about to board a long flight, and you just received an invitation for the next board meeting \nwith an agenda. You have a couple of comments, and you want to propose adding a few topics to the agenda. \nYou open Gmail, and you prompt Gemini in Gmail. You type: \n Draft an email  confirming that I will be at the board meeting.  Ask if we can adjust the agenda to give 15  \n minutes to [urgent topics].  (Gemini in Gmail)\n•  Persona •  Task •  Context •  Format \nGemini in Gmail: [Drafts an email]\nThe email looks good, but you want to make sure the tone is as formal as possible. You select Refine  \nand Formalize.\nGemini in Gmail: [Formalizes tone]",
+      "promptZh": "17\nExecutives\nAs an executive, your time is incredibly \nconstrained. Every decision you make can impact \ngrowth, innovation, and the trajectory of your \nbusiness. Understanding your market and making \ninformed, strategic decisions is paramount, and \nso is getting urgent tasks done while you’re on \nthe go.\nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \n \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Communicate on the go\nYou are an executive about to board a long flight, and you just received an invitation for the next board meeting \nwith an agenda. You have a couple of comments, and you want to propose adding a few topics to the agenda. \nYou open Gmail, and you prompt Gemini in Gmail. You type: \n Draft an email  confirming that I will be at the board meeting.  Ask if we can adjust the agenda to give 15  \n minutes to [urgent topics].  (Gemini in Gmail)\n•  Persona •  Task •  Context •  Format \nGemini in Gmail: [Drafts an email]\nThe email looks good, but you want to make sure the tone is as formal as possible. You select Refine  \nand Formalize.\nGemini in Gmail: [Formalizes tone]",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 17,
+      "keywords": [
+        "Executives",
+        "page 17",
+        "Communicate on the go"
+      ]
+    },
+    {
+      "id": "page-18",
+      "category": "executives",
+      "title": "Enhance personal productivity and time management",
+      "titleZh": "第 18 頁 · Enhance personal productivity and time management",
+      "summary": "Exact PDF text from page 18 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 18 頁原文。",
+      "prompt": "18\nYou read the email and select Insert. Before sending it, you make a light edit to thank the team for keeping you \non track while traveling.\nExample use cases\nChief Executive Officer\nUse case: Enhance personal productivity and time management\nYou have important email threads that have numerous responses. You need to quickly catch up. You open \nthe message in Gmail and read the automatically generated summary from Gemini in the Gmail side panel. To \nrespond, you prompt Gemini in the Gmail side panel and tag relevant files by typing @file name. You type: \nGenerate a response to [person] about [topic]. Include details on [deliverable] and [timeline] using \n@[Project A Status Report]. (Gemini in Gmail)\nUse case: Create outlines of presentations in seconds \nYour team will pull together a presentation for you, and you want to provide an outline to get them started. You \nwant to generate an outline using Gemini Advanced. You select the microphone icon and use your voice to \nprompt. You say: \nI’m the CEO giving a presentation to [audience] at [event], and I want to create a detailed outline for \nmy team to get started. I want to include a few important topics, including [areas of focus] and how \nour company is innovating with [company initiatives]. I’m envisioning time for a customer Q&A to end \nthe presentation. Include suggested questions we could ask of a customer from the [industry] industry \nabout how they are using our [product] to achieve [business outcome]. (Gemini Advanced)\nChief Operating Officer\nUse case: Prepare challenging employee communications \nYou’re hosting a quarterly town hall meeting with the entire company. You want to write uplifting remarks to open \nthe meeting. You open a new Doc and prompt Gemini in the Docs side panel. You type: \nWrite two uplifting paragraphs for employees who have just finished a challenging quarter. Acknowledge \n[difficulties] and emphasize [positives] for the upcoming quarter. Use a tone that is motivating, \noptimistic, and fosters a sense of unity and collaboration. (Gemini in Docs) \nNEW\nNEW",
+      "promptZh": "18\nYou read the email and select Insert. Before sending it, you make a light edit to thank the team for keeping you \non track while traveling.\nExample use cases\nChief Executive Officer\nUse case: Enhance personal productivity and time management\nYou have important email threads that have numerous responses. You need to quickly catch up. You open \nthe message in Gmail and read the automatically generated summary from Gemini in the Gmail side panel. To \nrespond, you prompt Gemini in the Gmail side panel and tag relevant files by typing @file name. You type: \nGenerate a response to [person] about [topic]. Include details on [deliverable] and [timeline] using \n@[Project A Status Report]. (Gemini in Gmail)\nUse case: Create outlines of presentations in seconds \nYour team will pull together a presentation for you, and you want to provide an outline to get them started. You \nwant to generate an outline using Gemini Advanced. You select the microphone icon and use your voice to \nprompt. You say: \nI’m the CEO giving a presentation to [audience] at [event], and I want to create a detailed outline for \nmy team to get started. I want to include a few important topics, including [areas of focus] and how \nour company is innovating with [company initiatives]. I’m envisioning time for a customer Q&A to end \nthe presentation. Include suggested questions we could ask of a customer from the [industry] industry \nabout how they are using our [product] to achieve [business outcome]. (Gemini Advanced)\nChief Operating Officer\nUse case: Prepare challenging employee communications \nYou’re hosting a quarterly town hall meeting with the entire company. You want to write uplifting remarks to open \nthe meeting. You open a new Doc and prompt Gemini in the Docs side panel. You type: \nWrite two uplifting paragraphs for employees who have just finished a challenging quarter. Acknowledge \n[difficulties] and emphasize [positives] for the upcoming quarter. Use a tone that is motivating, \noptimistic, and fosters a sense of unity and collaboration. (Gemini in Docs) \nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 18,
+      "keywords": [
+        "Executives",
+        "page 18",
+        "Enhance personal productivity and time management",
+        "Create outlines of presentations in seconds",
+        "Prepare challenging employee communications"
+      ]
+    },
+    {
+      "id": "page-19",
+      "category": "executives",
+      "title": "Streamline responses on the go",
+      "titleZh": "第 19 頁 · Streamline responses on the go",
+      "summary": "Exact PDF text from page 19 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 19 頁原文。",
+      "prompt": "19\nYou want to brainstorm and practice how you will respond empathetically to potentially tough questions. You go \nto Gemini Advanced and type:\nI’m the COO of a mid-sized company. I am hosting a quarterly town hall meeting with the entire \ncompany. I want to brainstorm and practice how I will respond to potentially tough questions. Help me \nwrite challenging questions that employees may ask at the upcoming town hall about [URL of company \nannouncement]. Generate potential answers for each question that use a confident but firm tone. The \nresponses should acknowledge the concern and let the employees know that we are striving to do our \nbest for the entire company. (Gemini Advanced) \nUse case: Streamline responses on the go \nYour plans have changed, and you can’t attend a meeting. You need to provide the team with answers on a  \nfew key items. You open Gmail and use a voice command to prompt Gemini in Gmail. You say:\nDraft an email to [project lead] letting them know I will not be in the meeting due to an urgent matter.  \nAsk them to take detailed notes and to ensure the team arrives at a decision on [key topic] in addition  \nto assigning ownership of the postmortem report to [colleague]. (Gemini in Gmail) \nChief Marketing Officer\nUse case: Perform market research and campaign planning\nYou’re starting annual planning. You want to conduct research on your target audience. You chat with Gemini \nAdvanced. You type:\nI’m a marketing leader conducting analysis in preparation for next year’s [launch]. Define my target \naudiences [audiences], for my new line of [product]. Include interests, relevant marketing channels, and \ntop trends that drive their consideration and purchase behavior. (Gemini Advanced)\nNext, you export your findings to a Doc by selecting Share & export and Export to Docs. Now, you want to pull \nin relevant data from your own files by typing @file name. You prompt Gemini in the Docs side panel. You type:\nBrainstorm value props for my [target audiences] based on features from @[Product Requirements \nDocument]. Include a section on campaign learnings from @[Campaign Performance]. (Gemini in Docs)\nNEW",
+      "promptZh": "19\nYou want to brainstorm and practice how you will respond empathetically to potentially tough questions. You go \nto Gemini Advanced and type:\nI’m the COO of a mid-sized company. I am hosting a quarterly town hall meeting with the entire \ncompany. I want to brainstorm and practice how I will respond to potentially tough questions. Help me \nwrite challenging questions that employees may ask at the upcoming town hall about [URL of company \nannouncement]. Generate potential answers for each question that use a confident but firm tone. The \nresponses should acknowledge the concern and let the employees know that we are striving to do our \nbest for the entire company. (Gemini Advanced) \nUse case: Streamline responses on the go \nYour plans have changed, and you can’t attend a meeting. You need to provide the team with answers on a  \nfew key items. You open Gmail and use a voice command to prompt Gemini in Gmail. You say:\nDraft an email to [project lead] letting them know I will not be in the meeting due to an urgent matter.  \nAsk them to take detailed notes and to ensure the team arrives at a decision on [key topic] in addition  \nto assigning ownership of the postmortem report to [colleague]. (Gemini in Gmail) \nChief Marketing Officer\nUse case: Perform market research and campaign planning\nYou’re starting annual planning. You want to conduct research on your target audience. You chat with Gemini \nAdvanced. You type:\nI’m a marketing leader conducting analysis in preparation for next year’s [launch]. Define my target \naudiences [audiences], for my new line of [product]. Include interests, relevant marketing channels, and \ntop trends that drive their consideration and purchase behavior. (Gemini Advanced)\nNext, you export your findings to a Doc by selecting Share & export and Export to Docs. Now, you want to pull \nin relevant data from your own files by typing @file name. You prompt Gemini in the Docs side panel. You type:\nBrainstorm value props for my [target audiences] based on features from @[Product Requirements \nDocument]. Include a section on campaign learnings from @[Campaign Performance]. (Gemini in Docs)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 19,
+      "keywords": [
+        "Executives",
+        "page 19",
+        "Streamline responses on the go",
+        "Perform market research and campaign planning"
+      ]
+    },
+    {
+      "id": "page-20",
+      "category": "executives",
+      "title": "Brainstorm content and thought leadership",
+      "titleZh": "第 20 頁 · Brainstorm content and thought leadership",
+      "summary": "Exact PDF text from page 20 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 20 頁原文。",
+      "prompt": "20\nUse case: Brainstorm content and thought leadership \nYou finished a meeting with your social media team leads. You took notes in a Doc about what resonates with \nyour audience, trending topics, target audience data, and keywords that are effective in driving engagement \nwith your brand. You want to brainstorm potential thought leadership pieces using these insights. You prompt \nGemini in the Docs side panel. You type: \nGenerate a list of four relevant and engaging thought leadership blog post ideas for [company] based \non trending topics, target audience analysis, and brand keywords. (Gemini in Docs) \nDuring the same conversation, the team discussed launching a new brand campaign. You know that your \ncustomers value your reliable and unique services, and your company has a long history of delivering for \ncustomers. You need help getting started with ideas on a new campaign tagline. You open a new Google Doc \nand select Help me write. You type:\nGenerate three options for a new slogan emphasizing reliability, innovation, and a long history of \npopularity for [company]. (Gemini in Docs) \nThe slogans help you get started with the creative process. You have upcoming events that could be the perfect \nplace to test elements of a new campaign. You want to mock up ideas for booth graphics for your events team. \nYou open a new presentation in Google Slides and select Create image with Gemini. You type: \nCreate an image of a trade show booth using orange and blue colors. The booth should be modern and \nshowcase interactive computer stations. (Gemini in Slides)\nUse case: Conduct competitive analysis\nYour team is considering expanding into a new line of business. To research, you go to Gemini Advanced, and \nyou type:\nI am a CMO conducting a competitive analysis. My company is considering expanding into [a new line of \nbusiness]. Generate a list of the top five competitors in the [industry] industry and include their pricing, \nstrengths, weaknesses, and target audience. (Gemini Advanced) \nAfter going deeper in your research, you decide to create a five-year strategy to see what this could look like for \nthe company. You type:\nOkay, I am going to try to convince my CEO that we should expand into [line of business]. Draft a \nconcise, competitive strategy outline for the next five years for the [industry] industry across North \nAmerica markets with potential goals, strategies, and tactics. (Gemini Advanced) \nAfter iterating to generate an appropriate outline, you fill in additional details and thoughts to make the \ndocument your own.",
+      "promptZh": "20\nUse case: Brainstorm content and thought leadership \nYou finished a meeting with your social media team leads. You took notes in a Doc about what resonates with \nyour audience, trending topics, target audience data, and keywords that are effective in driving engagement \nwith your brand. You want to brainstorm potential thought leadership pieces using these insights. You prompt \nGemini in the Docs side panel. You type: \nGenerate a list of four relevant and engaging thought leadership blog post ideas for [company] based \non trending topics, target audience analysis, and brand keywords. (Gemini in Docs) \nDuring the same conversation, the team discussed launching a new brand campaign. You know that your \ncustomers value your reliable and unique services, and your company has a long history of delivering for \ncustomers. You need help getting started with ideas on a new campaign tagline. You open a new Google Doc \nand select Help me write. You type:\nGenerate three options for a new slogan emphasizing reliability, innovation, and a long history of \npopularity for [company]. (Gemini in Docs) \nThe slogans help you get started with the creative process. You have upcoming events that could be the perfect \nplace to test elements of a new campaign. You want to mock up ideas for booth graphics for your events team. \nYou open a new presentation in Google Slides and select Create image with Gemini. You type: \nCreate an image of a trade show booth using orange and blue colors. The booth should be modern and \nshowcase interactive computer stations. (Gemini in Slides)\nUse case: Conduct competitive analysis\nYour team is considering expanding into a new line of business. To research, you go to Gemini Advanced, and \nyou type:\nI am a CMO conducting a competitive analysis. My company is considering expanding into [a new line of \nbusiness]. Generate a list of the top five competitors in the [industry] industry and include their pricing, \nstrengths, weaknesses, and target audience. (Gemini Advanced) \nAfter going deeper in your research, you decide to create a five-year strategy to see what this could look like for \nthe company. You type:\nOkay, I am going to try to convince my CEO that we should expand into [line of business]. Draft a \nconcise, competitive strategy outline for the next five years for the [industry] industry across North \nAmerica markets with potential goals, strategies, and tactics. (Gemini Advanced) \nAfter iterating to generate an appropriate outline, you fill in additional details and thoughts to make the \ndocument your own.",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 20,
+      "keywords": [
+        "Executives",
+        "page 20",
+        "Brainstorm content and thought leadership",
+        "Conduct competitive analysis"
+      ]
+    },
+    {
+      "id": "page-21",
+      "category": "executives",
+      "title": "Summarize emerging technology trends",
+      "titleZh": "第 21 頁 · Summarize emerging technology trends",
+      "summary": "Exact PDF text from page 21 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 21 頁原文。",
+      "prompt": "21\nChief Technology Officer\nUse case: Summarize emerging technology trends \nYou need to catch up on emerging technology trends as the landscape is shifting quickly. You open Gemini \nAdvanced, and you type:\nI am the CTO of [company] in [industry]. I want to understand emerging technology trends. Summarize \nthe top five emerging technologies with the most significant potential impact on [industry]. For each \ntechnology, list its potential benefits and challenges, and suggest how it could impact [company] in the \nnext two to three years. (Gemini Advanced) \nYou want to dig deeper on specific topics, so you continue the conversation by typing: \nRecommend three areas where [my company] can take proactive steps to stay ahead of the curve on \n[specific areas]. (Gemini Advanced)\nChief Information Officer\nUse case: Communicate technical topics to non-technical audiences\nYou’re making the case to digitally transform your company by adopting generative AI solutions. You need to \npresent to the CEO and other leadership. You want help in communicating technical topics to non-technical \naudiences. You chat with Gemini Advanced. You type:\nI am the CIO at [company], and I am trying to build the case to [adopt generative AI solutions]. I need \nto explain the technical concept of generative AI to a non-technical audience (the CEO and board). \nHelp me write talking points that will help me convey what generative AI is, ways it could help us \ndigitally transform, and why it’s important to our growth as a company. Include details about how it \ncould potentially refocus our technical talent on more strategic work, help enhance our workforce’s \nproductivity, and help us better serve our global workforce and customers. (Gemini Advanced)\nGemini provides suggested ways to discuss the topic. You continue your brainstorm and then export your \nconversation by clicking Share & export and Export to Docs. Then, to build a presentation, you open a new \nGoogle Slide and prompt Gemini in the Slides side panel and tag relevant files by typing @file name. You type:\nI need to build a presentation to explain a technical topic to a non-technical audience. Generate  \nan [introduction slide] that [describes what generative AI is] using @[Gen AI Explanation Notes].  \n(Gemini in Slides)\nYou continue to use the same prompt, adjusting the topic to generate more slides for your presentation based \non your notes. \nNEW",
+      "promptZh": "21\nChief Technology Officer\nUse case: Summarize emerging technology trends \nYou need to catch up on emerging technology trends as the landscape is shifting quickly. You open Gemini \nAdvanced, and you type:\nI am the CTO of [company] in [industry]. I want to understand emerging technology trends. Summarize \nthe top five emerging technologies with the most significant potential impact on [industry]. For each \ntechnology, list its potential benefits and challenges, and suggest how it could impact [company] in the \nnext two to three years. (Gemini Advanced) \nYou want to dig deeper on specific topics, so you continue the conversation by typing: \nRecommend three areas where [my company] can take proactive steps to stay ahead of the curve on \n[specific areas]. (Gemini Advanced)\nChief Information Officer\nUse case: Communicate technical topics to non-technical audiences\nYou’re making the case to digitally transform your company by adopting generative AI solutions. You need to \npresent to the CEO and other leadership. You want help in communicating technical topics to non-technical \naudiences. You chat with Gemini Advanced. You type:\nI am the CIO at [company], and I am trying to build the case to [adopt generative AI solutions]. I need \nto explain the technical concept of generative AI to a non-technical audience (the CEO and board). \nHelp me write talking points that will help me convey what generative AI is, ways it could help us \ndigitally transform, and why it’s important to our growth as a company. Include details about how it \ncould potentially refocus our technical talent on more strategic work, help enhance our workforce’s \nproductivity, and help us better serve our global workforce and customers. (Gemini Advanced)\nGemini provides suggested ways to discuss the topic. You continue your brainstorm and then export your \nconversation by clicking Share & export and Export to Docs. Then, to build a presentation, you open a new \nGoogle Slide and prompt Gemini in the Slides side panel and tag relevant files by typing @file name. You type:\nI need to build a presentation to explain a technical topic to a non-technical audience. Generate  \nan [introduction slide] that [describes what generative AI is] using @[Gen AI Explanation Notes].  \n(Gemini in Slides)\nYou continue to use the same prompt, adjusting the topic to generate more slides for your presentation based \non your notes. \nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 21,
+      "keywords": [
+        "Executives",
+        "page 21",
+        "Summarize emerging technology trends",
+        "Communicate technical topics to non-technical audiences"
+      ]
+    },
+    {
+      "id": "page-22",
+      "category": "executives",
+      "title": "Research vendor products, services, and features",
+      "titleZh": "第 22 頁 · Research vendor products, services, and features",
+      "summary": "Exact PDF text from page 22 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 22 頁原文。",
+      "prompt": "22\nUse case: Research vendor products, services, and features\nYou’re working on a report to make a vendor recommendation. You visit Gemini Advanced and type:\nI am the CIO at [company]. We are currently evaluating vendor options to [replatform our intranet]. Right \nnow, we use [vendor], but we are looking to switch because [we are unhappy with limited functionality \nand account support]. Suggest additional vendor options to consider and include descriptions of their \nproduct and services and key features. (Gemini Advanced)\nUse case: Develop technical summaries \nYour team just provided a lengthy technical report. You need to summarize it for your CEO. You open the Google \nDoc with the full report, and you prompt Gemini in the Docs side panel. You type: \nSummarize the key findings and implications of this report for [audience]. Focus on the main \n[vulnerabilities] identified and the recommended actions to address them. Use a formal tone. \n(Gemini in Docs)\nYou make light edits to the summary and include it as an executive summary. \nUse case: Track IT assets\nYour company needs a quick way to track software access for new hires. You open a new Google Sheet and \nprompt Gemini in the Sheets side panel. You type: \nCreate a tracker of software licenses for employees and include columns for license types, usage rights,  \nand renewal dates. (Gemini in Sheets)\nChief Human Resources Officer\nUse case: Demonstrate employee appreciation \nYou want to set up a new program to help everyone feel included, appreciated, and acknowledged across the \norganization. To brainstorm, you open a new Google Doc and prompt Gemini in the Docs side panel. You type:\nBrainstorm 10 employee appreciation ideas based on diverse employee interests such as cooking, \ngardening, sports, reading, and traveling. (Gemini in Docs) \nGemini in Docs kick-starts your creativity, and now you have ideas for employee interest clubs and events.  \nYou also want to ensure your leadership team is regularly encouraging managers to recognize talent on their \nNEW",
+      "promptZh": "22\nUse case: Research vendor products, services, and features\nYou’re working on a report to make a vendor recommendation. You visit Gemini Advanced and type:\nI am the CIO at [company]. We are currently evaluating vendor options to [replatform our intranet]. Right \nnow, we use [vendor], but we are looking to switch because [we are unhappy with limited functionality \nand account support]. Suggest additional vendor options to consider and include descriptions of their \nproduct and services and key features. (Gemini Advanced)\nUse case: Develop technical summaries \nYour team just provided a lengthy technical report. You need to summarize it for your CEO. You open the Google \nDoc with the full report, and you prompt Gemini in the Docs side panel. You type: \nSummarize the key findings and implications of this report for [audience]. Focus on the main \n[vulnerabilities] identified and the recommended actions to address them. Use a formal tone. \n(Gemini in Docs)\nYou make light edits to the summary and include it as an executive summary. \nUse case: Track IT assets\nYour company needs a quick way to track software access for new hires. You open a new Google Sheet and \nprompt Gemini in the Sheets side panel. You type: \nCreate a tracker of software licenses for employees and include columns for license types, usage rights,  \nand renewal dates. (Gemini in Sheets)\nChief Human Resources Officer\nUse case: Demonstrate employee appreciation \nYou want to set up a new program to help everyone feel included, appreciated, and acknowledged across the \norganization. To brainstorm, you open a new Google Doc and prompt Gemini in the Docs side panel. You type:\nBrainstorm 10 employee appreciation ideas based on diverse employee interests such as cooking, \ngardening, sports, reading, and traveling. (Gemini in Docs) \nGemini in Docs kick-starts your creativity, and now you have ideas for employee interest clubs and events.  \nYou also want to ensure your leadership team is regularly encouraging managers to recognize talent on their \nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 22,
+      "keywords": [
+        "Executives",
+        "page 22",
+        "Research vendor products, services, and features",
+        "Develop technical summaries",
+        "Track IT assets",
+        "Demonstrate employee appreciation"
+      ]
+    },
+    {
+      "id": "page-23",
+      "category": "executives",
+      "title": "Assess employee satisfaction",
+      "titleZh": "第 23 頁 · Assess employee satisfaction",
+      "summary": "Exact PDF text from page 23 in the Executives section.",
+      "summaryZh": "PDF Executives 章節第 23 頁原文。",
+      "prompt": "23\nteams, so you create email templates they can use as inspiration. You prompt Gemini in Docs by selecting  \nHelp me write, and you type:\nDraft an email template that thanks [employee] for their hard work and [recent accomplishments]. Offer \nthem an extra perk for their dedication, such as [a coffee gift card]. Use an upbeat and professional tone.  \n(Gemini in Docs)\nUse case: Assess employee satisfaction\nYou want to draft an anonymous survey that allows people to openly and honestly assess how they are feeling. \nTo draft questions, you open a new Google Doc and prompt Gemini in the Docs side panel. You type: \nDraft an anonymous employee satisfaction survey with questions and answer options that touch upon \nkey areas like workload, work-life balance, compensation, and career growth opportunities. Ensure the \nquestions are clear, concise, and avoid leading answers. (Gemini in Docs) \nYou received feedback from 15 senior leaders, and you’ve gathered all of the anonymous results in a Doc.  \nYou want to create a summary that you can use in your next call. You prompt Gemini in the Docs side panel.  \nYou type:\nSummarize the results of the employee feedback to identify key themes. (Gemini in Docs)",
+      "promptZh": "23\nteams, so you create email templates they can use as inspiration. You prompt Gemini in Docs by selecting  \nHelp me write, and you type:\nDraft an email template that thanks [employee] for their hard work and [recent accomplishments]. Offer \nthem an extra perk for their dedication, such as [a coffee gift card]. Use an upbeat and professional tone.  \n(Gemini in Docs)\nUse case: Assess employee satisfaction\nYou want to draft an anonymous survey that allows people to openly and honestly assess how they are feeling. \nTo draft questions, you open a new Google Doc and prompt Gemini in the Docs side panel. You type: \nDraft an anonymous employee satisfaction survey with questions and answer options that touch upon \nkey areas like workload, work-life balance, compensation, and career growth opportunities. Ensure the \nquestions are clear, concise, and avoid leading answers. (Gemini in Docs) \nYou received feedback from 15 senior leaders, and you’ve gathered all of the anonymous results in a Doc.  \nYou want to create a summary that you can use in your next call. You prompt Gemini in the Docs side panel.  \nYou type:\nSummarize the results of the employee feedback to identify key themes. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 23,
+      "keywords": [
+        "Executives",
+        "page 23",
+        "Assess employee satisfaction"
+      ]
+    },
+    {
+      "id": "page-24",
+      "category": "frontline",
+      "title": "Find accurate information quickly",
+      "titleZh": "第 24 頁 · Find accurate information quickly",
+      "summary": "Exact PDF text from page 24 in the Frontline Management section.",
+      "summaryZh": "PDF Frontline Management 章節第 24 頁原文。",
+      "prompt": "24\nFrontline \nmanagement\nAs a frontline worker manager, your team’s work \nis indispensable to your organization — your team \nmay not primarily complete its day’s work on a \ncomputer, but communication and collaboration \nremains key. \nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Find accurate information quickly \nA customer just approached you with a question about an ongoing sale. You could use help navigating the \nnumerous files you have access to so that you find the right information quickly. You prompt Gemini in the Drive \nside panel. You type:\n Find the document  that details the [company name]’s  [holiday] sale details.  (Gemini in Drive)\nNEW\n•  Persona •  Task •  Context •  Format \nGemini in Drive returns suggested relevant files. From the side panel, you can directly summarize the files or you \ncan click into a specific document. You open a suggested Doc to help answer the question. You prompt Gemini \nin the Docs side panel. You type:\n How much can customers save on [product type] during this sale?  (Gemini in Docs)\nGemini returns a response, which helps you answer your customer’s question in a timely manner.",
+      "promptZh": "24\nFrontline \nmanagement\nAs a frontline worker manager, your team’s work \nis indispensable to your organization — your team \nmay not primarily complete its day’s work on a \ncomputer, but communication and collaboration \nremains key. \nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Find accurate information quickly \nA customer just approached you with a question about an ongoing sale. You could use help navigating the \nnumerous files you have access to so that you find the right information quickly. You prompt Gemini in the Drive \nside panel. You type:\n Find the document  that details the [company name]’s  [holiday] sale details.  (Gemini in Drive)\nNEW\n•  Persona •  Task •  Context •  Format \nGemini in Drive returns suggested relevant files. From the side panel, you can directly summarize the files or you \ncan click into a specific document. You open a suggested Doc to help answer the question. You prompt Gemini \nin the Docs side panel. You type:\n How much can customers save on [product type] during this sale?  (Gemini in Docs)\nGemini returns a response, which helps you answer your customer’s question in a timely manner.",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 24,
+      "keywords": [
+        "Frontline Management",
+        "page 24",
+        "Find accurate information quickly"
+      ]
+    },
+    {
+      "id": "page-25",
+      "category": "frontline",
+      "title": "Improve team collaboration by finding",
+      "titleZh": "第 25 頁 · Improve team collaboration by finding",
+      "summary": "Exact PDF text from page 25 in the Frontline Management section.",
+      "summaryZh": "PDF Frontline Management 章節第 25 頁原文。",
+      "prompt": "25\nExample use cases\nRetail associate\nUse case: Improve team collaboration by finding \nand sharing information easily\nYour store recently updated its return and exchange policies. To find the information, you prompt Gemini in the \nDrive side panel. You type: \nFind the document that discusses our new return and exchange policies. (Gemini in Drive) \nGemini returns suggested files that are related to the new policies. You directly click into the relevant file. Now, \nyou want to send an email summarizing the document for your colleagues’ future reference. You open your \nemail and prompt Gemini in the Gmail side panel. You type:\nWrite an email to my new colleagues summarizing @[Updated Return and Exchange Policy H2 2024]. \n(Gemini in Gmail) \nYou select Insert and further personalize the message before sending it. \nUse case: Streamline task management\nYou have a list of opening and closing duties that you must perform depending on what shift you are working. \nYou want to keep yourself organized, so you create a tracker using the duties listed in your onboarding Doc. You \nopen a new Google Sheet and prompt Gemini in the Sheets side panel and tag relevant files by typing  \n@file name. You type: \nI am a retail manager and I need to create a checklist for my opening and closing duties. Create a \ntemplate with columns for [opening and closing duties] from @[Onboarding New Hire Information]. \n(Gemini in Sheets) \nGemini creates a spreadsheet. As you go through your day, you mark different tasks as complete. You have to \nleave your shift early, but you first need to communicate to the rest of the team what still needs to be done. You \nopen your Gmail and prompt Gemini in the Gmail side panel and tag the spreadsheet you just created. You type:\nWrite an email to the team telling them what still needs to be done from the AM shift from @[Opening \nand Closing Duties Tracker]. (Gemini in Gmail)\nNEW\nNEW",
+      "promptZh": "25\nExample use cases\nRetail associate\nUse case: Improve team collaboration by finding \nand sharing information easily\nYour store recently updated its return and exchange policies. To find the information, you prompt Gemini in the \nDrive side panel. You type: \nFind the document that discusses our new return and exchange policies. (Gemini in Drive) \nGemini returns suggested files that are related to the new policies. You directly click into the relevant file. Now, \nyou want to send an email summarizing the document for your colleagues’ future reference. You open your \nemail and prompt Gemini in the Gmail side panel. You type:\nWrite an email to my new colleagues summarizing @[Updated Return and Exchange Policy H2 2024]. \n(Gemini in Gmail) \nYou select Insert and further personalize the message before sending it. \nUse case: Streamline task management\nYou have a list of opening and closing duties that you must perform depending on what shift you are working. \nYou want to keep yourself organized, so you create a tracker using the duties listed in your onboarding Doc. You \nopen a new Google Sheet and prompt Gemini in the Sheets side panel and tag relevant files by typing  \n@file name. You type: \nI am a retail manager and I need to create a checklist for my opening and closing duties. Create a \ntemplate with columns for [opening and closing duties] from @[Onboarding New Hire Information]. \n(Gemini in Sheets) \nGemini creates a spreadsheet. As you go through your day, you mark different tasks as complete. You have to \nleave your shift early, but you first need to communicate to the rest of the team what still needs to be done. You \nopen your Gmail and prompt Gemini in the Gmail side panel and tag the spreadsheet you just created. You type:\nWrite an email to the team telling them what still needs to be done from the AM shift from @[Opening \nand Closing Duties Tracker]. (Gemini in Gmail)\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 25,
+      "keywords": [
+        "Frontline Management",
+        "page 25",
+        "Improve team collaboration by finding",
+        "Streamline task management"
+      ]
+    },
+    {
+      "id": "page-26",
+      "category": "frontline",
+      "title": "Manage inventory",
+      "titleZh": "第 26 頁 · Manage inventory",
+      "summary": "Exact PDF text from page 26 in the Frontline Management section.",
+      "summaryZh": "PDF Frontline Management 章節第 26 頁原文。",
+      "prompt": "26\nWarehouse worker\nUse case: Manage inventory\nA customer wants to place a bulk order. You need to check the store’s inventory to see if you have enough to \nfulfill it. You open your inventory spreadsheet that tracks this information and prompt Gemini in the Sheets side \npanel. You type:\nHow many [units] of [product] do we have left in our inventory? (Gemini in Sheets)\nUse case: Manage audits\nYour warehouse is undergoing an inventory audit, and you’re in charge of verifying any numbers that are \nmisaligned between your inventory tracker product total and what was counted during the audit. You prompt \nGemini in the Sheets side panel. You type:\nCreate a formula that helps me calculate the difference between two columns. Which items have a \ndiscrepancy in [the total number counted] versus [the quantity on hand]? (Gemini in Sheets)\nYou verify Gemini’s response that there are only a few items whose count did not align to your inventory \ntracker’s total. You need to write a message to your supervisor telling them that you’re looking into the issue. \nYou open your Gmail and prompt Gemini in the Gmail side panel. You type:\nI’m a warehouse worker managing an audit. Write a message to my supervisor to let them know that I am \nlooking into the products whose counts are incorrect. (Gemini in Gmail)\nThe drafted email looks good to go, so you hit send after reviewing.\nNEW\nNEW",
+      "promptZh": "26\nWarehouse worker\nUse case: Manage inventory\nA customer wants to place a bulk order. You need to check the store’s inventory to see if you have enough to \nfulfill it. You open your inventory spreadsheet that tracks this information and prompt Gemini in the Sheets side \npanel. You type:\nHow many [units] of [product] do we have left in our inventory? (Gemini in Sheets)\nUse case: Manage audits\nYour warehouse is undergoing an inventory audit, and you’re in charge of verifying any numbers that are \nmisaligned between your inventory tracker product total and what was counted during the audit. You prompt \nGemini in the Sheets side panel. You type:\nCreate a formula that helps me calculate the difference between two columns. Which items have a \ndiscrepancy in [the total number counted] versus [the quantity on hand]? (Gemini in Sheets)\nYou verify Gemini’s response that there are only a few items whose count did not align to your inventory \ntracker’s total. You need to write a message to your supervisor telling them that you’re looking into the issue. \nYou open your Gmail and prompt Gemini in the Gmail side panel. You type:\nI’m a warehouse worker managing an audit. Write a message to my supervisor to let them know that I am \nlooking into the products whose counts are incorrect. (Gemini in Gmail)\nThe drafted email looks good to go, so you hit send after reviewing.\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 26,
+      "keywords": [
+        "Frontline Management",
+        "page 26",
+        "Manage inventory",
+        "Manage audits"
+      ]
+    },
+    {
+      "id": "page-27",
+      "category": "hr",
+      "title": "Welcome new employees",
+      "titleZh": "第 27 頁 · Welcome new employees",
+      "summary": "Exact PDF text from page 27 in the Human Resources section.",
+      "summaryZh": "PDF Human Resources 章節第 27 頁原文。",
+      "prompt": "27\nHuman resources\nAs an HR professional, you’re the backbone \nof your organization, and you deal with a large \nvolume of confidential and sensitive information. \nYou shape company culture, find and nurture \ntalent, and ensure a positive employee \nexperience. These are no small feats.\nThis section provides you with simple ways to \nintegrate prompts in your day-to-day tasks.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Welcome new employees\nYou’re an HR manager working on a presentation script. You have a Google Doc full of notes, bullet points, and \ntopics that you would like to cover. You begin by opening your Google Doc with notes, and you prompt Gemini  \nin Docs.\n I am an HR manager,  and I am developing a script for my presentation for new hires.  I need to create \nthe script for an onboarding presentation about our company’s commitment to employee development \nand well-being.  Help me draft talking points that showcase why employee mentorship and development \nare core values for our company using @[Mission Statement and Core Values].  (Gemini in Docs)\n•  Persona •  Task •  Context •  Format \nGemini in Docs: [Drafts talking points]",
+      "promptZh": "27\nHuman resources\nAs an HR professional, you’re the backbone \nof your organization, and you deal with a large \nvolume of confidential and sensitive information. \nYou shape company culture, find and nurture \ntalent, and ensure a positive employee \nexperience. These are no small feats.\nThis section provides you with simple ways to \nintegrate prompts in your day-to-day tasks.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Welcome new employees\nYou’re an HR manager working on a presentation script. You have a Google Doc full of notes, bullet points, and \ntopics that you would like to cover. You begin by opening your Google Doc with notes, and you prompt Gemini  \nin Docs.\n I am an HR manager,  and I am developing a script for my presentation for new hires.  I need to create \nthe script for an onboarding presentation about our company’s commitment to employee development \nand well-being.  Help me draft talking points that showcase why employee mentorship and development \nare core values for our company using @[Mission Statement and Core Values].  (Gemini in Docs)\n•  Persona •  Task •  Context •  Format \nGemini in Docs: [Drafts talking points]",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 27,
+      "keywords": [
+        "Human Resources",
+        "page 27",
+        "Welcome new employees"
+      ]
+    },
+    {
+      "id": "page-28",
+      "category": "hr",
+      "title": "Report on recruitment metrics",
+      "titleZh": "第 28 頁 · Report on recruitment metrics",
+      "summary": "Exact PDF text from page 28 in the Human Resources section.",
+      "summaryZh": "PDF Human Resources 章節第 28 頁原文。",
+      "prompt": "28\nYou select Insert. Now, you want to add more targeted talking points. You type:\n Add four talking points  for a new section of the presentation script that explains how we support our  \n employees’ development.  Mention our training and certification programs and mentorship \nopportunities using  @[Learning and Development Paths],  and write a strong closing statement  about \nour expectation that everyone contributes to a respectful and welcoming workplace.  Use a professional \ntone.  (Gemini in Docs) \nGemini in Docs: [Adds talking points]\nYou add in more details and then you’re ready to create a draft of the Google Slides that will accompany your \ntalking points.\nExample use cases\nRecruiter\nUse case: Report on recruitment metrics \nThe business is growing, and you have a large hiring effort underway. You want to see a holistic view of how your \nhiring efforts are going. You open your Google Sheet and prompt Gemini in the Sheets side panel. You type:\nHelp me create a formula to calculate the total total number of [hires] by [department]. \n(Gemini in Sheets)\nYou continue your conversation by prompting additional questions. You type:\nIn what month did we hire the most people? (Gemini in Sheets)\nYou continue with your line of questions until you feel ready to write your report.\nUse case: Manage the recruiting process \nYou want to brainstorm potential ways the company can better manage the recruiting process. You open the \nteam’s Google Doc with recruiting strategies. You prompt Gemini in the Docs side panel. You type: \nCreate a list of strategies our recruiters can use to improve our existing recruiting process and identify \npotential job candidates. (Gemini in Docs) \nNEW",
+      "promptZh": "28\nYou select Insert. Now, you want to add more targeted talking points. You type:\n Add four talking points  for a new section of the presentation script that explains how we support our  \n employees’ development.  Mention our training and certification programs and mentorship \nopportunities using  @[Learning and Development Paths],  and write a strong closing statement  about \nour expectation that everyone contributes to a respectful and welcoming workplace.  Use a professional \ntone.  (Gemini in Docs) \nGemini in Docs: [Adds talking points]\nYou add in more details and then you’re ready to create a draft of the Google Slides that will accompany your \ntalking points.\nExample use cases\nRecruiter\nUse case: Report on recruitment metrics \nThe business is growing, and you have a large hiring effort underway. You want to see a holistic view of how your \nhiring efforts are going. You open your Google Sheet and prompt Gemini in the Sheets side panel. You type:\nHelp me create a formula to calculate the total total number of [hires] by [department]. \n(Gemini in Sheets)\nYou continue your conversation by prompting additional questions. You type:\nIn what month did we hire the most people? (Gemini in Sheets)\nYou continue with your line of questions until you feel ready to write your report.\nUse case: Manage the recruiting process \nYou want to brainstorm potential ways the company can better manage the recruiting process. You open the \nteam’s Google Doc with recruiting strategies. You prompt Gemini in the Docs side panel. You type: \nCreate a list of strategies our recruiters can use to improve our existing recruiting process and identify \npotential job candidates. (Gemini in Docs) \nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 28,
+      "keywords": [
+        "Human Resources",
+        "page 28",
+        "Report on recruitment metrics",
+        "Manage the recruiting process"
+      ]
+    },
+    {
+      "id": "page-29",
+      "category": "hr",
+      "title": "Manage the interview process",
+      "titleZh": "第 29 頁 · Manage the interview process",
+      "summary": "Exact PDF text from page 29 in the Human Resources section.",
+      "summaryZh": "PDF Human Resources 章節第 29 頁原文。",
+      "prompt": "29\nAfter creating a short recommendation for leadership on how the team will improve existing recruiting \nprocesses, the team receives guidance for a job opening for a content marketing manager. You open a new  \nDoc and prompt Gemini in Docs. You type:\nI am opening a new job position on the marketing team. Write a compelling role description for a content \nmarketing manager. Highlight key responsibilities [insert] and requirements, including B2B and B2C \ncontent creation, a minimum of five years experience, and a portfolio of writing examples. \n(Gemini in Docs)\nUse case: Manage the interview process\nYou want to prepare questions for phone screen interviews. You decide to prepare by using Gemini Advanced. \nYou upload the relevant file and type: \nI am a recruiter, and I am preparing for candidate interviews. Using the job description in the file I’m \nuploading, write a list of 20 open-ended interview questions that I can use to screen candidates. \n(Gemini Advanced) \nUse case: Communicate with candidates\nThe team has made its hiring decisions. You open the Google Doc with notes on each candidate. You prompt \nGemini in Docs by selecting Help me write. You type:\nI am writing an email to a job candidate who just finished the interview process. Create a template for \nan offer letter for the [selected candidate] for the [position] with a request to schedule a call to discuss \nbenefits, compensation, and start date. (Gemini in Docs) \nNow, you want to generate personalized, empathetic email copy to send to the job candidates who will not \nreceive an offer. You prompt Gemini in Docs by selecting Help me write. You type: \nI am writing an email to job candidates who finished the interview process, but who were not selected. \nHelp me write a rejection letter for [candidate] for the [position]. Use an empathetic tone. \n(Gemini in Docs)",
+      "promptZh": "29\nAfter creating a short recommendation for leadership on how the team will improve existing recruiting \nprocesses, the team receives guidance for a job opening for a content marketing manager. You open a new  \nDoc and prompt Gemini in Docs. You type:\nI am opening a new job position on the marketing team. Write a compelling role description for a content \nmarketing manager. Highlight key responsibilities [insert] and requirements, including B2B and B2C \ncontent creation, a minimum of five years experience, and a portfolio of writing examples. \n(Gemini in Docs)\nUse case: Manage the interview process\nYou want to prepare questions for phone screen interviews. You decide to prepare by using Gemini Advanced. \nYou upload the relevant file and type: \nI am a recruiter, and I am preparing for candidate interviews. Using the job description in the file I’m \nuploading, write a list of 20 open-ended interview questions that I can use to screen candidates. \n(Gemini Advanced) \nUse case: Communicate with candidates\nThe team has made its hiring decisions. You open the Google Doc with notes on each candidate. You prompt \nGemini in Docs by selecting Help me write. You type:\nI am writing an email to a job candidate who just finished the interview process. Create a template for \nan offer letter for the [selected candidate] for the [position] with a request to schedule a call to discuss \nbenefits, compensation, and start date. (Gemini in Docs) \nNow, you want to generate personalized, empathetic email copy to send to the job candidates who will not \nreceive an offer. You prompt Gemini in Docs by selecting Help me write. You type: \nI am writing an email to job candidates who finished the interview process, but who were not selected. \nHelp me write a rejection letter for [candidate] for the [position]. Use an empathetic tone. \n(Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 29,
+      "keywords": [
+        "Human Resources",
+        "page 29",
+        "Manage the interview process",
+        "Communicate with candidates"
+      ]
+    },
+    {
+      "id": "page-30",
+      "category": "hr",
+      "title": "Conduct employee engagement and satisfaction surveys",
+      "titleZh": "第 30 頁 · Conduct employee engagement and satisfaction surveys",
+      "summary": "Exact PDF text from page 30 in the Human Resources section.",
+      "summaryZh": "PDF Human Resources 章節第 30 頁原文。",
+      "prompt": "30\nHR Manager\nUse case: Conduct employee engagement and satisfaction surveys\nYou are in charge of building a survey that will go out to all employees. You want to brainstorm ideas on \nquestions to ask. You visit Gemini Advanced and type:\nI am an HR manager in charge of running our enterprise-wide survey at [company] to gauge employee \nengagement and satisfaction. Generate a list of questions I can use to build the survey. \n(Gemini Advanced)\nYour company has completed its annual employee engagement and satisfaction survey. Now, you want to clean \nup the data before you analyze it. You go to Gemini Advanced, upload the relevant file, and type:\nHelp me clean my employee survey spreadsheet. Specifically, fill any blank values in the name column \nwith “Anonymous,” and if the region column shows Headquarters, replace that with HQ. Finally, remove \nany rows where the satisfaction column is blank. Please generate a new file for me with my cleaned \ndata. (Gemini Advanced)\nUse case: Create individualized learning and development plans\nYou have all of your company’s learning resources stored in your Google Drive. For each new hire, you want to \ncreate a tailored learning and development plan. To do this, you prompt Gemini in the Drive side panel. You type:\nCreate a personalized learning and development plan for a new hire who needs to learn about [topic]. \nOrganize it by day and suggest relevant files. (Gemini in Drive)\nUse case: Onboard employees\nThe recruiters have just filled the company’s two open roles. Now, you’re in charge of ensuring the candidates \nhave a smooth onboarding experience. You need help in structuring information for the new hires, so you open  \na Google Sheet and prompt Gemini in the Sheets side panel. You type: \nCreate a table that outlines a new employee’s first-week schedule, including key meetings, training \nsessions, and introductions. Provide a column for key contacts and priority level (low, medium, high) for \neach activity. (Gemini in Sheets)\nNEW\nNEW",
+      "promptZh": "30\nHR Manager\nUse case: Conduct employee engagement and satisfaction surveys\nYou are in charge of building a survey that will go out to all employees. You want to brainstorm ideas on \nquestions to ask. You visit Gemini Advanced and type:\nI am an HR manager in charge of running our enterprise-wide survey at [company] to gauge employee \nengagement and satisfaction. Generate a list of questions I can use to build the survey. \n(Gemini Advanced)\nYour company has completed its annual employee engagement and satisfaction survey. Now, you want to clean \nup the data before you analyze it. You go to Gemini Advanced, upload the relevant file, and type:\nHelp me clean my employee survey spreadsheet. Specifically, fill any blank values in the name column \nwith “Anonymous,” and if the region column shows Headquarters, replace that with HQ. Finally, remove \nany rows where the satisfaction column is blank. Please generate a new file for me with my cleaned \ndata. (Gemini Advanced)\nUse case: Create individualized learning and development plans\nYou have all of your company’s learning resources stored in your Google Drive. For each new hire, you want to \ncreate a tailored learning and development plan. To do this, you prompt Gemini in the Drive side panel. You type:\nCreate a personalized learning and development plan for a new hire who needs to learn about [topic]. \nOrganize it by day and suggest relevant files. (Gemini in Drive)\nUse case: Onboard employees\nThe recruiters have just filled the company’s two open roles. Now, you’re in charge of ensuring the candidates \nhave a smooth onboarding experience. You need help in structuring information for the new hires, so you open  \na Google Sheet and prompt Gemini in the Sheets side panel. You type: \nCreate a table that outlines a new employee’s first-week schedule, including key meetings, training \nsessions, and introductions. Provide a column for key contacts and priority level (low, medium, high) for \neach activity. (Gemini in Sheets)\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 30,
+      "keywords": [
+        "Human Resources",
+        "page 30",
+        "Conduct employee engagement and satisfaction surveys",
+        "Create individualized learning and development plans",
+        "Onboard employees"
+      ]
+    },
+    {
+      "id": "page-31",
+      "category": "hr",
+      "title": "Communicate key findings and draft follow-up surveys",
+      "titleZh": "第 31 頁 · Communicate key findings and draft follow-up surveys",
+      "summary": "Exact PDF text from page 31 in the Human Resources section.",
+      "summaryZh": "PDF Human Resources 章節第 31 頁原文。",
+      "prompt": "31\nGemini in Sheets returns a formatted Google Sheet that you can now fill in with key contacts, meetings, and \nactivities. The conditional formatting makes it easy for you to sort tasks by priority level with color-coded visual \ncues. Next, you need to create ways for the team to bond. You open a new Google Doc and prompt Gemini in \nthe Docs side panel. You type:\nDesign a team-bonding activity, such as an office scavenger hunt, to have team members work together \nduring their team meeting. (Gemini in Docs) \nGemini in Docs provides suggestions that help you brainstorm about the scavenger hunt. You tweak the outputs \nand get the idea approved by the team lead. Now, you need to communicate with the new hires about their first \nday when they will meet the team. You open Gmail and prompt Gemini in Gmail by selecting Help me write.  \nYou type:\nDraft an email to the new employees on the [team] to meet the rest of their team and explain the team-\nbuilding purposes of the meeting. (Gemini in Gmail)\nUse case: Communicate key findings and draft follow-up surveys\nNow that you’ve finished onboarding new employees, you need to focus on ensuring that the latest company \nresearch data is easily understood by leadership. You’re committed to creating a welcoming environment for all \nemployees where they can develop their skills. You open the Google Doc with the finalized report. You prompt \nGemini in Docs by selecting Help me write. You type: \nDraft an email to senior leadership that summarizes the key findings from our [report]. Include a short \nintroductory paragraph with bullet points on the most important findings. (Gemini in Docs) \nGemini in Docs returns a summary with bullet points. You edit it and then use it to email the leadership team. \nAs a follow-up action, you want to understand how changes made to company policies impact the employee \nexperience. You open Gemini in Docs to begin drafting a survey. You select Help me write and type: \nDraft an anonymous employee survey with questions and answer options to monitor company progress \non [topics]. (Gemini in Docs)",
+      "promptZh": "31\nGemini in Sheets returns a formatted Google Sheet that you can now fill in with key contacts, meetings, and \nactivities. The conditional formatting makes it easy for you to sort tasks by priority level with color-coded visual \ncues. Next, you need to create ways for the team to bond. You open a new Google Doc and prompt Gemini in \nthe Docs side panel. You type:\nDesign a team-bonding activity, such as an office scavenger hunt, to have team members work together \nduring their team meeting. (Gemini in Docs) \nGemini in Docs provides suggestions that help you brainstorm about the scavenger hunt. You tweak the outputs \nand get the idea approved by the team lead. Now, you need to communicate with the new hires about their first \nday when they will meet the team. You open Gmail and prompt Gemini in Gmail by selecting Help me write.  \nYou type:\nDraft an email to the new employees on the [team] to meet the rest of their team and explain the team-\nbuilding purposes of the meeting. (Gemini in Gmail)\nUse case: Communicate key findings and draft follow-up surveys\nNow that you’ve finished onboarding new employees, you need to focus on ensuring that the latest company \nresearch data is easily understood by leadership. You’re committed to creating a welcoming environment for all \nemployees where they can develop their skills. You open the Google Doc with the finalized report. You prompt \nGemini in Docs by selecting Help me write. You type: \nDraft an email to senior leadership that summarizes the key findings from our [report]. Include a short \nintroductory paragraph with bullet points on the most important findings. (Gemini in Docs) \nGemini in Docs returns a summary with bullet points. You edit it and then use it to email the leadership team. \nAs a follow-up action, you want to understand how changes made to company policies impact the employee \nexperience. You open Gemini in Docs to begin drafting a survey. You select Help me write and type: \nDraft an anonymous employee survey with questions and answer options to monitor company progress \non [topics]. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 31,
+      "keywords": [
+        "Human Resources",
+        "page 31",
+        "Communicate key findings and draft follow-up surveys"
+      ]
+    },
+    {
+      "id": "page-32",
+      "category": "marketing",
+      "title": "Develop a visual identity",
+      "titleZh": "第 32 頁 · Develop a visual identity",
+      "summary": "Exact PDF text from page 32 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 32 頁原文。",
+      "prompt": "32\nMarketing\nAs a marketing professional, you’re the creative \nforce behind captivating campaigns, brand \nexperiences, lead generation, and more. You \nunderstand the power of data-driven insights, \ncompelling messaging, and connecting with your \naudience on a deeper level.\nThis section provides you with simple ways to \nintegrate prompts in your day-to-day tasks. For \nchief marketing officer (CMO) use cases, visit the \nExecutives section of the guide.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Develop a visual identity\nYou own your own consulting business and are often hired to function as a brand manager for your clients.  \nYou help businesses in a variety of industries. Your customer is getting ready to launch a coffee shop and video \ngame cafe, and you need to kick-start the creative process by developing a visual identity. You want to ideate \nand provide early thoughts to the rest of the team. You decide to chat with Gemini Advanced. You type:\n Generate ideas for a creative and eye-catching logo  for my new business, a coffee shop combined with \n a video game cafe. Generate a logo considering  the following: \n Dual Concept: The logo needs to clearly signal both  the coffee and gaming aspects of the business  \n without being too cluttered. \n Target Audience: Appeal to a wide range of gamers (casual and enthusiast), as well as coffee lovers  \n seeking a unique hangout spot.",
+      "promptZh": "32\nMarketing\nAs a marketing professional, you’re the creative \nforce behind captivating campaigns, brand \nexperiences, lead generation, and more. You \nunderstand the power of data-driven insights, \ncompelling messaging, and connecting with your \naudience on a deeper level.\nThis section provides you with simple ways to \nintegrate prompts in your day-to-day tasks. For \nchief marketing officer (CMO) use cases, visit the \nExecutives section of the guide.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Develop a visual identity\nYou own your own consulting business and are often hired to function as a brand manager for your clients.  \nYou help businesses in a variety of industries. Your customer is getting ready to launch a coffee shop and video \ngame cafe, and you need to kick-start the creative process by developing a visual identity. You want to ideate \nand provide early thoughts to the rest of the team. You decide to chat with Gemini Advanced. You type:\n Generate ideas for a creative and eye-catching logo  for my new business, a coffee shop combined with \n a video game cafe. Generate a logo considering  the following: \n Dual Concept: The logo needs to clearly signal both  the coffee and gaming aspects of the business  \n without being too cluttered. \n Target Audience: Appeal to a wide range of gamers (casual and enthusiast), as well as coffee lovers  \n seeking a unique hangout spot.",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 32,
+      "keywords": [
+        "Marketing",
+        "page 32",
+        "Develop a visual identity"
+      ]
+    },
+    {
+      "id": "page-33",
+      "category": "marketing",
+      "title": "Develop brand strategy",
+      "titleZh": "第 33 頁 · Develop brand strategy",
+      "summary": "Exact PDF text from page 33 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 33 頁原文。",
+      "prompt": "33\n Style Options: I’m open to these approaches — let’s get a few examples in each of these three styles to \n compare: Modern and Playful: Bold colors, fun graphics, maybe a pixel art aesthetic. Retro-Cool: Think  \n classic arcade style — chunky lettering, neon color inspiration. Sleek and Minimalist: Clean lines,  \n geometric shapes, a more subtle nod to both themes.  (Gemini Advanced) \n•  Persona •  Task •  Context •  Format \nYou like the retro-cool options. You continue your conversation and you type: \n I like the retro-cool options.  Can you provide three more  in that same style?  (Gemini Advanced) \nNow that you have a sense of what the logo could look like, you want to brainstorm names. You type: \n Write a tagline and 10 potential names  for the business to go with these logos.  (Gemini Advanced) \nExample use cases\nBrand Manager\nUse case: Develop brand strategy \nYou are working to refresh your company’s brand architecture and messaging frameworks. To get started,  \nyou visit Gemini Advanced and type:\nI am a brand manager at [company]. Help me define a clear and effective brand architecture for \n[company], considering its diverse products and service portfolio. For additional context, here is our \ncurrent brand portfolio: [List all existing brands, products, and services]. Here is our company mission \nand vision: [Provide a brief overview of the company’s mission and vision]. And these are our target \naudience(s): [describe target audience(s)]. Our desired brand positioning is [explain how the company \nwants to be perceived in the market]. (Gemini Advanced)\nUse case: Brainstorm brand partnerships \nYou are working on a new brand campaign. You want to identify influencers or complementary brands you could \npartner with as part of the social amplification plan. You visit Gemini Advanced and type:\nI am a [brand manager] at [company] working to launch a new campaign focused on [topic]. Identify \npotential types of influencers and complementary brands that [company] could partner with to amplify \nthe [campaign] on social media channels. The goal is to reach a wide audience of [audiences], while \nbuilding credibility and driving engagement. (Gemini Advanced)\nNEW\nNEW",
+      "promptZh": "33\n Style Options: I’m open to these approaches — let’s get a few examples in each of these three styles to \n compare: Modern and Playful: Bold colors, fun graphics, maybe a pixel art aesthetic. Retro-Cool: Think  \n classic arcade style — chunky lettering, neon color inspiration. Sleek and Minimalist: Clean lines,  \n geometric shapes, a more subtle nod to both themes.  (Gemini Advanced) \n•  Persona •  Task •  Context •  Format \nYou like the retro-cool options. You continue your conversation and you type: \n I like the retro-cool options.  Can you provide three more  in that same style?  (Gemini Advanced) \nNow that you have a sense of what the logo could look like, you want to brainstorm names. You type: \n Write a tagline and 10 potential names  for the business to go with these logos.  (Gemini Advanced) \nExample use cases\nBrand Manager\nUse case: Develop brand strategy \nYou are working to refresh your company’s brand architecture and messaging frameworks. To get started,  \nyou visit Gemini Advanced and type:\nI am a brand manager at [company]. Help me define a clear and effective brand architecture for \n[company], considering its diverse products and service portfolio. For additional context, here is our \ncurrent brand portfolio: [List all existing brands, products, and services]. Here is our company mission \nand vision: [Provide a brief overview of the company’s mission and vision]. And these are our target \naudience(s): [describe target audience(s)]. Our desired brand positioning is [explain how the company \nwants to be perceived in the market]. (Gemini Advanced)\nUse case: Brainstorm brand partnerships \nYou are working on a new brand campaign. You want to identify influencers or complementary brands you could \npartner with as part of the social amplification plan. You visit Gemini Advanced and type:\nI am a [brand manager] at [company] working to launch a new campaign focused on [topic]. Identify \npotential types of influencers and complementary brands that [company] could partner with to amplify \nthe [campaign] on social media channels. The goal is to reach a wide audience of [audiences], while \nbuilding credibility and driving engagement. (Gemini Advanced)\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 33,
+      "keywords": [
+        "Marketing",
+        "page 33",
+        "Develop brand strategy",
+        "Brainstorm brand partnerships"
+      ]
+    },
+    {
+      "id": "page-34",
+      "category": "marketing",
+      "title": "Conduct market research and identify trends",
+      "titleZh": "第 34 頁 · Conduct market research and identify trends",
+      "summary": "Exact PDF text from page 34 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 34 頁原文。",
+      "prompt": "34\nUse case: Conduct market research and identify trends \nThe landscape in your industry is rapidly changing, and you need to conduct market research to better identify \nand understand emerging trends. You go to Gemini Advanced, and you type: \nI need to do market research on [industry] industry to identify new trends. Use [URLs] to uncover \nemerging trends and shifting consumer preferences. (Gemini Advanced)\nAfter completing your research, you and the team have new messaging that you want to A/B test. You want to \ngenerate multiple variations of ad copy using Gemini Advanced. You type:\nI need to A/B test new messaging. Here is our messaging: [messaging]. Generate three different \nvariations of ad copy. (Gemini Advanced)\nUse case: Create and manage content and distribution \nA customer has exciting organizational changes underway. You need to create content to shape the brand \nnarrative of the company as it enters its next era. You open a Google Doc to get started on a blog draft.  \nYou prompt Gemini in Docs by selecting Help me write. You type: \nCreate a blog draft announcing that [name] is joining [company] as [position]. [Share two or three \ndetails from their bio, such as their previous position and company, their involvement in professional \norganizations, etc.]. (Gemini in Docs)\nYou also want a way to efficiently track how and where this content is amplified, so you open a Google Sheet.  \nYou prompt Gemini in the Sheets side panel. You type: \nCreate a project tracker for content amplification and include columns for channel, owner, URL,  \nand priority level (low, medium, high). (Gemini in Sheets) \nMarketing Specialist\nUse case: Improve collaboration with customers, agencies, and teams\nYou are hosting a meeting discussing an upcoming project with multiple teams and an agency that will \ncomplete the project’s design work. You use Gemini in Google Meet and select Take notes with Gemini \nso that all participants can give their undivided attention to the conversation. After the meeting, Gemini \nprovides a summary of the discussion and pulls out action items to keep the team on track.  \n(Gemini in Meet)\nNEW",
+      "promptZh": "34\nUse case: Conduct market research and identify trends \nThe landscape in your industry is rapidly changing, and you need to conduct market research to better identify \nand understand emerging trends. You go to Gemini Advanced, and you type: \nI need to do market research on [industry] industry to identify new trends. Use [URLs] to uncover \nemerging trends and shifting consumer preferences. (Gemini Advanced)\nAfter completing your research, you and the team have new messaging that you want to A/B test. You want to \ngenerate multiple variations of ad copy using Gemini Advanced. You type:\nI need to A/B test new messaging. Here is our messaging: [messaging]. Generate three different \nvariations of ad copy. (Gemini Advanced)\nUse case: Create and manage content and distribution \nA customer has exciting organizational changes underway. You need to create content to shape the brand \nnarrative of the company as it enters its next era. You open a Google Doc to get started on a blog draft.  \nYou prompt Gemini in Docs by selecting Help me write. You type: \nCreate a blog draft announcing that [name] is joining [company] as [position]. [Share two or three \ndetails from their bio, such as their previous position and company, their involvement in professional \norganizations, etc.]. (Gemini in Docs)\nYou also want a way to efficiently track how and where this content is amplified, so you open a Google Sheet.  \nYou prompt Gemini in the Sheets side panel. You type: \nCreate a project tracker for content amplification and include columns for channel, owner, URL,  \nand priority level (low, medium, high). (Gemini in Sheets) \nMarketing Specialist\nUse case: Improve collaboration with customers, agencies, and teams\nYou are hosting a meeting discussing an upcoming project with multiple teams and an agency that will \ncomplete the project’s design work. You use Gemini in Google Meet and select Take notes with Gemini \nso that all participants can give their undivided attention to the conversation. After the meeting, Gemini \nprovides a summary of the discussion and pulls out action items to keep the team on track.  \n(Gemini in Meet)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 34,
+      "keywords": [
+        "Marketing",
+        "page 34",
+        "Conduct market research and identify trends",
+        "Create and manage content and distribution",
+        "Improve collaboration with customers, agencies, and teams"
+      ]
+    },
+    {
+      "id": "page-35",
+      "category": "marketing",
+      "title": "Analyze social media trends and other data to reduce",
+      "titleZh": "第 35 頁 · Analyze social media trends and other data to reduce",
+      "summary": "Exact PDF text from page 35 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 35 頁原文。",
+      "prompt": "35\nFrom the generated Doc with call notes, you want to create a spreadsheet to help keep the team on track.  \nYou open a new Google Sheet and prompt Gemini in the Sheets side panel and tag relevant files by typing  \n@file name. You type:\nGenerate a project tracker using the action items from @[Meeting Notes from Gemini]. \n(Gemini in Sheets)\n \nUse case: Analyze social media trends and other data to reduce \ntime to market\nYou want to analyze different data sources and collate findings to help you reduce your time to market.  \nYou open Gemini Advanced and type:\nI am a [marketing specialist] at [company]. We are working on our [go to market] plans for [type of \nproduct]. Help me research social media trends around [topics]. Be specific about trending keywords,  \ntop influencer voices, and common themes in popular content. (Gemini Advanced)\nYou verify Gemini’s response by selecting the Double-check response option beneath Gemini’s response.\nNow, you want to review a report you’ve commissioned that surveyed customers from different industries.  \nYou continue your conversation with Gemini. You upload the relevant file and type:\nAnalyze the findings in this [report]. I am especially interested in any common themes about [topic] \nthat stand out to you that will help me better position [marketing materials] for [product] for [target \naudience]. (Gemini Advanced)\nUse case: Perform audience research and develop personas \nYou need to refresh your audience research and persona development as the team updates webpage copy, \npitch decks, and other marketing assets. You brainstorm and research using Gemini Advanced. You type:\nI am a marketing specialist focused on [area] at [company]. I need to conduct in-depth audience \nresearch so that I can develop convincing marketing artifacts for [personas]. To start, help me generate \na comprehensive profile of [target audience]. Include core demographics and psychographics, online \nplatforms they frequent, key pain points [product] could solve, and language and messaging that \nresonates with them. (Gemini Advanced)\nNEW\nNEW",
+      "promptZh": "35\nFrom the generated Doc with call notes, you want to create a spreadsheet to help keep the team on track.  \nYou open a new Google Sheet and prompt Gemini in the Sheets side panel and tag relevant files by typing  \n@file name. You type:\nGenerate a project tracker using the action items from @[Meeting Notes from Gemini]. \n(Gemini in Sheets)\n \nUse case: Analyze social media trends and other data to reduce \ntime to market\nYou want to analyze different data sources and collate findings to help you reduce your time to market.  \nYou open Gemini Advanced and type:\nI am a [marketing specialist] at [company]. We are working on our [go to market] plans for [type of \nproduct]. Help me research social media trends around [topics]. Be specific about trending keywords,  \ntop influencer voices, and common themes in popular content. (Gemini Advanced)\nYou verify Gemini’s response by selecting the Double-check response option beneath Gemini’s response.\nNow, you want to review a report you’ve commissioned that surveyed customers from different industries.  \nYou continue your conversation with Gemini. You upload the relevant file and type:\nAnalyze the findings in this [report]. I am especially interested in any common themes about [topic] \nthat stand out to you that will help me better position [marketing materials] for [product] for [target \naudience]. (Gemini Advanced)\nUse case: Perform audience research and develop personas \nYou need to refresh your audience research and persona development as the team updates webpage copy, \npitch decks, and other marketing assets. You brainstorm and research using Gemini Advanced. You type:\nI am a marketing specialist focused on [area] at [company]. I need to conduct in-depth audience \nresearch so that I can develop convincing marketing artifacts for [personas]. To start, help me generate \na comprehensive profile of [target audience]. Include core demographics and psychographics, online \nplatforms they frequent, key pain points [product] could solve, and language and messaging that \nresonates with them. (Gemini Advanced)\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 35,
+      "keywords": [
+        "Marketing",
+        "page 35",
+        "Analyze social media trends and other data to reduce",
+        "Perform audience research and develop personas"
+      ]
+    },
+    {
+      "id": "page-36",
+      "category": "marketing",
+      "title": "Create and optimize copy for search engine marketing (SEM)",
+      "titleZh": "第 36 頁 · Create and optimize copy for search engine marketing (SEM)",
+      "summary": "Exact PDF text from page 36 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 36 頁原文。",
+      "prompt": "36\nDigital Marketing Manager\nUse case: Create and optimize copy for search engine marketing (SEM)\nYou want to create a robust list of keywords and long-tail keywords and phrases to uncover new opportunities \nfor SEM targeting. You go to Gemini Advanced and type:\nI am a digital marketing manager at [company]. I am working on SEM ads for [product]. Here are my seed \nkeywords: [list keywords]. Help me generate a list of additional keywords and long-tail keywords and \nphrases that can help me maximize ad performance. (Gemini Advanced)\nAfter you finish brainstorming your keywords list, you want to generate a few variations of ad copy. You type:\nFor my SEM campaign, use these keywords as inspiration to generate multiple ad copy variations  \nwith different headlines, descriptions, and calls to action for [product]. Use a [tone] tone in the copy. \n(Gemini Advanced)\nYou want to further refine the text according to different audiences, so you type:\nDo the same thing, except write new options for [audience], adjust the tone to be [tone] and focus  \nthe copy on highlighting [feature] of [product]. (Gemini Advanced)\nUse case: Draft customer acquisition communications \nEmail is one of your company’s main channels of direct communication with prospects and customers. You want  \nhelp getting started with copy for a new email campaign. You open a new Google Doc, and you prompt Gemini in \nDocs by selecting Help me write. You type: \nWrite three different email subject lines that reference [audience segments] and our [product]. Make \nthem catchy but professional. (Gemini in Docs) \nNow you want to share the proposed email subject lines with the copywriting team. You open Gmail, and you \nselect Help me write. You type:\nWrite an email proposing [suggested email subject lines] to the copywriting team. Keep the email short \nand simple and request feedback by the end of week. Thank them for their help. (Gemini in Gmail) \nNEW",
+      "promptZh": "36\nDigital Marketing Manager\nUse case: Create and optimize copy for search engine marketing (SEM)\nYou want to create a robust list of keywords and long-tail keywords and phrases to uncover new opportunities \nfor SEM targeting. You go to Gemini Advanced and type:\nI am a digital marketing manager at [company]. I am working on SEM ads for [product]. Here are my seed \nkeywords: [list keywords]. Help me generate a list of additional keywords and long-tail keywords and \nphrases that can help me maximize ad performance. (Gemini Advanced)\nAfter you finish brainstorming your keywords list, you want to generate a few variations of ad copy. You type:\nFor my SEM campaign, use these keywords as inspiration to generate multiple ad copy variations  \nwith different headlines, descriptions, and calls to action for [product]. Use a [tone] tone in the copy. \n(Gemini Advanced)\nYou want to further refine the text according to different audiences, so you type:\nDo the same thing, except write new options for [audience], adjust the tone to be [tone] and focus  \nthe copy on highlighting [feature] of [product]. (Gemini Advanced)\nUse case: Draft customer acquisition communications \nEmail is one of your company’s main channels of direct communication with prospects and customers. You want  \nhelp getting started with copy for a new email campaign. You open a new Google Doc, and you prompt Gemini in \nDocs by selecting Help me write. You type: \nWrite three different email subject lines that reference [audience segments] and our [product]. Make \nthem catchy but professional. (Gemini in Docs) \nNow you want to share the proposed email subject lines with the copywriting team. You open Gmail, and you \nselect Help me write. You type:\nWrite an email proposing [suggested email subject lines] to the copywriting team. Keep the email short \nand simple and request feedback by the end of week. Thank them for their help. (Gemini in Gmail) \nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 36,
+      "keywords": [
+        "Marketing",
+        "page 36",
+        "Create and optimize copy for search engine marketing (SEM)",
+        "Draft customer acquisition communications"
+      ]
+    },
+    {
+      "id": "page-37",
+      "category": "marketing",
+      "title": "Generate inbound marketing campaigns",
+      "titleZh": "第 37 頁 · Generate inbound marketing campaigns",
+      "summary": "Exact PDF text from page 37 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 37 頁原文。",
+      "prompt": "37\nUse case: Generate inbound marketing campaigns \nThe team created a new ebook on best practices for executives using our new solution. You’re creating a landing \npage to house the gated asset, and you need engaging copy. You open a new Google Doc and select Help me \nwrite. You type:\nCreate compelling copy for a landing page promoting a new [ebook/webinar/free trial and details] \ndesigned for an executive target audience. Highlight key benefits and encourage conversions with \npersuasive calls to action. (Gemini in Docs) \nThe webpage launched, and you’re now running an inbound marketing campaign. You need to nurture the leads \nthat downloaded your latest ebook. You open a new Google Doc, and you prompt Gemini in Docs by selecting \nHelp me write. You type:\nGenerate copy for a sequence of five automated emails to nurture leads after they download the ebook \non [topic]. Personalize emails and encourage further engagement [with other valuable resources or \noffers]. (Gemini in Docs)\nContent Marketing Manager\nUse case: Deliver personalized content to customers at scale\nYou want to create copy for a five-step email nurture cadence for your new product. You open a new Google \nDoc and prompt Gemini in the Docs side panel and tag relevant files by typing @file name. You type:\nCreate a 5-step nurture email cadence to [prospective customers] who have signed up for [our \nnewsletter], with the goal of getting them to [purchase] [product] using @[Product Specific Notes]  \nand @[Product FAQ]. (Gemini in Docs)\nUse case: Create visuals for ad campaigns \nYou want to create visuals to help your creative agency better understand the team’s direction for an upcoming \ncampaign. You open a new Google Slide and prompt Gemini in Slides. You type:\nHelp me create inspirational images for a marketing campaign for [type of product]. Images should use \n[colors] and [natural elements, such as clouds]. Use a [photorealistic] style. (Gemini in Slides)\nNEW\nNEW",
+      "promptZh": "37\nUse case: Generate inbound marketing campaigns \nThe team created a new ebook on best practices for executives using our new solution. You’re creating a landing \npage to house the gated asset, and you need engaging copy. You open a new Google Doc and select Help me \nwrite. You type:\nCreate compelling copy for a landing page promoting a new [ebook/webinar/free trial and details] \ndesigned for an executive target audience. Highlight key benefits and encourage conversions with \npersuasive calls to action. (Gemini in Docs) \nThe webpage launched, and you’re now running an inbound marketing campaign. You need to nurture the leads \nthat downloaded your latest ebook. You open a new Google Doc, and you prompt Gemini in Docs by selecting \nHelp me write. You type:\nGenerate copy for a sequence of five automated emails to nurture leads after they download the ebook \non [topic]. Personalize emails and encourage further engagement [with other valuable resources or \noffers]. (Gemini in Docs)\nContent Marketing Manager\nUse case: Deliver personalized content to customers at scale\nYou want to create copy for a five-step email nurture cadence for your new product. You open a new Google \nDoc and prompt Gemini in the Docs side panel and tag relevant files by typing @file name. You type:\nCreate a 5-step nurture email cadence to [prospective customers] who have signed up for [our \nnewsletter], with the goal of getting them to [purchase] [product] using @[Product Specific Notes]  \nand @[Product FAQ]. (Gemini in Docs)\nUse case: Create visuals for ad campaigns \nYou want to create visuals to help your creative agency better understand the team’s direction for an upcoming \ncampaign. You open a new Google Slide and prompt Gemini in Slides. You type:\nHelp me create inspirational images for a marketing campaign for [type of product]. Images should use \n[colors] and [natural elements, such as clouds]. Use a [photorealistic] style. (Gemini in Slides)\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 37,
+      "keywords": [
+        "Marketing",
+        "page 37",
+        "Generate inbound marketing campaigns",
+        "Deliver personalized content to customers at scale",
+        "Create visuals for ad campaigns"
+      ]
+    },
+    {
+      "id": "page-38",
+      "category": "marketing",
+      "title": "Generate inspiration for your blog",
+      "titleZh": "第 38 頁 · Generate inspiration for your blog",
+      "summary": "Exact PDF text from page 38 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 38 頁原文。",
+      "prompt": "38\nUse case: Generate inspiration for your blog \nYou work for a travel company as the content marketing manager for the company’s blog channel. You need \nto kick-start the brainstorming process for a new blog post. You decide to gather ideas by collaborating with \nGemini Advanced. You type:\nSuggest blog post topics that would be interesting for people passionate about travel and the tourism \nindustry. Here’s what I want you to focus on: Make the topics unique. There are lots of tourism blogs out \nthere — let’s come up with fresh angles that would stand out. Keep the topics relevant. Tap into current \ntrends or recent challenges/innovations within the tourism industry when brainstorming. I’d like each \ntopic to include:\nTarget audience: Who would this topic specifically appeal to?\nContent outline: A few bullet points with the main ideas the blog post would discuss.\nCall to action: Suggest one way to engage the reader at the end of the post. (Gemini Advanced) \nYou love the initial ideas you were able to create. You also need to focus on generating creative imagery to \naccompany the copy in the blog. You type:\nCreate an image of a plane flying above the clouds over mountains and rivers during sunrise that I can \nuse in the marketing campaign to promote my travel company. (Gemini Advanced) \nUse case: Create social media posts\nYou’re focused on creating content that is optimized for social media channels. You need to gather ideas for \ncontent targeted to distinct audiences. You open a new Google Doc and prompt Gemini in Docs by selecting \nHelp me write. You type:\nWrite three engaging social media posts about [product/service/topic] that would appeal to [target \naudience]. Keep each social media post to two sentences and include a call to action to visit [our \nwebsite]. (Gemini in Docs)\nYou also need to craft social media posts to drive registration for an upcoming event targeting recent grads.  \nYou open a new Google Doc and you prompt Gemini in Docs by selecting Help me write. You type: \nCreate a social media post promoting our upcoming [event name]. Include attention-grabbing language \nand relevant hashtags for [audience]. (Gemini in Docs)",
+      "promptZh": "38\nUse case: Generate inspiration for your blog \nYou work for a travel company as the content marketing manager for the company’s blog channel. You need \nto kick-start the brainstorming process for a new blog post. You decide to gather ideas by collaborating with \nGemini Advanced. You type:\nSuggest blog post topics that would be interesting for people passionate about travel and the tourism \nindustry. Here’s what I want you to focus on: Make the topics unique. There are lots of tourism blogs out \nthere — let’s come up with fresh angles that would stand out. Keep the topics relevant. Tap into current \ntrends or recent challenges/innovations within the tourism industry when brainstorming. I’d like each \ntopic to include:\nTarget audience: Who would this topic specifically appeal to?\nContent outline: A few bullet points with the main ideas the blog post would discuss.\nCall to action: Suggest one way to engage the reader at the end of the post. (Gemini Advanced) \nYou love the initial ideas you were able to create. You also need to focus on generating creative imagery to \naccompany the copy in the blog. You type:\nCreate an image of a plane flying above the clouds over mountains and rivers during sunrise that I can \nuse in the marketing campaign to promote my travel company. (Gemini Advanced) \nUse case: Create social media posts\nYou’re focused on creating content that is optimized for social media channels. You need to gather ideas for \ncontent targeted to distinct audiences. You open a new Google Doc and prompt Gemini in Docs by selecting \nHelp me write. You type:\nWrite three engaging social media posts about [product/service/topic] that would appeal to [target \naudience]. Keep each social media post to two sentences and include a call to action to visit [our \nwebsite]. (Gemini in Docs)\nYou also need to craft social media posts to drive registration for an upcoming event targeting recent grads.  \nYou open a new Google Doc and you prompt Gemini in Docs by selecting Help me write. You type: \nCreate a social media post promoting our upcoming [event name]. Include attention-grabbing language \nand relevant hashtags for [audience]. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 38,
+      "keywords": [
+        "Marketing",
+        "page 38",
+        "Generate inspiration for your blog",
+        "Create social media posts"
+      ]
+    },
+    {
+      "id": "page-39",
+      "category": "marketing",
+      "title": "Create a strategic marketing plan",
+      "titleZh": "第 39 頁 · Create a strategic marketing plan",
+      "summary": "Exact PDF text from page 39 in the Marketing section.",
+      "summaryZh": "PDF Marketing 章節第 39 頁原文。",
+      "prompt": "39\nUse case: Create a strategic marketing plan \nYour company is launching a new app. You need a robust marketing plan, but you want ideas to get started.  \nYou chat with Gemini Advanced. You type: \nI’m developing a marketing plan for a new app that provides [functionality]. My target audience is \n[audience]. Help me create a plan with a focus on [marketing channels]. Here’s what I’d like you to \ncover: competitor analysis, ideal marketing channel mix with rationale, budget recommendations, key \nmessaging ideas, and proposed campaign timeline with KPIs. (Gemini Advanced) \nThe responses from your chat are helpful in shaping your marketing plan. You need to get the high-level details \nto your chief marketing officer (CMO). You open Gmail and prompt Gemini in Gmail by selecting Help me write. \nYou type:\nDraft an email to the CMO telling them that I will provide a one-pager with a strategic marketing plan \nfor the new app launch project by [date], and it will include an executive summary, overview of the \ncompetitive landscape, top marketing channels, and the target demographic for all South American \nmarkets. (Gemini in Gmail)",
+      "promptZh": "39\nUse case: Create a strategic marketing plan \nYour company is launching a new app. You need a robust marketing plan, but you want ideas to get started.  \nYou chat with Gemini Advanced. You type: \nI’m developing a marketing plan for a new app that provides [functionality]. My target audience is \n[audience]. Help me create a plan with a focus on [marketing channels]. Here’s what I’d like you to \ncover: competitor analysis, ideal marketing channel mix with rationale, budget recommendations, key \nmessaging ideas, and proposed campaign timeline with KPIs. (Gemini Advanced) \nThe responses from your chat are helpful in shaping your marketing plan. You need to get the high-level details \nto your chief marketing officer (CMO). You open Gmail and prompt Gemini in Gmail by selecting Help me write. \nYou type:\nDraft an email to the CMO telling them that I will provide a one-pager with a strategic marketing plan \nfor the new app launch project by [date], and it will include an executive summary, overview of the \ncompetitive landscape, top marketing channels, and the target demographic for all South American \nmarkets. (Gemini in Gmail)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 39,
+      "keywords": [
+        "Marketing",
+        "page 39",
+        "Create a strategic marketing plan"
+      ]
+    },
+    {
+      "id": "page-40",
+      "category": "pm",
+      "title": "Generate user acceptance tests",
+      "titleZh": "第 40 頁 · Generate user acceptance tests",
+      "summary": "Exact PDF text from page 40 in the Project Management section.",
+      "summaryZh": "PDF Project Management 章節第 40 頁原文。",
+      "prompt": "40\nProject \nmanagement\nAs the conductor of complex, ever-evolving \nprojects, your mission is to navigate timelines, \ncoordinate teams, and ensure your programs \ndeliver the intended impact.\nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Generate user acceptance tests\nYour team completed the registration form for a new website, and now you need to generate user acceptance \ntests (UATs). To start, you visit Gemini Advanced and type: \n Create a table with 10 user acceptance tests (UAT)  for the website registration form.   \n(Gemini Advanced)\n•  Persona •  Task •  Context •  Format \nYou think the results are a helpful starting point, so you copy the results to a Google Sheet before drafting an \nemail to your colleague who is running the UATs. You want to explain what they need to do. You continue your \nconversation with Gemini Advanced. You type: \n Draft an email  to [my colleague] who is running this UAT and explain what they need to do next.  \n(Gemini Advanced)\nThe drafted email provides a helpful starting point, so you export the results to Gmail, and you make edits \ndirectly before sending the message to your colleague.",
+      "promptZh": "40\nProject \nmanagement\nAs the conductor of complex, ever-evolving \nprojects, your mission is to navigate timelines, \ncoordinate teams, and ensure your programs \ndeliver the intended impact.\nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Generate user acceptance tests\nYour team completed the registration form for a new website, and now you need to generate user acceptance \ntests (UATs). To start, you visit Gemini Advanced and type: \n Create a table with 10 user acceptance tests (UAT)  for the website registration form.   \n(Gemini Advanced)\n•  Persona •  Task •  Context •  Format \nYou think the results are a helpful starting point, so you copy the results to a Google Sheet before drafting an \nemail to your colleague who is running the UATs. You want to explain what they need to do. You continue your \nconversation with Gemini Advanced. You type: \n Draft an email  to [my colleague] who is running this UAT and explain what they need to do next.  \n(Gemini Advanced)\nThe drafted email provides a helpful starting point, so you export the results to Gmail, and you make edits \ndirectly before sending the message to your colleague.",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 40,
+      "keywords": [
+        "Project Management",
+        "page 40",
+        "Generate user acceptance tests"
+      ]
+    },
+    {
+      "id": "page-41",
+      "category": "pm",
+      "title": "Report on project status",
+      "titleZh": "第 41 頁 · Report on project status",
+      "summary": "Exact PDF text from page 41 in the Project Management section.",
+      "summaryZh": "PDF Project Management 章節第 41 頁原文。",
+      "prompt": "41\nExample use cases\nProject Manager\nUse case: Report on project status\nYou just had a lengthy call with all of your project stakeholders, and now you want to summarize what was discussed \nand follow up with assigned action items. In the Google Doc with the meeting transcript, you prompt Gemini in Docs. \nYou type: \nSummarize this call transcript in a short paragraph. In bullet points, highlight the action items, decisions \nmade, and owners for each item based off of [call transcript]. (Gemini in Docs) \nYou need to update your manager based on the activity from the last call. You want to templatize how your \nproject status updates are delivered. You open a new Google Doc, and you prompt Gemini in Docs by selecting \nHelp me write. You type:\nDraft a project status update email template to send to my manager. Include sections for a summary of \nkey accomplishments this week, any challenges faced, and the top three priorities for next week. \n(Gemini in Docs)\nThe team just hit its key milestones an entire week early. It’s been a challenging project, so you want to gather \neveryone to celebrate together. You open Gmail and prompt Gemini in Gmail by selecting Help me write.  \nYou type:\nWrite an invitation for a team lunch to celebrate the progress made on a project and include [date, time, \nand location]. Thank them for all of their hard work and acknowledge that this has been a challenging \nproject. (Gemini in Gmail)\nUse case: Create a project retrospective \nYou’ve just wrapped the project, and your senior leadership team needs a project retrospective. To kick-start \nthe process of gathering feedback, you open a Google Doc and prompt Gemini in Docs by selecting Help me \nwrite. You type: \nI need to write a report detailing the successes, failures, and lessons learned from [project]. Draft a list \nof 20 questions to guide a cross-team process investigation. Include questions to uncover what worked, \nwhat didn’t, specific process breakdowns, technical issues, communication gaps, or any other potential \ncontributing factors to the problem or success of the project. (Gemini in Docs)",
+      "promptZh": "41\nExample use cases\nProject Manager\nUse case: Report on project status\nYou just had a lengthy call with all of your project stakeholders, and now you want to summarize what was discussed \nand follow up with assigned action items. In the Google Doc with the meeting transcript, you prompt Gemini in Docs. \nYou type: \nSummarize this call transcript in a short paragraph. In bullet points, highlight the action items, decisions \nmade, and owners for each item based off of [call transcript]. (Gemini in Docs) \nYou need to update your manager based on the activity from the last call. You want to templatize how your \nproject status updates are delivered. You open a new Google Doc, and you prompt Gemini in Docs by selecting \nHelp me write. You type:\nDraft a project status update email template to send to my manager. Include sections for a summary of \nkey accomplishments this week, any challenges faced, and the top three priorities for next week. \n(Gemini in Docs)\nThe team just hit its key milestones an entire week early. It’s been a challenging project, so you want to gather \neveryone to celebrate together. You open Gmail and prompt Gemini in Gmail by selecting Help me write.  \nYou type:\nWrite an invitation for a team lunch to celebrate the progress made on a project and include [date, time, \nand location]. Thank them for all of their hard work and acknowledge that this has been a challenging \nproject. (Gemini in Gmail)\nUse case: Create a project retrospective \nYou’ve just wrapped the project, and your senior leadership team needs a project retrospective. To kick-start \nthe process of gathering feedback, you open a Google Doc and prompt Gemini in Docs by selecting Help me \nwrite. You type: \nI need to write a report detailing the successes, failures, and lessons learned from [project]. Draft a list \nof 20 questions to guide a cross-team process investigation. Include questions to uncover what worked, \nwhat didn’t, specific process breakdowns, technical issues, communication gaps, or any other potential \ncontributing factors to the problem or success of the project. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 41,
+      "keywords": [
+        "Project Management",
+        "page 41",
+        "Report on project status",
+        "Create a project retrospective"
+      ]
+    },
+    {
+      "id": "page-42",
+      "category": "pm",
+      "title": "Develop an issue tracker and related communications",
+      "titleZh": "第 42 頁 · Develop an issue tracker and related communications",
+      "summary": "Exact PDF text from page 42 in the Project Management section.",
+      "summaryZh": "PDF Project Management 章節第 42 頁原文。",
+      "prompt": "42\nThe questions give you a great starting place. You edit them before sharing with the team for their input. After \nyou gather everyone’s feedback, you want help structuring the report. You prompt Gemini in Docs by selecting \nHelp me write. You type: \nSummarize this document in two paragraphs. Include high-level information about the project’s goals,  \nthe main contributors, the outcomes of the project, and any key successes or failures. (Gemini in Docs)\nUse case: Develop an issue tracker and related communications \nYou need to create a project issue tracker to keep track of risks and solve them in a timely manner. You want  \nto create a template quickly, so you open a new Google Sheet and prompt Gemini in the Sheets side panel.  \nYou type:\nCreate a spreadsheet to track project issues, including descriptions, status, assigned owner, and action \nitems for resolution. (Gemini in Sheets) \nBefore the project fully kicks off, you want to have standardized communication templates at your disposal.  \nFor example, you want an email that can be used if an issue arises. You open a new Google Doc and prompt \nGemini in Docs by selecting Help me write. You type: \nDraft an email template to announce when an issue arises and include causes, solutions, and timelines  \nto resolve it. (Gemini in Docs)\nYou like the template that Gemini in Docs creates, and you want to create an additional, slightly different email \ntemplate. In the same Google Doc, you prompt Gemini in Docs by selecting Help me write. You type: \nDraft an email template to a stakeholder to escalate a critical project issue, outlining the impact and \nproposed solution. (Gemini in Docs)\nTechnical Project Manager\nUse case: Create a workback schedule\nYou are the technical project manager for a software release. You already have the scope of the project \ndocumented. Now, you want to get started on building a workstream tracker and workback schedule.  \nYou go to Gemini Advanced and type: \nI am a [technical project manager] at [company] overseeing [project and brief project description].  \nThe project has the following scope: [scope]. Our project goals are: [project goals]. Our project \ndeliverables are: [project deliverables]. Our budget is [budget], and our delivery date is [delivery date]. \nHelp me create a workback schedule to keep the team on track. Include dates for key milestones and \ndemos. (Gemini Advanced)\nNEW",
+      "promptZh": "42\nThe questions give you a great starting place. You edit them before sharing with the team for their input. After \nyou gather everyone’s feedback, you want help structuring the report. You prompt Gemini in Docs by selecting \nHelp me write. You type: \nSummarize this document in two paragraphs. Include high-level information about the project’s goals,  \nthe main contributors, the outcomes of the project, and any key successes or failures. (Gemini in Docs)\nUse case: Develop an issue tracker and related communications \nYou need to create a project issue tracker to keep track of risks and solve them in a timely manner. You want  \nto create a template quickly, so you open a new Google Sheet and prompt Gemini in the Sheets side panel.  \nYou type:\nCreate a spreadsheet to track project issues, including descriptions, status, assigned owner, and action \nitems for resolution. (Gemini in Sheets) \nBefore the project fully kicks off, you want to have standardized communication templates at your disposal.  \nFor example, you want an email that can be used if an issue arises. You open a new Google Doc and prompt \nGemini in Docs by selecting Help me write. You type: \nDraft an email template to announce when an issue arises and include causes, solutions, and timelines  \nto resolve it. (Gemini in Docs)\nYou like the template that Gemini in Docs creates, and you want to create an additional, slightly different email \ntemplate. In the same Google Doc, you prompt Gemini in Docs by selecting Help me write. You type: \nDraft an email template to a stakeholder to escalate a critical project issue, outlining the impact and \nproposed solution. (Gemini in Docs)\nTechnical Project Manager\nUse case: Create a workback schedule\nYou are the technical project manager for a software release. You already have the scope of the project \ndocumented. Now, you want to get started on building a workstream tracker and workback schedule.  \nYou go to Gemini Advanced and type: \nI am a [technical project manager] at [company] overseeing [project and brief project description].  \nThe project has the following scope: [scope]. Our project goals are: [project goals]. Our project \ndeliverables are: [project deliverables]. Our budget is [budget], and our delivery date is [delivery date]. \nHelp me create a workback schedule to keep the team on track. Include dates for key milestones and \ndemos. (Gemini Advanced)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 42,
+      "keywords": [
+        "Project Management",
+        "page 42",
+        "Develop an issue tracker and related communications",
+        "Create a workback schedule"
+      ]
+    },
+    {
+      "id": "page-43",
+      "category": "sales",
+      "title": "Conduct customer research",
+      "titleZh": "第 43 頁 · Conduct customer research",
+      "summary": "Exact PDF text from page 43 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 43 頁原文。",
+      "prompt": "43\nSales\nUnderstanding your customers inside and out \nis your ticket to success. You’re in charge of \nmaintaining critical relationships, deciphering \nbuying signals, crafting tailored solutions, driving \nrevenue for the business, and more.\nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Conduct customer research \nYou’re an account executive, and you’ve just been assigned to a new customer. You need a research assistant. \nYou will need to get to know key contacts at the account to begin building trust between your teams, but first, \nyou want to send an introductory email, so you open Gmail and prompt Gemini in Gmail by selecting Help me \nwrite. You type:\n Write an email to [name], the new [title] at [company].  Congratulate them on their new role. Introduce \nme as their contact point at [company name]. Invite them to lunch next week and check if they prefer \nMonday or Tuesday.  (Gemini in Gmail)\n•  Persona •  Task •  Context •  Format \nGemini in Gmail: [Drafts email]\nThis provides a helpful starting point, but you want to try getting an even better response. You click Refine  \nand Formalize.\nGemini in Gmail: [Generates refined email suggestions]",
+      "promptZh": "43\nSales\nUnderstanding your customers inside and out \nis your ticket to success. You’re in charge of \nmaintaining critical relationships, deciphering \nbuying signals, crafting tailored solutions, driving \nrevenue for the business, and more.\nThis section provides you with simple ways to \nintegrate prompts in your daily tasks. \nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning of  \nthis guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Google Workspace. The prompt iteration example shows how you could write  \nfollow-up prompts to build on the initial generated response.\nPrompt iteration example\nUse case: Conduct customer research \nYou’re an account executive, and you’ve just been assigned to a new customer. You need a research assistant. \nYou will need to get to know key contacts at the account to begin building trust between your teams, but first, \nyou want to send an introductory email, so you open Gmail and prompt Gemini in Gmail by selecting Help me \nwrite. You type:\n Write an email to [name], the new [title] at [company].  Congratulate them on their new role. Introduce \nme as their contact point at [company name]. Invite them to lunch next week and check if they prefer \nMonday or Tuesday.  (Gemini in Gmail)\n•  Persona •  Task •  Context •  Format \nGemini in Gmail: [Drafts email]\nThis provides a helpful starting point, but you want to try getting an even better response. You click Refine  \nand Formalize.\nGemini in Gmail: [Generates refined email suggestions]",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 43,
+      "keywords": [
+        "Sales",
+        "page 43",
+        "Conduct customer research"
+      ]
+    },
+    {
+      "id": "page-44",
+      "category": "sales",
+      "title": "Map customer journeys",
+      "titleZh": "第 44 頁 · Map customer journeys",
+      "summary": "Exact PDF text from page 44 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 44 頁原文。",
+      "prompt": "44\nYou’re happy with the email, so you click Insert. You read the message one last time, make final light edits \ndirectly, and then send the message. Now, you want to learn more about the customer and how it markets itself. \nTo research, you visit Gemini Advanced and type: \n I am an account executive in charge of a new account, [customer name].  I need to do initial research.  \n What is the market strategy of [customer]?  (Gemini Advanced) \nGemini provides you with useful information to get started in your research. You continue your research by first \nfocusing on news announcements. You gather a list of URLs, and you paste them into your conversation with \nGemini Advanced. You type: \n [URLs]  Summarize these articles.  Provide key insights and contextualize why these announcements are \n important.  (Gemini Advanced)\nNow you have a clear summary of what was announced, why the news is important, and additional insights. Next, \nyou want to better understand the executive who will be your main point of contact. You find a recorded interview \nfeaturing the executive. You paste the YouTube URL into your conversation with Gemini Advanced and type:\n [YouTube URL]  Summarize this interview and tell me more about [executive name].  What does \n[executive] care about?  (Gemini Advanced)\nYou continue the conversation with additional lines of questioning to build familiarity with your key contact and \nthe account. You prompt: \n Tell me how [company] can help [customer company] with achieving their goals.  (Gemini Advanced) \nOnce you wrap up your conversation, you export your results into a Google Doc. You open the Google Doc and \nprompt Gemini in Docs. You type:\n Create an email draft  for [customer] explaining why [your company] is the perfect partner for them to \n achieve their market goals.  (Gemini in Docs) \nExample use cases\nCustomer Success Manager\nUse case: Map customer journeys \nIt’s your first time onboarding a new customer, and you realize you could benefit from creating custom-tailored \nassets. You open a new Doc and prompt Gemini in the Docs side panel and tag relevant files by typing @file \nname. You type:\nCreate personalized onboarding materials for [customer]. Use @[Standard Onboarding Documents] and \n@[New Customer Migration Notes] to personalize the assets. (Gemini in Docs)\nNEW",
+      "promptZh": "44\nYou’re happy with the email, so you click Insert. You read the message one last time, make final light edits \ndirectly, and then send the message. Now, you want to learn more about the customer and how it markets itself. \nTo research, you visit Gemini Advanced and type: \n I am an account executive in charge of a new account, [customer name].  I need to do initial research.  \n What is the market strategy of [customer]?  (Gemini Advanced) \nGemini provides you with useful information to get started in your research. You continue your research by first \nfocusing on news announcements. You gather a list of URLs, and you paste them into your conversation with \nGemini Advanced. You type: \n [URLs]  Summarize these articles.  Provide key insights and contextualize why these announcements are \n important.  (Gemini Advanced)\nNow you have a clear summary of what was announced, why the news is important, and additional insights. Next, \nyou want to better understand the executive who will be your main point of contact. You find a recorded interview \nfeaturing the executive. You paste the YouTube URL into your conversation with Gemini Advanced and type:\n [YouTube URL]  Summarize this interview and tell me more about [executive name].  What does \n[executive] care about?  (Gemini Advanced)\nYou continue the conversation with additional lines of questioning to build familiarity with your key contact and \nthe account. You prompt: \n Tell me how [company] can help [customer company] with achieving their goals.  (Gemini Advanced) \nOnce you wrap up your conversation, you export your results into a Google Doc. You open the Google Doc and \nprompt Gemini in Docs. You type:\n Create an email draft  for [customer] explaining why [your company] is the perfect partner for them to \n achieve their market goals.  (Gemini in Docs) \nExample use cases\nCustomer Success Manager\nUse case: Map customer journeys \nIt’s your first time onboarding a new customer, and you realize you could benefit from creating custom-tailored \nassets. You open a new Doc and prompt Gemini in the Docs side panel and tag relevant files by typing @file \nname. You type:\nCreate personalized onboarding materials for [customer]. Use @[Standard Onboarding Documents] and \n@[New Customer Migration Notes] to personalize the assets. (Gemini in Docs)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 44,
+      "keywords": [
+        "Sales",
+        "page 44",
+        "Map customer journeys"
+      ]
+    },
+    {
+      "id": "page-45",
+      "category": "sales",
+      "title": "Manage the request for proposal (RFP) process",
+      "titleZh": "第 45 頁 · Manage the request for proposal (RFP) process",
+      "summary": "Exact PDF text from page 45 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 45 頁原文。",
+      "prompt": "45\nSales Manager\nUse case: Manage the request for proposal (RFP) process\nYou’ve just received an RFP, and you want to quickly ingest the request as part of your information gathering \nprocess. First, you want to do basic research on the company that issued the request. You visit Gemini \nAdvanced and you type:\nI just received an RFP from [company]. Before I dive into the RFP, I want your help in conducting \nresearch. Give me a business profile of the company including all of the basics (where they are located, \nwhat they provide for customers, who their target audience is, any recent news from the company). Be \nas detailed as possible as I want to see a full view of [the company]. (Gemini Advanced)\nOnce you finish your research on the company, you want to summarize the RFP. You continue your conversation \nwith Gemini. You type:\n[URL or uploaded file] I am a sales manager at [company], and this is the RFP we’ve received from \n[company]. Summarize this content in a few paragraphs. What is the customer seeking, what is the \nbudget, and when is a response due by? (Gemini Advanced)\nUse case: Access information and tools on your phone while on the go\nYou are working remotely from your phone. From the mobile app, you open a thread in Gmail and select the \nGemini chip to Summarize this email. Gemini quickly provides you with a summary of the back and forth so \nthat you can focus on the most important points. (Gemini in Gmail)\nNow, you want to generate a response acknowledging the latest developments. You prompt Gemini in Gmail.  \nYou type:\nWrite a response to this email letting [them] know that I’ve received the message and will take [action]  \nby [Friday]. (Gemini in Gmail)\nUse case: Develop customer relationships \nYour annual conference is coming up, and your most important prospects will be there. You want to personally \ninvite them to a happy hour. You open Gmail and prompt Gemini in Gmail by selecting Help me write. You type:\nWrite an email inviting people interested in [focus area] to our happy hour taking place on [date, time] at \n[trade show event]. Include that we specialize in [focus area]. (Gemini in Gmail)\nNEW\nNEW",
+      "promptZh": "45\nSales Manager\nUse case: Manage the request for proposal (RFP) process\nYou’ve just received an RFP, and you want to quickly ingest the request as part of your information gathering \nprocess. First, you want to do basic research on the company that issued the request. You visit Gemini \nAdvanced and you type:\nI just received an RFP from [company]. Before I dive into the RFP, I want your help in conducting \nresearch. Give me a business profile of the company including all of the basics (where they are located, \nwhat they provide for customers, who their target audience is, any recent news from the company). Be \nas detailed as possible as I want to see a full view of [the company]. (Gemini Advanced)\nOnce you finish your research on the company, you want to summarize the RFP. You continue your conversation \nwith Gemini. You type:\n[URL or uploaded file] I am a sales manager at [company], and this is the RFP we’ve received from \n[company]. Summarize this content in a few paragraphs. What is the customer seeking, what is the \nbudget, and when is a response due by? (Gemini Advanced)\nUse case: Access information and tools on your phone while on the go\nYou are working remotely from your phone. From the mobile app, you open a thread in Gmail and select the \nGemini chip to Summarize this email. Gemini quickly provides you with a summary of the back and forth so \nthat you can focus on the most important points. (Gemini in Gmail)\nNow, you want to generate a response acknowledging the latest developments. You prompt Gemini in Gmail.  \nYou type:\nWrite a response to this email letting [them] know that I’ve received the message and will take [action]  \nby [Friday]. (Gemini in Gmail)\nUse case: Develop customer relationships \nYour annual conference is coming up, and your most important prospects will be there. You want to personally \ninvite them to a happy hour. You open Gmail and prompt Gemini in Gmail by selecting Help me write. You type:\nWrite an email inviting people interested in [focus area] to our happy hour taking place on [date, time] at \n[trade show event]. Include that we specialize in [focus area]. (Gemini in Gmail)\nNEW\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 45,
+      "keywords": [
+        "Sales",
+        "page 45",
+        "Manage the request for proposal (RFP) process",
+        "Access information and tools on your phone while on the go",
+        "Develop customer relationships"
+      ]
+    },
+    {
+      "id": "page-46",
+      "category": "sales",
+      "title": "Support the sales team",
+      "titleZh": "第 46 頁 · Support the sales team",
+      "summary": "Exact PDF text from page 46 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 46 頁原文。",
+      "prompt": "46\nNow that the event is over, you want to follow up with customers who came to the happy hour. You open Gmail  \nand prompt Gemini in Gmail by selecting Help me write. You type: \nDraft an email thanking customers for their time at the happy hour on [date, time, location]. End with an \ninvitation to continue the conversations in the next few weeks. Use a friendly tone. (Gemini in Gmail) \nYou want to check in with the customers who attended workshops at the conference because their early \nfeedback is important. You prompt Gemini in Docs. You type:\nDraft 10 questions that I can use to survey customers about their recent experience with our [product/\nservice]. Include questions to gauge how useful [the product] is, what they liked, and what they thought \ncould use improvement. (Gemini in Docs) \nUse case: Support the sales team\nYou need to contact all of your team leads in the Southeast region to provide immediate guidance on how to \nproactively reach out to customers about an ongoing issue. You open Gmail and prompt Gemini in Gmail by \nselecting Help me write. You type: \nDraft an email to all Southeast region sales leads. Inform them of [issues]. Advise them to communicate \nwith their teams to contact their customers and offer a 20% discount on a future order as an apology. \n(Gemini in Gmail)\nNow, you need to email all of the regional team members. You open Gmail and prompt Gemini in Gmail by \nselecting Help me write. You type: \nDraft an email to the regional sales representatives about an urgent meeting that needs to take place \nnext week about the [issues]. Ask them to provide availability on Monday or Tuesday. (Gemini in Gmail) \nUse case: Coach and train the sales team \nYou’ve heard from many team members that they want more learning opportunities. You’re organizing a half-day \nlearning program to support this request. You need to create a schedule, so you open a new Google Doc and \nprompt Gemini in Docs by selecting Help me write. You type: \nCreate a half-day agenda for an educational session on our latest technology [products] for sales teams. \nInclude time for the product development team to present and include time for lunch. (Gemini in Docs)",
+      "promptZh": "46\nNow that the event is over, you want to follow up with customers who came to the happy hour. You open Gmail  \nand prompt Gemini in Gmail by selecting Help me write. You type: \nDraft an email thanking customers for their time at the happy hour on [date, time, location]. End with an \ninvitation to continue the conversations in the next few weeks. Use a friendly tone. (Gemini in Gmail) \nYou want to check in with the customers who attended workshops at the conference because their early \nfeedback is important. You prompt Gemini in Docs. You type:\nDraft 10 questions that I can use to survey customers about their recent experience with our [product/\nservice]. Include questions to gauge how useful [the product] is, what they liked, and what they thought \ncould use improvement. (Gemini in Docs) \nUse case: Support the sales team\nYou need to contact all of your team leads in the Southeast region to provide immediate guidance on how to \nproactively reach out to customers about an ongoing issue. You open Gmail and prompt Gemini in Gmail by \nselecting Help me write. You type: \nDraft an email to all Southeast region sales leads. Inform them of [issues]. Advise them to communicate \nwith their teams to contact their customers and offer a 20% discount on a future order as an apology. \n(Gemini in Gmail)\nNow, you need to email all of the regional team members. You open Gmail and prompt Gemini in Gmail by \nselecting Help me write. You type: \nDraft an email to the regional sales representatives about an urgent meeting that needs to take place \nnext week about the [issues]. Ask them to provide availability on Monday or Tuesday. (Gemini in Gmail) \nUse case: Coach and train the sales team \nYou’ve heard from many team members that they want more learning opportunities. You’re organizing a half-day \nlearning program to support this request. You need to create a schedule, so you open a new Google Doc and \nprompt Gemini in Docs by selecting Help me write. You type: \nCreate a half-day agenda for an educational session on our latest technology [products] for sales teams. \nInclude time for the product development team to present and include time for lunch. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 46,
+      "keywords": [
+        "Sales",
+        "page 46",
+        "Support the sales team",
+        "Coach and train the sales team"
+      ]
+    },
+    {
+      "id": "page-47",
+      "category": "sales",
+      "title": "Improve collaboration and execution by customizing",
+      "titleZh": "第 47 頁 · Improve collaboration and execution by customizing",
+      "summary": "Exact PDF text from page 47 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 47 頁原文。",
+      "prompt": "47\nAs a follow up to the team meeting, you want to highlight different learning opportunities available. You open \nGoogle Sheets and prompt Gemini in the Sheets side panel. You type:\nCreate a spreadsheet that tracks online courses for sellers. Include columns for the course’s main topic, \nprice, duration, and priority level. (Gemini in Sheets) \nAccount Manager and Account Executive\nUse case: Improve collaboration and execution by customizing \nsales materials\nYou are having an important meeting with a customer. From Google Meet, you turn on Transcription and \nactivate Gemini in Meet by selecting Take notes with Gemini. The transcript provides an unedited Doc of \nwhat was said. The Take notes with Gemini file will generate notes recapping the meeting, important topics \ndiscussed, and action items. Now, you can fully engage with the customer conversation. (Gemini in Meet)\nAfter the call, you want to send a recap message to the customer. You open a new message and prompt Gemini \nin the Gmail side panel and tag relevant files by typing @file name. You type:\nWrite a message to [customer] thanking them for their time at our last [meeting]. Provide a quick  \nsummary of the meeting and acknowledge any pain points discussed. Ask for additional time to  \ndiscuss our [solution] using @[Customer Meeting Gemini Notes]. (Gemini in Gmail)\nIn preparation for your next meeting, you want to use the transcript and your existing sales materials to generate \na customized asset that showcases how your company’s product solves the customer’s pain points mentioned \nduring the call. To do this, you open a new Doc and prompt Gemini in the Docs side panel and tag relevant files \nby typing @file name. You type:\nI am an [account manager] and I just finished a call with [customer]. I want to summarize the [pain \npoints] mentioned by [customer] during our last meeting. Provide a list of direct quotes from @\n[Customer Call Transcript] where [customer] discusses what they are trying to solve. (Gemini in Docs)\nYou read through the summary of pain points and see that they capture what was discussed. You click Insert \nfrom the side panel. Then, you want to use your existing files to generate custom responses to each of their pain \npoints. You prompt Gemini in the Docs side panel again and tag relevant files. You type:\nI need to create convincing reasons why [customer] should adopt [product] to solve for [their pain \npoints]. Write specific reasons why [product] from [company] could help them achieve their [business \ngoals] using @[Product Sales Kit Full Assets]. (Gemini in Docs)\nNEW",
+      "promptZh": "47\nAs a follow up to the team meeting, you want to highlight different learning opportunities available. You open \nGoogle Sheets and prompt Gemini in the Sheets side panel. You type:\nCreate a spreadsheet that tracks online courses for sellers. Include columns for the course’s main topic, \nprice, duration, and priority level. (Gemini in Sheets) \nAccount Manager and Account Executive\nUse case: Improve collaboration and execution by customizing \nsales materials\nYou are having an important meeting with a customer. From Google Meet, you turn on Transcription and \nactivate Gemini in Meet by selecting Take notes with Gemini. The transcript provides an unedited Doc of \nwhat was said. The Take notes with Gemini file will generate notes recapping the meeting, important topics \ndiscussed, and action items. Now, you can fully engage with the customer conversation. (Gemini in Meet)\nAfter the call, you want to send a recap message to the customer. You open a new message and prompt Gemini \nin the Gmail side panel and tag relevant files by typing @file name. You type:\nWrite a message to [customer] thanking them for their time at our last [meeting]. Provide a quick  \nsummary of the meeting and acknowledge any pain points discussed. Ask for additional time to  \ndiscuss our [solution] using @[Customer Meeting Gemini Notes]. (Gemini in Gmail)\nIn preparation for your next meeting, you want to use the transcript and your existing sales materials to generate \na customized asset that showcases how your company’s product solves the customer’s pain points mentioned \nduring the call. To do this, you open a new Doc and prompt Gemini in the Docs side panel and tag relevant files \nby typing @file name. You type:\nI am an [account manager] and I just finished a call with [customer]. I want to summarize the [pain \npoints] mentioned by [customer] during our last meeting. Provide a list of direct quotes from @\n[Customer Call Transcript] where [customer] discusses what they are trying to solve. (Gemini in Docs)\nYou read through the summary of pain points and see that they capture what was discussed. You click Insert \nfrom the side panel. Then, you want to use your existing files to generate custom responses to each of their pain \npoints. You prompt Gemini in the Docs side panel again and tag relevant files. You type:\nI need to create convincing reasons why [customer] should adopt [product] to solve for [their pain \npoints]. Write specific reasons why [product] from [company] could help them achieve their [business \ngoals] using @[Product Sales Kit Full Assets]. (Gemini in Docs)\nNEW",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 47,
+      "keywords": [
+        "Sales",
+        "page 47",
+        "Improve collaboration and execution by customizing"
+      ]
+    },
+    {
+      "id": "page-48",
+      "category": "sales",
+      "title": "Build customer relationships",
+      "titleZh": "第 48 頁 · Build customer relationships",
+      "summary": "Exact PDF text from page 48 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 48 頁原文。",
+      "prompt": "48\nUse case: Build customer relationships\nYou just had a great call with a customer and now you want to use the notes you took from the meeting in \nGoogle Docs to draft an email to the customer. In the Google Doc with your notes, you prompt Gemini in Docs  \nby selecting Help me write. You type:\nCompose a personalized follow-up email to [client] following an initial conversation. Summarize the key \npoints we discussed and address any outstanding questions. (Gemini in Docs) \nThe account has just adopted one of the company’s service offerings and you need to ensure that they feel \nsupported during the onboarding process. You want to make sure you check in on how things are progressing \nonce a week, but you want to explore what the emails could look like. You open a new Google Doc and prompt \nGemini in Docs by selecting Help me write. You type: \nDraft four email templates to check in on my customer weekly now that they have purchased our new \n[service]. Use one value proposition (cost, ease of use, security, availability, and customization) as the \nmain topic for each email, and include [call to action] in each message. (Gemini in Docs) \nUse case: Prepare for new customer calls \nYou have an upcoming call with a prospect. This is a brand new use case for you, and you need help preparing \nfor the call. You visit Gemini Advanced, and you type: \nDraft a customized script for me to follow during my sales call with a prospect. The call will happen over \na video call and is set to last 30 minutes. Make sure to add the following in the script: how [company \nproducts/solutions] can help address potential customer’s pain points, how [company]’s delivery system \nguarantees seamless and timely delivery, competitive pricing and volume-discount table, and space for  \na customer reference in the [customer’s industry] industry. (Gemini Advanced) \nNow that you’ve done initial research, you export your findings to a new Google Doc. You open the Google Doc \nand continue working. Now, you want to create a tailored pitch. Using the Google Doc with all of your research \nnotes, you prompt Gemini in Docs by selecting Help me write. You type: \nGenerate an elevator pitch for [product name] and include key benefits, competitive points of \ndifferentiation, and the pain points that [product name] solves for. (Gemini in Docs) \nYou have a great start to your elevator pitch and short talking points. You want to use this to further anticipate \nhow the customer call might go. You resume your meeting preparation by returning to Gemini Advanced.  \nYou type:",
+      "promptZh": "48\nUse case: Build customer relationships\nYou just had a great call with a customer and now you want to use the notes you took from the meeting in \nGoogle Docs to draft an email to the customer. In the Google Doc with your notes, you prompt Gemini in Docs  \nby selecting Help me write. You type:\nCompose a personalized follow-up email to [client] following an initial conversation. Summarize the key \npoints we discussed and address any outstanding questions. (Gemini in Docs) \nThe account has just adopted one of the company’s service offerings and you need to ensure that they feel \nsupported during the onboarding process. You want to make sure you check in on how things are progressing \nonce a week, but you want to explore what the emails could look like. You open a new Google Doc and prompt \nGemini in Docs by selecting Help me write. You type: \nDraft four email templates to check in on my customer weekly now that they have purchased our new \n[service]. Use one value proposition (cost, ease of use, security, availability, and customization) as the \nmain topic for each email, and include [call to action] in each message. (Gemini in Docs) \nUse case: Prepare for new customer calls \nYou have an upcoming call with a prospect. This is a brand new use case for you, and you need help preparing \nfor the call. You visit Gemini Advanced, and you type: \nDraft a customized script for me to follow during my sales call with a prospect. The call will happen over \na video call and is set to last 30 minutes. Make sure to add the following in the script: how [company \nproducts/solutions] can help address potential customer’s pain points, how [company]’s delivery system \nguarantees seamless and timely delivery, competitive pricing and volume-discount table, and space for  \na customer reference in the [customer’s industry] industry. (Gemini Advanced) \nNow that you’ve done initial research, you export your findings to a new Google Doc. You open the Google Doc \nand continue working. Now, you want to create a tailored pitch. Using the Google Doc with all of your research \nnotes, you prompt Gemini in Docs by selecting Help me write. You type: \nGenerate an elevator pitch for [product name] and include key benefits, competitive points of \ndifferentiation, and the pain points that [product name] solves for. (Gemini in Docs) \nYou have a great start to your elevator pitch and short talking points. You want to use this to further anticipate \nhow the customer call might go. You resume your meeting preparation by returning to Gemini Advanced.  \nYou type:",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 48,
+      "keywords": [
+        "Sales",
+        "page 48",
+        "Build customer relationships",
+        "Prepare for new customer calls"
+      ]
+    },
+    {
+      "id": "page-49",
+      "category": "sales",
+      "title": "Nurture relationships, personalized outreach, and",
+      "titleZh": "第 49 頁 · Nurture relationships, personalized outreach, and",
+      "summary": "Exact PDF text from page 49 in the Sales section.",
+      "summaryZh": "PDF Sales 章節第 49 頁原文。",
+      "prompt": "49\nI have an upcoming call with a prospect. [Use case] is a new use case for me, and I need help preparing \nfor the call. List the most likely objections [customer] might have for me during a sales call, with \nsuggestions on how to respond to them. I work in [industry], and I am trying to sell [product]. Also \nprovide ideas on how to handle objections and suggest ways to respond. (Gemini Advanced) \nBusiness Development Manager\nUse case: Nurture relationships, personalized outreach, and  \nthought leadership \nYou’re hoping to build deeper relationships with prospective customers that you recently met. You want to draft \na template that you can customize for multiple contacts. You open a new Google Doc, and you prompt Gemini in \nDocs. You type: \nDraft an outreach email template to industry influencers. Express gratitude that we connected at \n[event], and propose collaboration opportunities such as [opportunities]. (Gemini in Docs) \nAfter having a successful call with prospective customers, you want to follow up with thought leadership content \nfrom your founder that they may find interesting. You open the Google Doc with the blog post, and prompt \nGemini in Docs by selecting Help me write. You type: \nSummarize this blog content in bullet points and generate three ideas for follow-up questions I can ask \nmy customers about their thoughts. (Gemini in Docs) \nUse case: Generate personalized customer appreciation materials \nYou want to personally thank your customers and check in. You open Gmail and prompt Gemini in Gmail by \nselecting Help me write. You type:\nGenerate a personalized email for [customer] on their one-month anniversary working with [company]. \nThank them for being a customer. Ask them if they have any questions. Include information about [other \nproduct]. (Gemini in Gmail)\nYou also want to send these customers a gift to thank them. You open a Google Sheet and prompt Gemini in the \nSheets side panel. You type: \nGive me a list of gifts to send new clients that are under $200 and can be shipped to offices. \n(Gemini in Sheets)",
+      "promptZh": "49\nI have an upcoming call with a prospect. [Use case] is a new use case for me, and I need help preparing \nfor the call. List the most likely objections [customer] might have for me during a sales call, with \nsuggestions on how to respond to them. I work in [industry], and I am trying to sell [product]. Also \nprovide ideas on how to handle objections and suggest ways to respond. (Gemini Advanced) \nBusiness Development Manager\nUse case: Nurture relationships, personalized outreach, and  \nthought leadership \nYou’re hoping to build deeper relationships with prospective customers that you recently met. You want to draft \na template that you can customize for multiple contacts. You open a new Google Doc, and you prompt Gemini in \nDocs. You type: \nDraft an outreach email template to industry influencers. Express gratitude that we connected at \n[event], and propose collaboration opportunities such as [opportunities]. (Gemini in Docs) \nAfter having a successful call with prospective customers, you want to follow up with thought leadership content \nfrom your founder that they may find interesting. You open the Google Doc with the blog post, and prompt \nGemini in Docs by selecting Help me write. You type: \nSummarize this blog content in bullet points and generate three ideas for follow-up questions I can ask \nmy customers about their thoughts. (Gemini in Docs) \nUse case: Generate personalized customer appreciation materials \nYou want to personally thank your customers and check in. You open Gmail and prompt Gemini in Gmail by \nselecting Help me write. You type:\nGenerate a personalized email for [customer] on their one-month anniversary working with [company]. \nThank them for being a customer. Ask them if they have any questions. Include information about [other \nproduct]. (Gemini in Gmail)\nYou also want to send these customers a gift to thank them. You open a Google Sheet and prompt Gemini in the \nSheets side panel. You type: \nGive me a list of gifts to send new clients that are under $200 and can be shipped to offices. \n(Gemini in Sheets)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 49,
+      "keywords": [
+        "Sales",
+        "page 49",
+        "Nurture relationships, personalized outreach, and",
+        "Generate personalized customer appreciation materials"
+      ]
+    },
+    {
+      "id": "page-50",
+      "category": "small-business",
+      "title": "Create pricing comparison",
+      "titleZh": "第 50 頁 · Create pricing comparison",
+      "summary": "Exact PDF text from page 50 in the Small Business section.",
+      "summaryZh": "PDF Small Business 章節第 50 頁原文。",
+      "prompt": "50\nSmall business \nowners and \nentrepreneurs\nAs the owner of a business, getting the most \nout of your working hours is critical when you’re \njuggling multiple roles and responsibilities. \nUnderstanding your market, delivering for \nyour customers, and staying on top of many \ncompeting priorities is critical.\nThis section introduces you to AI prompts designed to simplify complex choices with AI data analysis, streamline \nyour email inbox, and help you stand out with creative marketing tactics. Discover how Gemini for Google \nWorkspace can help you unlock deep insights, foster collaboration, and help propel your company  \nto new heights.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning  \nof this guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Workspace. The prompt iteration example shows how you could write follow-up \nprompts to build on the initial generated response.\nPrompt iteration example\nUse case: Create pricing comparison\nYou are the owner of a local spa. You are evaluating offers you’ve received from two different cleaning \ncompanies. You want to find a company with the right price, flexibility, and level of service. You open a new Doc \nand prompt Gemini in the Docs side panel and tag relevant files by typing @file name in your prompt. You type:\n I’m a business owner  and I’m trying to determine the right cleaning vendor using \n @[Company A Proposal] and @[Company B Proposal]. I need someone to come twice a week,  \n and I want them to vacuum, mop, dust, clean the windows, and wipe down all surfaces. If available,  \n include information about the booking and cancellation policy.  Create a comparison table between  \n the two companies’ proposals.  (Gemini in Docs)\n•  Persona •  Task •  Context •  Format",
+      "promptZh": "50\nSmall business \nowners and \nentrepreneurs\nAs the owner of a business, getting the most \nout of your working hours is critical when you’re \njuggling multiple roles and responsibilities. \nUnderstanding your market, delivering for \nyour customers, and staying on top of many \ncompeting priorities is critical.\nThis section introduces you to AI prompts designed to simplify complex choices with AI data analysis, streamline \nyour email inbox, and help you stand out with creative marketing tactics. Discover how Gemini for Google \nWorkspace can help you unlock deep insights, foster collaboration, and help propel your company  \nto new heights.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning  \nof this guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Workspace. The prompt iteration example shows how you could write follow-up \nprompts to build on the initial generated response.\nPrompt iteration example\nUse case: Create pricing comparison\nYou are the owner of a local spa. You are evaluating offers you’ve received from two different cleaning \ncompanies. You want to find a company with the right price, flexibility, and level of service. You open a new Doc \nand prompt Gemini in the Docs side panel and tag relevant files by typing @file name in your prompt. You type:\n I’m a business owner  and I’m trying to determine the right cleaning vendor using \n @[Company A Proposal] and @[Company B Proposal]. I need someone to come twice a week,  \n and I want them to vacuum, mop, dust, clean the windows, and wipe down all surfaces. If available,  \n include information about the booking and cancellation policy.  Create a comparison table between  \n the two companies’ proposals.  (Gemini in Docs)\n•  Persona •  Task •  Context •  Format",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 50,
+      "keywords": [
+        "Small Business",
+        "page 50",
+        "Create pricing comparison"
+      ]
+    },
+    {
+      "id": "page-51",
+      "category": "small-business",
+      "title": "Enhance personal productivity",
+      "titleZh": "第 51 頁 · Enhance personal productivity",
+      "summary": "Exact PDF text from page 51 in the Small Business section.",
+      "summaryZh": "PDF Small Business 章節第 51 頁原文。",
+      "prompt": "51\nGemini returns a formatted table comparing the two proposals. After you make your decision, you go to your \nemail and prompt Gemini in the Gmail side panel. You type:\n Write an email to Company A  thanking them for their time and their proposal.  Ask for a few times  \n to meet to schedule cleanings.  (Gemini in Gmail)\nExample use cases\nOwner\nUse case: Enhance personal productivity\nYou have many important email messages to catch up on. You open your email and select an important thread. \nYou open Gemini in the Gmail side panel, and it automatically summarizes the content. (Gemini in Gmail)\nUse case: Brainstorm and generate marketing content\nAs the business owner, you are also responsible for marketing your services via your social channels,  \nyour email-based newsletter, and email marketing. You aren’t sure where to start, so you chat with  \nGemini Advanced. You type:\nI own a [type of business] in [location]. I am working on marketing materials to advertise [event/sale] \non [services]. I want to focus on using this sale to bring in repeat customers who haven’t purchased in \na while and new customers alike. I want the social posts to feel [inspirational] and [fun]. Suggest some \nsocial copy I can use on [social platform] with relevant hashtags, suggested newsletter copy, and two \nemail drafts (one for existing customers and one for new customers). (Gemini Advanced)\nYou like the suggestions Gemini provided, so you select Share & export and Export to Docs. You want to \ncontinue your brainstorm, so you ask Gemini:\nWhat are some other effective [event/sale] tactics I can use to bring in new customers? I don’t always \nwant to offer discounts. Are there other incentives I am overlooking? (Gemini Advanced)\nYou continue your conversation with Gemini and are able to create a solid list of marketing tactics to try.",
+      "promptZh": "51\nGemini returns a formatted table comparing the two proposals. After you make your decision, you go to your \nemail and prompt Gemini in the Gmail side panel. You type:\n Write an email to Company A  thanking them for their time and their proposal.  Ask for a few times  \n to meet to schedule cleanings.  (Gemini in Gmail)\nExample use cases\nOwner\nUse case: Enhance personal productivity\nYou have many important email messages to catch up on. You open your email and select an important thread. \nYou open Gemini in the Gmail side panel, and it automatically summarizes the content. (Gemini in Gmail)\nUse case: Brainstorm and generate marketing content\nAs the business owner, you are also responsible for marketing your services via your social channels,  \nyour email-based newsletter, and email marketing. You aren’t sure where to start, so you chat with  \nGemini Advanced. You type:\nI own a [type of business] in [location]. I am working on marketing materials to advertise [event/sale] \non [services]. I want to focus on using this sale to bring in repeat customers who haven’t purchased in \na while and new customers alike. I want the social posts to feel [inspirational] and [fun]. Suggest some \nsocial copy I can use on [social platform] with relevant hashtags, suggested newsletter copy, and two \nemail drafts (one for existing customers and one for new customers). (Gemini Advanced)\nYou like the suggestions Gemini provided, so you select Share & export and Export to Docs. You want to \ncontinue your brainstorm, so you ask Gemini:\nWhat are some other effective [event/sale] tactics I can use to bring in new customers? I don’t always \nwant to offer discounts. Are there other incentives I am overlooking? (Gemini Advanced)\nYou continue your conversation with Gemini and are able to create a solid list of marketing tactics to try.",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 51,
+      "keywords": [
+        "Small Business",
+        "page 51",
+        "Enhance personal productivity",
+        "Brainstorm and generate marketing content"
+      ]
+    },
+    {
+      "id": "page-52",
+      "category": "small-business",
+      "title": "Develop a competitive analysis",
+      "titleZh": "第 52 頁 · Develop a competitive analysis",
+      "summary": "Exact PDF text from page 52 in the Small Business section.",
+      "summaryZh": "PDF Small Business 章節第 52 頁原文。",
+      "prompt": "52\nUse case: Develop a competitive analysis \nYou started a company, and your online business is gaining traction. You have always dreamed of opening a \nbrick-and-mortar store, and now might be the perfect time. You want a thought partner to help you better \nunderstand the current landscape. You open Gemini Advanced, and you type: \nI am an online business owner. I am considering opening a brick-and-mortar store. Conduct an analysis \ninto the competitive landscape focusing on [focus area]. Provide the strengths and weaknesses of  \n[key competitors] in this area, including their specific strategies, tactics, and results. Identify actionable \ninsights and recommendations for how [my company] can improve its approach and gain a competitive \nadvantage. (Gemini Advanced)\nYou gathered useful information from your discussion with Gemini Advanced. You want to go deeper in your \nbrainstorming around two competitors in particular. You type: \nGenerate a competitive analysis of [company] versus [competitor] within the current market landscape. \n(Gemini Advanced)\nYou select Share & export and Export to Docs.\nUse case: Conduct fundraising and investor relations \nYou’re ready to reach out to potential investors to make your brick-and-mortar store a reality. You want help \ngetting started on an email to investors, so in the same Google Doc with your competitive analysis research,  \nyou prompt Gemini in Docs. You type:\nDraft a personalized email template to potential investors, highlighting [company’s] unique value \nproposition and recent progress on [initiatives]. Request a time to meet to discuss opportunities to \ncollaborate in the next month. (Gemini in Docs)\nThe email template gives you a starting place. You tweak the draft and continue to add a few personal touches \nbefore sending the email to the potential investors. After a successful meeting with them a month later, you want \nto draft a thank you message. You open your Google Doc with the meeting transcript and notes. You prompt \nGemini in Docs to help you write an email draft. You type: \nDraft an email thanking a potential investor for the call and ask for time to schedule a follow-up meeting \nto address [questions and concerns]. (Gemini in Docs)",
+      "promptZh": "52\nUse case: Develop a competitive analysis \nYou started a company, and your online business is gaining traction. You have always dreamed of opening a \nbrick-and-mortar store, and now might be the perfect time. You want a thought partner to help you better \nunderstand the current landscape. You open Gemini Advanced, and you type: \nI am an online business owner. I am considering opening a brick-and-mortar store. Conduct an analysis \ninto the competitive landscape focusing on [focus area]. Provide the strengths and weaknesses of  \n[key competitors] in this area, including their specific strategies, tactics, and results. Identify actionable \ninsights and recommendations for how [my company] can improve its approach and gain a competitive \nadvantage. (Gemini Advanced)\nYou gathered useful information from your discussion with Gemini Advanced. You want to go deeper in your \nbrainstorming around two competitors in particular. You type: \nGenerate a competitive analysis of [company] versus [competitor] within the current market landscape. \n(Gemini Advanced)\nYou select Share & export and Export to Docs.\nUse case: Conduct fundraising and investor relations \nYou’re ready to reach out to potential investors to make your brick-and-mortar store a reality. You want help \ngetting started on an email to investors, so in the same Google Doc with your competitive analysis research,  \nyou prompt Gemini in Docs. You type:\nDraft a personalized email template to potential investors, highlighting [company’s] unique value \nproposition and recent progress on [initiatives]. Request a time to meet to discuss opportunities to \ncollaborate in the next month. (Gemini in Docs)\nThe email template gives you a starting place. You tweak the draft and continue to add a few personal touches \nbefore sending the email to the potential investors. After a successful meeting with them a month later, you want \nto draft a thank you message. You open your Google Doc with the meeting transcript and notes. You prompt \nGemini in Docs to help you write an email draft. You type: \nDraft an email thanking a potential investor for the call and ask for time to schedule a follow-up meeting \nto address [questions and concerns]. (Gemini in Docs)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 52,
+      "keywords": [
+        "Small Business",
+        "page 52",
+        "Develop a competitive analysis",
+        "Conduct fundraising and investor relations"
+      ]
+    },
+    {
+      "id": "page-53",
+      "category": "small-business",
+      "title": "Manage time off policies and tracking",
+      "titleZh": "第 53 頁 · Manage time off policies and tracking",
+      "summary": "Exact PDF text from page 53 in the Small Business section.",
+      "summaryZh": "PDF Small Business 章節第 53 頁原文。",
+      "prompt": "53\nUse case: Manage time off policies and tracking \nYou have a lengthy handbook detailing all of your company’s policies and procedures. You want to make the \ntime-off request policy easily digestible for new hires. You open the Google Doc with the handbook. You prompt \nGemini in Docs by selecting Help me write. You type: \nGenerate a step-by-step checklist summarizing the company’s time-off request policy. Ensure it is \nwritten in plain language and easy for employees to understand. (Gemini in Docs) \nYou need a quick way to track staffing each week because many of your employees are shift-based. You open \nGemini in the Sheets side panel. You type: \nCreate a table that tracks weekly staffing. Create columns for date, name, shift (AM or PM), and notes. \n(Gemini in Sheets)",
+      "promptZh": "53\nUse case: Manage time off policies and tracking \nYou have a lengthy handbook detailing all of your company’s policies and procedures. You want to make the \ntime-off request policy easily digestible for new hires. You open the Google Doc with the handbook. You prompt \nGemini in Docs by selecting Help me write. You type: \nGenerate a step-by-step checklist summarizing the company’s time-off request policy. Ensure it is \nwritten in plain language and easy for employees to understand. (Gemini in Docs) \nYou need a quick way to track staffing each week because many of your employees are shift-based. You open \nGemini in the Sheets side panel. You type: \nCreate a table that tracks weekly staffing. Create columns for date, name, shift (AM or PM), and notes. \n(Gemini in Sheets)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 53,
+      "keywords": [
+        "Small Business",
+        "page 53",
+        "Manage time off policies and tracking"
+      ]
+    },
+    {
+      "id": "page-54",
+      "category": "startup",
+      "title": "Brainstorm business and strategy",
+      "titleZh": "第 54 頁 · Brainstorm business and strategy",
+      "summary": "Exact PDF text from page 54 in the Startup Leaders section.",
+      "summaryZh": "PDF Startup Leaders 章節第 54 頁原文。",
+      "prompt": "54\nStartup leaders\nYou thrive in fast-paced, dynamic environments \nwhere you can wear many hats and make a \ntangible impact. You’re driven by a passion \nfor innovation, a desire to learn and grow, and \na tolerance for risk. Your work is unique in its \nvariety, its potential for high reward, and its direct \nconnection to the company’s success. You’re not \njust executing tasks; you’re building something \nfrom the ground up, shaping the future of  \nyour company, and potentially disrupting  \nentire industries.\nGemini for Google Workspace can help you redefine productivity and foster meaningful connections with \ninvestors, customers, and coworkers. This section provides practical prompts and real-world use cases \ndesigned specifically for you and your team. Learning to write effective prompts with Gemini for Workspace  \nwill help improve your productivity and streamline your everyday tasks, giving you more time to focus on \nstrategic work.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning  \nof this guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Workspace. The prompt iteration example shows how you could write follow-up \nprompts to build on the initial generated response.\nPrompt iteration example\nUse case: Brainstorm business and strategy \nYou just had a productive planning and strategy brainstorming session with colleagues and you took many notes \nphysically on a whiteboard. You snap a quick image with your phone and upload it directly to Gemini Advanced. \nYou type:\n I am a founder at a startup focused on [industry].  I was brainstorming with colleagues about [topic], \nand we took notes on this whiteboard.  Turn these notes into text.  (Gemini Advanced)\n•  Persona •  Task •  Context •  Format",
+      "promptZh": "54\nStartup leaders\nYou thrive in fast-paced, dynamic environments \nwhere you can wear many hats and make a \ntangible impact. You’re driven by a passion \nfor innovation, a desire to learn and grow, and \na tolerance for risk. Your work is unique in its \nvariety, its potential for high reward, and its direct \nconnection to the company’s success. You’re not \njust executing tasks; you’re building something \nfrom the ground up, shaping the future of  \nyour company, and potentially disrupting  \nentire industries.\nGemini for Google Workspace can help you redefine productivity and foster meaningful connections with \ninvestors, customers, and coworkers. This section provides practical prompts and real-world use cases \ndesigned specifically for you and your team. Learning to write effective prompts with Gemini for Workspace  \nwill help improve your productivity and streamline your everyday tasks, giving you more time to focus on \nstrategic work.\nGetting started\nFirst, review the general prompt-writing tips on page 2 and the Prompting 101 section at the beginning  \nof this guide.\nEach prompt below is presented with an accompanying scenario to serve as inspiration for how you can \ncollaborate with Gemini for Workspace. The prompt iteration example shows how you could write follow-up \nprompts to build on the initial generated response.\nPrompt iteration example\nUse case: Brainstorm business and strategy \nYou just had a productive planning and strategy brainstorming session with colleagues and you took many notes \nphysically on a whiteboard. You snap a quick image with your phone and upload it directly to Gemini Advanced. \nYou type:\n I am a founder at a startup focused on [industry].  I was brainstorming with colleagues about [topic], \nand we took notes on this whiteboard.  Turn these notes into text.  (Gemini Advanced)\n•  Persona •  Task •  Context •  Format",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 54,
+      "keywords": [
+        "Startup Leaders",
+        "page 54",
+        "Brainstorm business and strategy"
+      ]
+    },
+    {
+      "id": "page-55",
+      "category": "startup",
+      "title": "Create an elevator pitch (speech to text)",
+      "titleZh": "第 55 頁 · Create an elevator pitch (speech to text)",
+      "summary": "Exact PDF text from page 55 in the Startup Leaders section.",
+      "summaryZh": "PDF Startup Leaders 章節第 55 頁原文。",
+      "prompt": "55\nNow you want to proactively continue brainstorming before you recap all of the ideas and notes for the group in \na follow-up email. You continue the conversation and type:\n Suggest follow-up items we could discuss for our [topic of brainstorm session].  What was not covered  \n that could have been, and what are we potentially missing?  (Gemini Advanced)\nYou save all of your notes by clicking Share & export and Export to Docs. You are ready to send the recap \nmessage to the team, so you open your email and prompt Gemini in the Gmail side panel and tag the relevant \nfile of notes by typing @file name. You type:\n Use @[Brainstorm Notes and Ideas 9/1/24]  to write a meeting recap to the team  using an upbeat and  \n friendly tone.  Share some of the ideas I have for our next meeting to discuss [topic].  (Gemini in Gmail)\nExample use cases\nFounder \nUse case: Create an elevator pitch (speech to text)\nYou’re scheduled to present to a group of prospective investors. This will be your first time discussing your \nbusiness with this audience. You need to work on your elevator pitch, so you chat with Gemini Advanced using \nyour voice to prompt. You select the microphone icon and say:\nI’m the founder of [startup] in [industry], and I need help creating a short elevator pitch for [company  \nand product description]. I need to make the pitch relevant to [audience] and I want to especially \nhighlight [key features of product] because I want them to [take this action]. Include a compelling hook \nand anticipate questions an investor might have. Make the tone professional but relaxed and confident.  \n(Gemini Advanced)\nUse case: Develop your personal brand\nAs your company grows, you’re working on increasing your social media presence, so you want to define and \nhone your personal brand. To brainstorm, you turn to Gemini Advanced. You type:\nHelp me grow my personal brand. I am the founder of [a startup] in [industry]. I am passionate about \n[topics]. I want to inspire [audience] with business tips and lessons I’ve learned from starting my own \ncompany. My goals are to build a following so that I can [generate more media] for the business.  \nWhat are some ideas you have for how to accomplish this? (Gemini Advanced)",
+      "promptZh": "55\nNow you want to proactively continue brainstorming before you recap all of the ideas and notes for the group in \na follow-up email. You continue the conversation and type:\n Suggest follow-up items we could discuss for our [topic of brainstorm session].  What was not covered  \n that could have been, and what are we potentially missing?  (Gemini Advanced)\nYou save all of your notes by clicking Share & export and Export to Docs. You are ready to send the recap \nmessage to the team, so you open your email and prompt Gemini in the Gmail side panel and tag the relevant \nfile of notes by typing @file name. You type:\n Use @[Brainstorm Notes and Ideas 9/1/24]  to write a meeting recap to the team  using an upbeat and  \n friendly tone.  Share some of the ideas I have for our next meeting to discuss [topic].  (Gemini in Gmail)\nExample use cases\nFounder \nUse case: Create an elevator pitch (speech to text)\nYou’re scheduled to present to a group of prospective investors. This will be your first time discussing your \nbusiness with this audience. You need to work on your elevator pitch, so you chat with Gemini Advanced using \nyour voice to prompt. You select the microphone icon and say:\nI’m the founder of [startup] in [industry], and I need help creating a short elevator pitch for [company  \nand product description]. I need to make the pitch relevant to [audience] and I want to especially \nhighlight [key features of product] because I want them to [take this action]. Include a compelling hook \nand anticipate questions an investor might have. Make the tone professional but relaxed and confident.  \n(Gemini Advanced)\nUse case: Develop your personal brand\nAs your company grows, you’re working on increasing your social media presence, so you want to define and \nhone your personal brand. To brainstorm, you turn to Gemini Advanced. You type:\nHelp me grow my personal brand. I am the founder of [a startup] in [industry]. I am passionate about \n[topics]. I want to inspire [audience] with business tips and lessons I’ve learned from starting my own \ncompany. My goals are to build a following so that I can [generate more media] for the business.  \nWhat are some ideas you have for how to accomplish this? (Gemini Advanced)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 55,
+      "keywords": [
+        "Startup Leaders",
+        "page 55",
+        "Create an elevator pitch (speech to text)",
+        "Develop your personal brand"
+      ]
+    },
+    {
+      "id": "page-56",
+      "category": "startup",
+      "title": "Communicate and negotiate with vendors",
+      "titleZh": "第 56 頁 · Communicate and negotiate with vendors",
+      "summary": "Exact PDF text from page 56 in the Startup Leaders section.",
+      "summaryZh": "PDF Startup Leaders 章節第 56 頁原文。",
+      "prompt": "56\nGemini returns insights into how you can begin to build messaging and content that aligns to your personal \nbrand and that can help you achieve your goals.\nHead of Operations\nUse case: Communicate and negotiate with vendors\nYou’ve received a quote from two different manufacturers to create packaging for the company’s new product. \nYou want to compare and contrast the offers before you negotiate. You open a new Doc and prompt Gemini in \nthe Docs side panel and reference relevant files by typing @file name. You type:\nI need to make a vendor decision for packaging manufacturing. Create a table that compares the two \nproposals I’ve received @[Company A’s Proposal] and @[Company B’s Proposal]. (Gemini in Docs)\nGemini creates a table comparing the two different proposals. You make a decision, but now you want to see \nif you can negotiate with your preferred vendor. You go to your inbox and start a new email draft. You prompt \nGemini in the Gmail side panel. You type:\nCreate an email draft to [selected vendor] telling them that I’ve decided to move forward with them as \nthe [packaging] vendor, but I would like to negotiate [a bulk pricing discount]. Use a collaborative tone.  \n(Gemini in Gmail)\nGemini in Gmail returns a drafted message that is ready to send. You select Insert and send the email.\nUse case: Plan and track budgets\nYou’re in planning mode and you first want to understand where previous years’ budgets were spent. You have \nall of this data in a Sheet. You decide to chat with Gemini Advanced. You upload the Sheet and prompt Gemini  \nby typing:\nUsing the attached spreadsheet, identify trends and patterns in our expenses by category over the last \nthree years. Identify areas where costs have increased significantly and investigate potential reasons. \n(Gemini Advanced)\nGemini returns a response that helps inform your budget proposal for next year.",
+      "promptZh": "56\nGemini returns insights into how you can begin to build messaging and content that aligns to your personal \nbrand and that can help you achieve your goals.\nHead of Operations\nUse case: Communicate and negotiate with vendors\nYou’ve received a quote from two different manufacturers to create packaging for the company’s new product. \nYou want to compare and contrast the offers before you negotiate. You open a new Doc and prompt Gemini in \nthe Docs side panel and reference relevant files by typing @file name. You type:\nI need to make a vendor decision for packaging manufacturing. Create a table that compares the two \nproposals I’ve received @[Company A’s Proposal] and @[Company B’s Proposal]. (Gemini in Docs)\nGemini creates a table comparing the two different proposals. You make a decision, but now you want to see \nif you can negotiate with your preferred vendor. You go to your inbox and start a new email draft. You prompt \nGemini in the Gmail side panel. You type:\nCreate an email draft to [selected vendor] telling them that I’ve decided to move forward with them as \nthe [packaging] vendor, but I would like to negotiate [a bulk pricing discount]. Use a collaborative tone.  \n(Gemini in Gmail)\nGemini in Gmail returns a drafted message that is ready to send. You select Insert and send the email.\nUse case: Plan and track budgets\nYou’re in planning mode and you first want to understand where previous years’ budgets were spent. You have \nall of this data in a Sheet. You decide to chat with Gemini Advanced. You upload the Sheet and prompt Gemini  \nby typing:\nUsing the attached spreadsheet, identify trends and patterns in our expenses by category over the last \nthree years. Identify areas where costs have increased significantly and investigate potential reasons. \n(Gemini Advanced)\nGemini returns a response that helps inform your budget proposal for next year.",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 56,
+      "keywords": [
+        "Startup Leaders",
+        "page 56",
+        "Communicate and negotiate with vendors",
+        "Plan and track budgets"
+      ]
+    },
+    {
+      "id": "page-57",
+      "category": "startup",
+      "title": "Develop a product launch plan",
+      "titleZh": "第 57 頁 · Develop a product launch plan",
+      "summary": "Exact PDF text from page 57 in the Startup Leaders section.",
+      "summaryZh": "PDF Startup Leaders 章節第 57 頁原文。",
+      "prompt": "57\nHead of Product\nUse case: Develop a product launch plan\nYour team is creating a new product, and you want to conduct research to inform your launch plan in \ncollaboration with the marketing team. Using Gemini, you want to simulate different launch scenarios based on \nfactors like pricing, marketing strategies, and target audience. You go to Gemini Advanced to conduct research \nand type:\nI am head of product at [startup] in [industry] industry. We are building a product launch plan for \n[product]. I want to brainstorm a few different scenarios. We are considering offering the [product] at two \ndifferent price points [A and B] and we are considering launching in [December or January]. Provide pros \nand cons of each scenario and suggest different ideas we may not have considered. (Gemini Advanced)\nYou want to continue market research brainstorming. You type:\nHow do these prices compare to [competitor products’] prices? Detail what pricing strategies \n[competitors] use for [products], and list any common tactics they use (such as free trials, discounts, \netc.). Summarize how they position the product to [audience]. Cite your sources. (Gemini Advanced)\nYour research helps you refine your pricing structure and go-to-market strategy for your most important  \ntarget audience. \nUse case: Develop product strategy and roadmap\nYou want to refine your product strategy and roadmap. You’ve collected user feedback in a spreadsheet, and \nyou want to clean it up so that it is ready for deeper analysis. You chat with Gemini Advanced and upload a file. \nYou type:\nHelp me clean my [user feedback] survey spreadsheet. Specifically, fill any blank values in the name \ncolumn with “Anonymous,” then if the [recommend] column shows [Yes], replace that with [Y]. Finally, \nremove any rows where the satisfaction column is blank. Please generate a new file for me with my \ncleaned data. (Gemini Advanced)\nGemini returns a clean file for you to conduct deeper analysis on, and from this file, you notice a few trends. \nYou have alignment from the team on features to address recurring user feedback, and now you want to build a \nhigh-level roadmap that you can use as a starting point. You continue your conversation with Gemini Advanced. \nYou type:\nI am head of product at [startup] in the [industry] industry. We are adding [features] to our [product] to \naddress recurring user feedback, including [feedback trends]. Build a high-level roadmap that will keep \nus on track for a Q4 delivery. Put it in a table format. (Gemini Advanced)",
+      "promptZh": "57\nHead of Product\nUse case: Develop a product launch plan\nYour team is creating a new product, and you want to conduct research to inform your launch plan in \ncollaboration with the marketing team. Using Gemini, you want to simulate different launch scenarios based on \nfactors like pricing, marketing strategies, and target audience. You go to Gemini Advanced to conduct research \nand type:\nI am head of product at [startup] in [industry] industry. We are building a product launch plan for \n[product]. I want to brainstorm a few different scenarios. We are considering offering the [product] at two \ndifferent price points [A and B] and we are considering launching in [December or January]. Provide pros \nand cons of each scenario and suggest different ideas we may not have considered. (Gemini Advanced)\nYou want to continue market research brainstorming. You type:\nHow do these prices compare to [competitor products’] prices? Detail what pricing strategies \n[competitors] use for [products], and list any common tactics they use (such as free trials, discounts, \netc.). Summarize how they position the product to [audience]. Cite your sources. (Gemini Advanced)\nYour research helps you refine your pricing structure and go-to-market strategy for your most important  \ntarget audience. \nUse case: Develop product strategy and roadmap\nYou want to refine your product strategy and roadmap. You’ve collected user feedback in a spreadsheet, and \nyou want to clean it up so that it is ready for deeper analysis. You chat with Gemini Advanced and upload a file. \nYou type:\nHelp me clean my [user feedback] survey spreadsheet. Specifically, fill any blank values in the name \ncolumn with “Anonymous,” then if the [recommend] column shows [Yes], replace that with [Y]. Finally, \nremove any rows where the satisfaction column is blank. Please generate a new file for me with my \ncleaned data. (Gemini Advanced)\nGemini returns a clean file for you to conduct deeper analysis on, and from this file, you notice a few trends. \nYou have alignment from the team on features to address recurring user feedback, and now you want to build a \nhigh-level roadmap that you can use as a starting point. You continue your conversation with Gemini Advanced. \nYou type:\nI am head of product at [startup] in the [industry] industry. We are adding [features] to our [product] to \naddress recurring user feedback, including [feedback trends]. Build a high-level roadmap that will keep \nus on track for a Q4 delivery. Put it in a table format. (Gemini Advanced)",
+      "tools": [
+        "PDF Source"
+      ],
+      "page": 57,
+      "keywords": [
+        "Startup Leaders",
+        "page 57",
+        "Develop a product launch plan",
+        "Develop product strategy and roadmap"
+      ]
+    }
+  ]
 };

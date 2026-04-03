@@ -10,7 +10,7 @@ It includes three requested features:
 
 It now also includes:
 
-- 87 adapted prompt cards covering much more of the PDF's role-based use cases
+- exact PDF source cards covering pages 7 through 57
 - Favorites saved in browser storage
 - One-tap prompt copy actions
 - Refined mobile layout and custom Prompt Atlas branding
