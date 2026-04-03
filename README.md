@@ -1,32 +1,28 @@
 # Prompt Atlas for Workspace
 
-A bilingual static web app inspired by the October 2024 `Gemini for Workspace` prompt guide.
+Prompt Atlas is a static bilingual web app inspired by the October 2024 Gemini for Google Workspace prompt guide.
 
-## What it does
+It includes three requested features:
 
-- Reorganizes the guide into persona-based categories
-- Adds keyword search across use cases, tools, and prompt patterns
-- Supports English and Traditional Chinese views
-- Shows concise, adapted prompt templates instead of copying long PDF passages
-- Works as a static site, so it can be deployed easily to GitHub Pages
+- Category browsing across work roles
+- Search across English and Chinese content
+- Chinese translation and full language toggle
 
 ## Files
 
 - `index.html`: app shell
 - `styles.css`: visual design and responsive layout
-- `data.js`: bilingual category and prompt dataset
-- `app.js`: filtering, search, translation toggle, and modal details
+- `data.js`: structured bilingual prompt library
+- `app.js`: search, filter, translation toggle, and detail modal
 
 ## Local preview
 
-Run a simple local server from this folder:
-
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 4173
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:4173`.
 
-## Deployment
+## Deploy to GitHub Pages
 
-Because the app is fully static, it can be published directly from the repository root with GitHub Pages.
+Because this is a static site, it can be deployed directly from the repository root with GitHub Pages.

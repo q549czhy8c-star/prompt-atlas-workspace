@@ -6,12 +6,12 @@
     <title>Prompt Atlas for Workspace</title>
     <meta
       name="description"
-      content="A bilingual prompt inspiration web app inspired by the Gemini for Workspace prompt guide."
+      content="A bilingual prompt library inspired by the Gemini for Google Workspace prompt guide, with categories, search, and Chinese translations."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:wght@400;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -20,88 +20,81 @@
     <div class="page-shell">
       <header class="hero">
         <div class="hero-copy">
-          <p class="eyebrow" id="heroEyebrow"></p>
-          <h1 id="heroTitle"></h1>
-          <p class="hero-text" id="heroText"></p>
+          <p class="eyebrow">Inspired by the October 2024 Workspace prompt guide</p>
+          <h1>Prompt Atlas</h1>
+          <p class="hero-text">
+            A bilingual prompt library for work scenarios across operations,
+            HR, sales, marketing, and leadership.
+          </p>
           <div class="hero-actions">
-            <label class="search-wrap" for="searchInput">
-              <span id="searchLabel"></span>
-              <input
-                id="searchInput"
-                type="search"
-                autocomplete="off"
-                placeholder=""
-              />
-            </label>
-            <button class="toggle-button" id="languageToggle" type="button"></button>
+            <button id="languageToggle" class="primary-button" type="button">
+              切換中文
+            </button>
+            <a class="secondary-link" href="#library">Jump to library</a>
           </div>
         </div>
         <aside class="hero-panel">
-          <div class="hero-stat">
-            <span class="stat-number" id="statCategories"></span>
-            <span class="stat-label" id="statCategoriesLabel"></span>
+          <div class="stat-card">
+            <span class="stat-label">Libraries</span>
+            <strong id="categoryCount">0</strong>
           </div>
-          <div class="hero-stat">
-            <span class="stat-number" id="statPrompts"></span>
-            <span class="stat-label" id="statPromptsLabel"></span>
+          <div class="stat-card">
+            <span class="stat-label">Prompt cards</span>
+            <strong id="promptCount">0</strong>
           </div>
-          <div class="hero-stat">
-            <span class="stat-number">ZH / EN</span>
-            <span class="stat-label" id="statLanguageLabel"></span>
+          <div class="stat-card">
+            <span class="stat-label">Core modes</span>
+            <strong>Filter / Search / Translate</strong>
           </div>
         </aside>
       </header>
 
-      <main>
+      <main id="library" class="layout">
         <section class="tips-panel">
           <div class="section-heading">
-            <p class="section-kicker" id="tipsKicker"></p>
-            <h2 id="tipsTitle"></h2>
+            <p class="eyebrow">Prompt foundations</p>
+            <h2 id="tipsHeading">Start with a stronger brief</h2>
           </div>
-          <div class="tips-grid" id="tipsGrid"></div>
+          <div id="tipsGrid" class="tips-grid"></div>
         </section>
 
-        <section class="control-bar">
-          <div class="section-heading compact">
-            <p class="section-kicker" id="libraryKicker"></p>
-            <h2 id="libraryTitle"></h2>
+        <section class="controls-panel">
+          <div class="section-heading">
+            <p class="eyebrow">Explore the guide</p>
+            <h2 id="libraryHeading">Browse by role or workstream</h2>
           </div>
-          <div class="results-meta">
-            <span id="resultsCount"></span>
-            <button class="ghost-button" id="clearFilters" type="button"></button>
+
+          <div class="controls">
+            <label class="search-field">
+              <span id="searchLabel">Search prompts, categories, apps, or Chinese text</span>
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Search prompt ideas..."
+                autocomplete="off"
+              />
+            </label>
+
+            <div class="filter-group">
+              <div id="categoryFilters" class="filter-chips"></div>
+            </div>
           </div>
-        </section>
 
-        <section class="category-row" id="categoryRow"></section>
+          <div class="results-bar">
+            <p id="resultsLabel">Showing all prompt cards</p>
+          </div>
 
-        <section class="card-grid" id="cardGrid"></section>
-        <section class="empty-state hidden" id="emptyState">
-          <h3 id="emptyTitle"></h3>
-          <p id="emptyText"></p>
+          <div id="cardsGrid" class="cards-grid"></div>
         </section>
       </main>
     </div>
 
-    <dialog class="detail-modal" id="detailModal">
-      <form method="dialog" class="detail-shell">
-        <button class="modal-close" id="modalClose" type="submit" aria-label="Close">
-          ×
+    <dialog id="detailDialog" class="detail-dialog">
+      <form method="dialog" class="dialog-shell">
+        <button class="dialog-close" type="submit" aria-label="Close prompt details">
+          Close
         </button>
-        <div class="detail-header">
-          <p class="detail-meta" id="detailMeta"></p>
-          <h3 id="detailTitle"></h3>
-          <p class="detail-summary" id="detailSummary"></p>
-        </div>
-        <div class="detail-body">
-          <div>
-            <h4 id="detailPromptLabel"></h4>
-            <pre id="detailPrompt"></pre>
-          </div>
-          <div>
-            <h4 id="detailUseLabel"></h4>
-            <ul id="detailTags"></ul>
-          </div>
-        </div>
+        <div id="dialogContent"></div>
       </form>
     </dialog>
 
